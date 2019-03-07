@@ -1,0 +1,107 @@
+# Set up Azure Shell
+
+  Azure Shell is a cloud based command line interface that can interact with your Azure account. Each shell session starts up an isolated environment with all of the tools needed to manage Azure resources including Azure CLI, Azure Powershell modules, docker, git, npm, and many others.  We will use this interface to run many of the exercises.
+
+## Connect to Azure Shell
+
+1. Navigate to https://shell.azure.com in a browser
+
+2. Log in to your Azure account
+
+3. On first launch Cloud Shell prompts to create a resource group, storage account, and Azure Files share on your behalf. This is a one-time step and will be automatically attached for all sessions. A single file share can be mapped and will be used by both Bash and PowerShell in Cloud Shell.
+
+## Initialize environment
+
+4. Make sure the shell mode is "Powershell"
+
+![Shell mode](powershell-dropdown.png)
+
+5. Set the current active subscription you will run your commands against. First, get a list of all subscriptions you have associated with your account:
+
+Azure CLI
+```bash
+az account list
+```
+
+Powershell Module
+```powershell
+Get-AzSubscription
+```
+
+6. You will get an output with one or more subscriptions like below:
+
+Azure CLI
+```json
+[
+  {
+    "cloudName": "AzureCloud",
+	"id": "12345678-90ab-cdef-1234-567890123456",
+    "isDefault": false,
+    "name": "Visual Studio Premium with MSDN",
+    "state": "Enabled",
+    "tenantId": "12345678-90ab-cdef-1234-567890123456",
+    "user": {
+      "cloudShellID": true,
+      "name": "",
+      "type": "user"
+    }
+  },
+  {
+    "cloudName": "AzureCloud",
+    "id": "12345678-90ab-cdef-1234-567890123456",
+    "isDefault": true,
+    "name": "Azure Free Trial",
+    "state": "Enabled",
+    "tenantId": "12345678-90ab-cdef-1234-567890123456",
+    "user": {
+      "cloudShellID": true,
+      "name": "",
+      "type": "user"
+    }
+  }
+]
+```
+
+Powershell Module
+```
+Name     : Visual Studio Premium with MSDN
+Id       : 12345678-90ab-cdef-1234-567890123456
+TenantId : 12345678-90ab-cdef-1234-567890123456
+State    : Enabled
+
+Name     : Azure Free Trial
+Id       : 12345678-90ab-cdef-1234-567890123456
+TenantId : 12345678-90ab-cdef-1234-567890123456
+State    : Enabled
+```
+
+7. Find the name of your Azure subscription you want to use and set the current subscription:
+
+Azure CLI
+```bash
+az account set --subscription "Your Subscription Name"
+```
+
+Powershell Module
+```powershell
+Set-AzContext -Subscription "Your Subscription Name"
+```
+
+All commands you run will now be performed on this subscription.
+
+8. Change to your home directory. Any files uploaded to this directory will be persisted across sessions in the storage account you created earlier.
+
+```powershell
+cd $home
+```
+
+9. Clone the Git repository with all of the exercises and code.
+
+```powershell
+git clone https://github.com/centaretraining/azuretraining
+cd azuretraining
+```
+
+You are now ready to start
+
+Next: [Using the Azure Portal](02-azure-portal.md)
