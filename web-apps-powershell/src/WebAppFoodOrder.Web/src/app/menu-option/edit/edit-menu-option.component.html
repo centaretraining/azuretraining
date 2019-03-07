@@ -1,0 +1,35 @@
+<div class="edit-menu-container">
+    <h5>Add New Menu Option</h5>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div formGroupName="menuOption">
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="name">Name*</label>
+                    <input class="form-control" id="name" type="text" placeholder="Enter Name" formControlName="name" [ngClass]="{ 'is-invalid': nameFormControl.dirty && nameFormControl.errors }">
+                    <div *ngIf="nameFormControl.dirty && nameFormControl.errors" class="invalid-feedback">
+                        <div *ngIf="nameFormControl.errors['required']">Name is required</div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="price">Price*</label>
+                    <input class="form-control" id="price" type="number" placeholder="Enter Price"
+                        formControlName="price" step=".01" [ngClass]="{ 'is-invalid': priceFormControl.dirty && priceFormControl.errors }">
+                    <div *ngIf="priceFormControl.dirty && priceFormControl.errors" class="invalid-feedback">
+                        <div *ngIf="priceFormControl.errors['required']">Price is required</div>
+                        <div *ngIf="priceFormControl.errors['pattern']">Price must be a positive number containing at most two decimal places</div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="description">Description</label>
+                    <textarea id="description" class="form-control" placeholder="Enter a Description"
+                        formControlName="description"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" [disabled]="form.invalid" class="btn btn-success">Save</button>
+        </div>
+    </form>
+</div>

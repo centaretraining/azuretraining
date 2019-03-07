@@ -67,8 +67,10 @@ The application code for the website and API has already been created for you. Y
 13. Build the web and API applications
 
 ```powershell
-dotnet publish ./WebAppFoodOrder.Api/WebAppFoodOrder.Api.csproj -o ./publish/webappapi
-dotnet publish ./WebAppFoodOrder.Web/WebAppFoodOrder.Web.csproj -o ./publish/webappweb
+# Build the ASP.Net Core API project
+dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Api/WebAppFoodOrder.Api.csproj -o ./publish/webappapi
+
+dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Web/WebAppFoodOrder.Web.csproj -o ./publish/webappweb
 ```
 14. Zip up the output of the publish operation
 

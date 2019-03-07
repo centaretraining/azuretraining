@@ -1,0 +1,24 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{menuOption.name}}</h5>
+        <h6 class="card-subtitle text-muted mb-2"><em>{{menuOption.price | currency}}</em></h6>
+
+        <p class="card-text" id="menuOptionDescription">{{menuOption.description}}</p>
+        <form id="orderForm" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-6 col-lg-3">
+                    <div class="form-group">
+                        <input formControlName="quantity" class="form-control" type="number" [ngClass]="{ 'is-invalid': quantityFormControl.dirty && quantityFormControl.errors }">
+                    </div>
+                </div>
+                <div class="col-6 col-lg-5">
+                    <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Add to order</button>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <button class="btn btn-secondary" [routerLink]="['/menuoption/edit', menuOption.id]">Edit</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
