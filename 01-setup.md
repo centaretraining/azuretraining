@@ -104,6 +104,7 @@ git clone https://github.com/centaretraining/azuretraining
 10. Change the current working directory to the azuretraining folder. All exercises will assume you are in this subfolder:
 
 ```powershell
+cd $home
 cd azuretraining
 ```
 
