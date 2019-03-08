@@ -135,11 +135,7 @@ testappregistry.azurecr.io
 ```
 
 
-9. Let's run an application on your shiny new cluster
 
-```powershell
-
-```
 
 When you're done, delete the resource group to clean up
 
