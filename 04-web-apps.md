@@ -8,7 +8,11 @@ All resources will be created using the Powershell AzureRM module.
 
 ## Create an Azure App Service Hosting Plan with two App Services for your UI and API
 
-1. Follow the setup instructions to connect to an Azure Shell.
+1. Follow the setup instructions to connect to an Azure Shell.  Make sure you are in the azuretraining folder under you $home directory.
+
+```powershell
+cd $home/azuretraining
+```
 
 2. Initialize some variables that will be used in all commands
 
@@ -72,7 +76,8 @@ dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Api/WebAppFoodOrder.Api
 
 dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Web/WebAppFoodOrder.Web.csproj -o ./publish/webappweb
 ```
-14. Zip up the output of the publish operation
+
+14. Zip up the output of the publish operations
 
 ```powershell
 Compress-Archive -Path ./publish/webappapi/* -DesinationPath ./publish/webappapi.zip
@@ -107,7 +112,7 @@ $deployPassword = $xml.SelectNodes("//publishProfile[@publishMethod=`"MSDeploy`"
 $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $deployUserName, $deployPassword)))
 
 # HTTP POST the zip file to the app service management API
-Invoke-RestMethod -Uri "https://$webAppServiceName.scm.azurewebsites.net/api/zipdeploy" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)} -UserAgent "powershell/1.0" -Method POST -InFile "./WebAppFoodOrder.Web.zip" -ContentType "multipart/form-data"
+Invoke-RestMethod -Uri "https://$webAppServiceName.scm.azurewebsites.net/api/zipdeploy" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)} -UserAgent "powershell/1.0" -Method POST -InFile "./publish/webappweb.zip" -ContentType "multipart/form-data"
 ```
 
 14. Update the app service's configuration settings with the SQL server location, database name, and credentials you used in the Azure SQL exercise.

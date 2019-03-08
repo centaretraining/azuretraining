@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "cosmosDbAccountName": {
+      "value": "lunch-[put a unique string here]-cdb"
+    },
+    "functionAppStorageAccountName": {
+      "value": "lunch[put a unique string here]funcsa"
+    },
+    "functionAppName": {
+      "value": "lunch-[put a unique string here]-func-fa"
+    },
+    "functionAppPlanName": {
+      "value": "lunch-[put a unique string here]-func-hp"
+    },
+    "webStorageAccountName": {
+      "value": "lunch[put a unique string here]websa"
+    }
+  }
+}

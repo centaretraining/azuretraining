@@ -14,7 +14,7 @@
 
 4. Make sure the shell mode is "Powershell"
 
-![Shell mode](powershell-dropdown.png)
+    ![Shell mode](images/shell-powershell-dropdown.png)
 
 5. Set the current active subscription you will run your commands against. First, get a list of all subscriptions you have associated with your account:
 
@@ -99,6 +99,11 @@ cd $home
 
 ```powershell
 git clone https://github.com/centaretraining/azuretraining
+```
+
+10. Change the current working directory to the azuretraining folder. All exercises will assume you are in this subfolder:
+
+```powershell
 cd azuretraining
 ```
 
