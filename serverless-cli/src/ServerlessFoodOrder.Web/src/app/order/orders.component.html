@@ -1,0 +1,54 @@
+<h5>Outstanding Orders</h5>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Order Items</th>
+            <th>Total Cost</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders">
+            <td>{{order.name}}</td>
+            <td>
+                <div *ngFor="let orderItem of order.orderItems">
+                    {{orderItem.quantity}}x {{orderItem.menuOption.name}}
+                </div>
+            </td>
+            <td>{{getCost(order) | currency}}</td>
+            <td class="button-column">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn btn-success" (click)="completeOrder(order.id)">Complete</button>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h5>Completed Orders</h5>
+<table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Order Items</th>
+                <th>Total Cost</th>
+                <th>Completed</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of completedOrders">
+                <td>{{order.name}}</td>
+                <td>
+                    <div *ngFor="let orderItem of order.orderItems">
+                        {{orderItem.quantity}}x {{orderItem.menuOption.name}}
+                    </div>
+                </td>
+                <td>{{getCost(order) | currency}}</td>
+                <td>{{order.completedTime | amFromUtc | amLocal | amDateFormat: 'M/D/YYYY h:mm a' }}</td>
+            </tr>
+        </tbody>
+    </table>

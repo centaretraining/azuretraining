@@ -1,0 +1,150 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "cosmosDbAccountName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the CosmosDB account" 
+      } 
+    },
+    "functionAppStorageAccountName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the storage account that will be used by the Azure Function App"
+      }
+    },
+    "functionAppName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the Azure Function App"
+      }
+    },
+    "functionAppPlanName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the consumption based App Service Plan that will be used by the Function"
+      }
+    },
+    "webStorageAccountName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the storage account that will be used to serve up the static single page application."
+      }
+    },
+    "_artifactsLocation": {
+      "type": "string",
+      "metadata": {
+        "description": "Used by the deployment script to specify the storage account used to store ARM deployment artifacts (templates, code, etc)"
+      }
+    },
+    "_artifactsLocationSasToken": {
+      "type": "securestring",
+      "metadata": {
+        "description": "The temporary SAS token used to access the artifact storage account."
+      }
+    }
+  },
+  "variables": {
+    "nestedTemplateFolder": "templates",
+    "functionsFolder": "functions"
+  },
+  "resources": [
+    {
+      "name": "cosmosdb",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('nestedTemplateFolder'), '/cosmosdb.json', parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "databaseAccountName": {
+            "value": "[parameters('cosmosdbAccountName')]"
+          }
+        }
+      },
+      "metadata": {
+        "description": "The main database used to store all metadata about the service bus and claim check files."
+      }
+    },
+    {
+      "name": "functionappstorageaccount",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('nestedTemplateFolder'), '/functionappstorageaccount.json', parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[parameters('functionAppStorageAccountName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "webstorageaccount",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('nestedTemplateFolder'), '/webstorageaccount.json', parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[parameters('webStorageAccountName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "functionapp",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [
+        "functionappstorageaccount",
+        "cosmosdb"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('_artifactsLocation'), '/', variables('nestedTemplateFolder'), '/functionapp.json', parameters('_artifactsLocationSasToken'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "functionAppName": {
+            "value": "[parameters('functionAppName')]"
+          },
+          "hostingPlanName": {
+            "value": "[parameters('functionAppPlanName')]"
+          },
+          "storageAccountName": {
+            "value": "[parameters('functionAppStorageAccountName')]"
+          },
+          "cosmosDbKey": {
+            "value": "[reference('cosmosdb').outputs.primaryKey.value]"
+          },
+          "cosmosDbEndpoint": {
+            "value": "[reference('cosmosdb').outputs.endpoint.value]"
+          },
+          "msdeployPackageUrl": {
+            "value": "[concat(parameters('_artifactsLocation'), '/', variables('functionsFolder'), '/ServerlessFoodOrder.Api.zip', parameters('_artifactsLocationSasToken'))]"
+          }
+        }
+      },
+      "metadata": {
+        "description": "Function app service that hosts the API. Service code is in ServerlessFoodOrder.Api."
+      }
+    }
+  ],
+  "outputs": {}
+}

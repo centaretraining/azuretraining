@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Your Order</h5>
+        <div class="card-text" *ngIf="order && order.orderItems && order.orderItems.length > 0">
+            <div class="row">
+                <div class="col-12">
+                    <div *ngFor="let orderItem of order.orderItems">
+                        <div>{{orderItem.quantity}}x {{orderItem.menuOption.name}}</div>
+                    </div>
+                    <div>
+                        <span><b>Total Cost:</b> {{cost | currency}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row submit-container">
+                <form [formGroup]="form">
+                    <div class="form-group col-12">
+                        <input class="form-control" id="name" type="text" placeholder="Name" formControlName="name" (change)="setName()">
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-success" (click)="onSubmit()" [disabled]="form.invalid">Submit Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card-text" *ngIf="!order || !order.orderItems ||  order.orderItems.length <= 0">
+            <div>You have not added anything to your order yet</div>
+        </div>
+    </div>
+</div>
