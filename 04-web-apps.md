@@ -18,7 +18,7 @@ cd $home/azuretraining
 
 ```powershell
 # The resource group that all resources will be created in.
-$resourceGroupName = "training-exercise1-rg"
+# $resourceGroupName = "azure-training-rg"
 # A string that will be added to all resources to make sure their names are unique. 
 # Many resource types in Azure must have a globally unique name since they are accessed via a public domain name (e.g. myresource.azurewebsites.net).
 $uniqueString = "$(Get-Random 99999)"

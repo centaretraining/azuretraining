@@ -75,10 +75,10 @@ TenantId : 12345678-90ab-cdef-1234-567890123456
 State    : Enabled
 ```
 
-7. Find the name of your Azure subscription you want to use and set the current subscription:
+7. Find the name of your Azure subscription you want to use and set the current subscription for both the Azure Powershell module and AZ CLI, we will be using both.
 
 Azure CLI
-```bash
+```powershell
 az account set --subscription "Your Subscription Name"
 ```
 
@@ -89,25 +89,35 @@ Set-AzContext -Subscription "Your Subscription Name"
 
 All commands you run will now be performed on this subscription.
 
-8. Change to your home directory. Any files uploaded to this directory will be persisted across sessions in the storage account you created earlier.
+8. Create a resource group to use for all exercises:
+
+```powershell
+# This variable will be referenced in all exercises, be sure to keep your shell window open
+$resourceGroupName = "azure-training-rg"
+az group create --name $resourceGroupName --location "North Central US"
+``
+
+9. Change to your home directory. Any files uploaded to this directory will be persisted across sessions in the storage account you created earlier.
 
 ```powershell
 cd $home
 ```
 
-9. Clone the Git repository with all of the exercises and code.
+10. Clone the Git repository with all of the exercises and code.
 
 ```powershell
 git clone https://github.com/centaretraining/azuretraining
 ```
 
-10. Change the current working directory to the azuretraining folder. All exercises will assume you are in this subfolder:
+11. Change the current working directory to the azuretraining folder. All exercises will assume you are in this subfolder:
 
 ```powershell
 cd $home
 cd azuretraining
 ```
 
-You are now ready to start
+You are now ready to start!
+
+KEEP THIS BROWSER WINDOW OPEN! We will reuse some of the variables and environment settings
 
 Next: [Using the Azure Portal](02-azure-portal.md)
