@@ -15,7 +15,7 @@ Steps
 4. Fill out the Basic Tab
 
 - Select a subscription
-- Select a resource group
+- Select the resource group you created in the previous step
 - Enter a database name
 - Under Server, click “Create New”
   - Fill out the server name, server admin credentials, and pick an admin password.
@@ -68,3 +68,4 @@ az sql db create `
 	--name $databaseName `
 	--service-objective S0
 ```
+Next: [Web Apps with Azure and Sql](04-web-apps.md)

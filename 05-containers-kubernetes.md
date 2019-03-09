@@ -5,14 +5,14 @@ You're going to build a couple of microservices with .NET Core and SQL server an
 1. Create a resource group for your app
 
 ```powershell
-az group create -l northcentralus -n menuApi
+az group create -l eastus -n menuApi
 ```
 
 2. Create an Azure container registry to hold your images.
 
 ```powershell
 $ACR_NAME='<registry-name>' #change this name
-az acr create --resource-group menuApi --name $ACR_NAME --sku Standard --location northcentralus
+az acr create --resource-group menuApi --name $ACR_NAME --sku Standard --location eastus
 ```
 
 >Think of a container registry like you'd think of a NuGet or NPM repository, just for whole applications instead of libraries.
@@ -20,8 +20,7 @@ az acr create --resource-group menuApi --name $ACR_NAME --sku Standard --locatio
 3. Build your docker images and upload them to Azure Container Registry
 
 ```powershell
-az acr build --registry $ACR_NAME --image menuservice:v1.0.0 ./azuretraining/kubernetes-cli/src/MenuService
-az acr build --registry $ACR_NAME --image orderservice:v1.0.0 ./azuretraining/kubernetes-cli/src/OrderService
+az acr build --registry $ACR_NAME --image restaurant-frontend:v1.0.0 ./azuretraining/kubernetes-cli/src/restaurant-frontend
 ```
 
 > If this was a local project, you'd run `docker build`. Azure container registry runs this for you.
@@ -37,8 +36,7 @@ You should see the following.
 ```powershell
 Result
 ------------
-menuservice
-orderservice
+restaurant-frontend
 ```
 
 4. Create a Service Principal
@@ -134,11 +132,29 @@ AcrLoginServer
 testappregistry.azurecr.io
 ```
 
+10. Setup your deployment file
 
+* Open up ./azuretraining/kubernetes-cli/frontend-deployment.yaml
+* find the line with the following `image: restaurant-frontend:v1.0.0`
+* prefix the image name with the url from the previous step | example: `image: testappregistry.azurecr.io/restaurant-frontend:v1.0.0`
 
-
-When you're done, delete the resource group to clean up
+11. Apply the deployment
 
 ```powershell
-az group delete -n menuApi
+kubectl apply -f ./azuretraining/kubernetes-cli/frontend-deployment.yaml
 ```
+
+12. Check your work
+
+```powershell
+kubectl get service restaurant-frontend --watch
+```
+
+>This command will keep refreshing. Once you see an entry under "External-IP", head to that URL in your web browser. You should see the "Back Office" application. The result will look like this:
+
+```powershell
+NAME                  TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)        AGE
+restaurant-frontend   LoadBalancer   10.0.218.140   137.135.92.218   80:31553/TCP   55s
+```
+
+Next: [Azure Functions and CosmosDB with ARM templates](06-serverless.md)

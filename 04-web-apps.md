@@ -133,4 +133,4 @@ Set-AzureRmWebApp -AppSettings $newAppSettings -Name $apiAppServiceName -Resourc
 
 15. Open a browser and navigate to your site at https://[your app service name].azurewebsites.net.
 
-Next: [Containers and Kubernetes](05-containers.md)
+Next: [Containers and Kubernetes](05-containers-kubernetes.md)

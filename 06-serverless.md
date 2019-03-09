@@ -1,4 +1,4 @@
-# Exercise 3: Azure Functions and CosmosDB with ARM templates
+# Azure Functions and CosmosDB with ARM templates
 
 In this exercise we will deploy a static single page application and backing web service to a completely serverless setup (no servers to manage or scale, charges will be entirely based on resource usage).
 
