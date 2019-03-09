@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order-app-api
+  name: menuservice-deployment
 spec:
   replicas: 1
   selector:
@@ -11,11 +11,11 @@ spec:
     metadata:
       labels:
         app: menuservice
-        version: v0.1
+        version: v1.0.0
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.7.9
+      - name: menuservice
+        image: <image_server>/backend:1.0.0
         ports:
-        - containerPort: 80
+        - containerPort: 5000
 ----
