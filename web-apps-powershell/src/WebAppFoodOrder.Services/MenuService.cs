@@ -15,9 +15,9 @@ namespace WebAppFoodOrder.Services
         }
 
 
-        public async Task<IEnumerable<MenuOption>> GetMenuOptions()
+        public async Task<IEnumerable<MenuOption>> GetMenuOptions(string filter = null)
         {
-            var menuOptions = await _repository.GetAll();
+            var menuOptions = await _repository.GetAll(filter);
 
             return menuOptions;
         }

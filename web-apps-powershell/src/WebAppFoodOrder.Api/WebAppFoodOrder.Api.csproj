@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ServerlessFoodOrder.Data\WebAppFoodOrder.Data.csproj" />
-    <ProjectReference Include="..\ServerlessFoodOrder.Services\WebAppFoodOrder.Services.csproj" />
+    <ProjectReference Include="..\WebAppFoodOrder.Data\WebAppFoodOrder.Data.csproj" />
+    <ProjectReference Include="..\WebAppFoodOrder.Services\WebAppFoodOrder.Services.csproj" />
   </ItemGroup>
 
 </Project>

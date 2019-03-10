@@ -33,6 +33,32 @@ namespace WebAppFoodOrder.Services
             return await _orderRepository.Get(x => x.CompletedTime != null);
         }
 
+        public async Task<Order> SaveRandomOrder(string name)
+        {
+            var items = (await _menuService.GetMenuOptions()).ToList();
+            if (items.Count() > 0)
+            {
+                var order = new Order()
+                {
+                    CompletedTime = DateTime.Now.ToString(),
+                    Name = name
+                };
+
+                var item = items.Skip(new Random().Next(0, items.Count() - 1)).First();
+                order.OrderItems.Add(new OrderItem()
+                {
+                    MenuOption = item,
+                    Quantity = 1
+                });
+
+                await SaveOrder(order);
+
+                return order;
+            }
+
+            return null;
+        }
+
         public async Task<Order> SaveOrder(Order order)
         {
             if (string.IsNullOrEmpty(order.Id))

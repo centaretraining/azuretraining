@@ -39,7 +39,15 @@ namespace WebAppFoodOrder.Api.Controllers
         [HttpPost("order")]
         public async Task<IActionResult> SaveOrder(Order order)
         {
-            var result = await _orderService.SaveOrder(order);
+            Order result;
+            if (order.OrderItems == null)
+            {
+                result = await _orderService.SaveRandomOrder(order.Name);
+            }
+            else
+            {
+                result = await _orderService.SaveOrder(order);
+            }
             return new OkObjectResult(result);
         }
     }

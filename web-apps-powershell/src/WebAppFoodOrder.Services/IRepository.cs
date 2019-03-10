@@ -8,7 +8,7 @@ namespace WebAppFoodOrder.Services
     {
         Task<T> GetById(string id);
 
-        Task<IEnumerable<T>> GetAll();
+        Task<IEnumerable<T>> GetAll(string filter);
 
         Task<IEnumerable<T>> Get(Func<T, bool> predicate);
 

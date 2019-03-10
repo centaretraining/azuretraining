@@ -16,9 +16,9 @@ namespace WebAppFoodOrder.Api.Controllers
         }
 
         [HttpGet("menu")]
-        public async Task<IActionResult> GetMenuOptions()
+        public async Task<IActionResult> GetMenuOptions(string filter)
         {
-            var result = await _menuService.GetMenuOptions();
+            var result = await _menuService.GetMenuOptions(filter);
             return new OkObjectResult(result);
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebAppFoodOrder.Services;
+using WebAppFoodOrder.Services.Models;
 
 namespace WebAppFoodOrder.Data
 {
@@ -22,9 +23,19 @@ namespace WebAppFoodOrder.Data
             return _dbContext.Set<T>().FindAsync(id);
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<T>> GetAll(string filter = null)
         {
-            return await _dbContext.Set<T>().ToListAsync();
+            if (!string.IsNullOrWhiteSpace(filter) && typeof(T) == typeof(MenuOption))
+            {
+                // Totally not a SQL injection vulnerability...
+                return await _dbContext.Set<T>().FromSql(
+                    $"SELECT * FROM dbo.MenuOption WHERE Name LIKE '%{filter}%'")
+                    .ToListAsync();
+            }
+            else
+            {
+                return await _dbContext.Set<T>().ToListAsync();
+            }
         }
 
         public async Task<IEnumerable<T>> Get(Func<T, bool> predicate)

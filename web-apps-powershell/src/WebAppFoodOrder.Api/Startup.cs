@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebAppFoodOrder.Data;
 using WebAppFoodOrder.Services;
+using WebAppFoodOrder.Services.Models;
 
 namespace WebAppFoodOrder.Api
 {
@@ -61,7 +63,45 @@ namespace WebAppFoodOrder.Api
                 orderContext.Database.EnsureCreated();
                 var menuContext = serviceScope.ServiceProvider.GetRequiredService<MenuDbContext>();
                 menuContext.Database.EnsureCreated();
+                SeedDatabase(menuContext);                    
             }
+        }
+
+        private static void SeedDatabase(MenuDbContext menuContext)
+        {
+            var menuRepo = new MenuOptionRepository(menuContext);
+
+            Task.WaitAll(
+                menuRepo.Add(new MenuOption()
+                {
+                    Name = "Bacon, Lettuce, and Tomato Sandwich",
+                    Price = 5
+                }),
+                menuRepo.Add(new MenuOption()
+                {
+                    Name = "Turkey Bacon Sandwich",
+                    Price = 6
+                }),
+                menuRepo.Add(new MenuOption()
+                {
+                    Name = "Bacon Cheeseburger",
+                    Price = 7
+                }),
+                menuRepo.Add(new MenuOption()
+                {
+                    Name = "Small Soda",
+                    Price = 1.5
+                }),
+                menuRepo.Add(new MenuOption()
+                {
+                    Name = "Large Soda",
+                    Price = 2.5
+                }),
+                menuRepo.Add(new MenuOption()
+                {
+                    Name = "Fries",
+                    Price = 3
+                }));
         }
     }
 }

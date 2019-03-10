@@ -11,13 +11,8 @@ namespace WebAppFoodOrder.Data
     {
         private static ITopicClient _client;
 
-        private string _connectionString;
-        private string _topicName;
-
-        static AzureServiceBus()
-        {
-            
-        }
+        private readonly string _connectionString;
+        private readonly string _topicName;
 
         public AzureServiceBus(IConfiguration configuration)
         {
