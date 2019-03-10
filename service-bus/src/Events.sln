@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Events.Notifications", "Events.Notifications\Events.Notifications.csproj", "{F4DAD82E-278A-4034-86AE-DD3C2AC3AB55}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Events.CreditCardProcessor", "Events.CreditCardProcessor\Events.CreditCardProcessor.csproj", "{6E0288AD-6EB4-49AB-812D-4A8FE5EAC58B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4DAD82E-278A-4034-86AE-DD3C2AC3AB55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4DAD82E-278A-4034-86AE-DD3C2AC3AB55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4DAD82E-278A-4034-86AE-DD3C2AC3AB55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4DAD82E-278A-4034-86AE-DD3C2AC3AB55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E0288AD-6EB4-49AB-812D-4A8FE5EAC58B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E0288AD-6EB4-49AB-812D-4A8FE5EAC58B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E0288AD-6EB4-49AB-812D-4A8FE5EAC58B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E0288AD-6EB4-49AB-812D-4A8FE5EAC58B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {94D6FF9B-2065-4593-82DD-BE1CA4603325}
+	EndGlobalSection
+EndGlobal

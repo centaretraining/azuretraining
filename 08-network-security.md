@@ -7,7 +7,7 @@ In this exercise we will secure the Azure Web App created in exercise #4 at the 
 Our application has a SQL injection issue.  Load the API endpoint /api/menu?filter=Sandwich in your browser.  It will return only menu items with the text "Sandwich" in them.
 However, the developers didn't properly parameterize the SQL WHERE clause, so it is vulnerable to injection attacks.  Enter the URL:
 
-/api/menu?filter=%'; UPDATE MenuOption SET Name=Name+' HACKED!'--
+    /api/menu?filter=%'; UPDATE MenuOption SET Name=Name+' HACKED!'--
 
 in your browser, then load the /api/menu URL again.  You will see that the names of the products have been changed.
 
@@ -83,8 +83,11 @@ This will switch outgoing traffic from your private subnet to this Azure service
 
 8. You should be connected to the server and be able to execute SQL commands.  Even though access to all Azure services have been removed and no IP addresses are in the whitelist, you can connect to the server through your VM since it is in a VNet that has an Azure SQL Server Service Endpoint and is in a subnet that has been granted access to the SQL Server.
 
-9. Shut down the virtual machine.
-
+9. 
 10. 
+- Create an NSG
+- Only allow port 1433 from your first VM
+- Connect to second VM
+- 
 
 ## 
