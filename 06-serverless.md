@@ -75,6 +75,7 @@ Change the section
 7. Enable static website hosting on your web storage account.  There currently isn't a way to do this via ARM templates, so we must execute a command to update the existing storage account.
 
     ```powershell
+    # Set this to the website storage account you specified in the azuredeploy.parameters.json file.
     $storageAccountName = "lunch$($uniqueString)websa"
     az storage blob service-properties update --account-name $storageAccountName --static-website --404-document 404.html --index-document index.html
     ```
@@ -82,9 +83,9 @@ Change the section
 10. Upload the website to the $web container in the storage account created by the static website hosting feature.
 
     ```powershell
-    az storage blob upload-batch -s .\dist -d \$web --account-name $storageAccountName
+    az storage blob upload-batch -s ./serverless-cli/src/ServerlessFoodOrder.Web/dist -d '$web' --account-name $storageAccountName
     ```
 
-9. Open a web browser to https://[your web storage account name]. The home page with a list of menu options should be displayed.
+9. Open a web browser to https://[your web storage account name].web.core.windows.net/ The home page with a list of menu options should be displayed.
 
 Next: [Azure Service Bus](07-messaging-service-bus.md)

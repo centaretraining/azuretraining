@@ -1417,7 +1417,7 @@ var UrlService = /** @class */ (function () {
     function UrlService() {
     }
     UrlService.prototype.buildUrl = function (path, queryParams) {
-        var url = new url_parse__WEBPACK_IMPORTED_MODULE_3__(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].apiDomain);
+        var url = new url_parse__WEBPACK_IMPORTED_MODULE_3__(globalConfig.apiDomain);
         if (!path.startsWith('/')) {
             path = "/" + path;
         }
