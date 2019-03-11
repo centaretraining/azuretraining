@@ -50,7 +50,8 @@ $password='Password1234!'
 $servername='server-name'
 
 #change this to your resource group from step 1
-$resourceGroup='an existing resource group'
+#if you already set this, you don't need to set it again.
+$resourceGroupName='an existing resource group'
 
 #This is the DB we'll use later
 $databaseName='lunch-db'
@@ -61,17 +62,19 @@ $databaseName='lunch-db'
 ```PowerShell
 az sql server create `
 	--name $servername `
-	--resource-group $resourceGroup `
+	--resource-group $resourceGroupName `
 	--location northcentralus  `
 	--admin-user $adminLogin `
 	--admin-password $password
 ```
 
+> This will take a few minutes. That's OK.
+
 3. Make a database on the server
 
 ```PowerShell
 az sql db create `
-	--resource-group $resourceGroup `
+	--resource-group $resourceGroupName `
 	--server $servername `
 	--name $databaseName `
 	--service-objective S0

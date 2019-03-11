@@ -8,7 +8,7 @@ All resources will be created using the Powershell AzureRM module.
 
 ## Create an Azure App Service Hosting Plan with two App Services for your UI and API
 
-1. Follow the instructions in the [Azure Shell Exercise](./03-azure-shell.md) if you have not already to connect to [Azure Shell](shell.azure.com).  
+1. Follow the instructions in the [Azure Shell Exercise](./02-azure-shell.md) if you have not already to connect to [Azure Shell](shell.azure.com).  
 
     - Make sure you are in the azuretraining folder under you $home directory.
         ```powershell
@@ -20,6 +20,7 @@ All resources will be created using the Powershell AzureRM module.
 
         if ("$uniqueString" -eq "") { Write-Error '$uniqueString is NOT set!' } else { '$uniqueString is set!' }
         ```
+        >If your variables have cleared out, remake them. 
 
 2. Create an App Service Plan using the Standard tier.
 
@@ -146,11 +147,17 @@ The application code for the website and API has already been created for you. Y
     $sqlAdminPassword = "XXXXX"
 
     $connectionString = "Server=tcp:$sqlServerName.database.windows.net,1433;Initial Catalog=$sqlDatabaseName;Persist Security Info=False;User ID=$sqlAdminUserName;Password=$sqlAdminPassword;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-    $newAppSettings = @{"MenuConnection"=$connectionString;"OrderConnection"=$connectionString}
-    Set-AzureRmWebApp -AppSettings $newAppSettings -Name $apiAppServiceName -ResourceGroupName $resourceGroupName
+    $newAppSettings = @{"MenuConnection"=@{ Type="SQLAzure"; Value=$connectionString };"OrderConnection"=@{ Type="SQLAzure"; Value=$connectionString }}
+
+    Set-AzureRmWebApp -AppSettings $connectionStrings -Name $apiAppServiceName -ResourceGroupName $resourceGroupName
     ```
     > Configuration settings is Azure Web Applications are passed to your application as environment variables.  A common pattern for .Net applications is to use the Microsoft.Extensions.Configuration NuGet package and merge together the values in your appsettings.json file with environment variables.
 
-16. Open a browser and navigate to your site at https://[your app service name].azurewebsites.net.  A basic site should come up that allows you to place lunch orders.
+
+16. Set CORS on your API so it will respond to requests from the web app. 
+
+az webapp cors add -g $resourceGroupName -n $apiAppServiceName --allowed-origins *
+
+17. Open a browser and navigate to your site at https://[your app service name].azurewebsites.net.  A basic site should come up that allows you to place lunch orders.
 
 Next: [Containers and Kubernetes](05-containers-kubernetes.md)
