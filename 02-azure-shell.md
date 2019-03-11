@@ -105,7 +105,7 @@
     # This is a string that will be added to some resource names to make sure there are no name conflicts among the class attendees. Many Azure resources require a name that is globally unique so public DNS entries can be assigned to them.
     # You can set this to any short string you think will make your resource names (like your user name).
     $uniqueString = "$(Get-Random 99999)"
-    Write-Host "Your unique string is '$unique', take note of this value for future exercises"
+    Write-Host "Your unique string is '$uniqueString', take note of this value for future exercises"
     ```
 
 8. View the resource group properties to make sure you set it correctly:
