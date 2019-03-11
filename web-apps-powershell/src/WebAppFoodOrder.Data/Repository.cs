@@ -18,6 +18,11 @@ namespace WebAppFoodOrder.Data
             _dbContext = dbContext;
         }
 
+        public DbContext DbContext
+        {
+            get { return _dbContext; }
+        }
+
         public Task<T> GetById(string id)
         {
             return _dbContext.Set<T>().FindAsync(id);
@@ -29,7 +34,7 @@ namespace WebAppFoodOrder.Data
             {
                 // Totally not a SQL injection vulnerability...
                 return await _dbContext.Set<T>().FromSql(
-                    $"SELECT * FROM dbo.MenuOption WHERE Name LIKE '%{filter}%'")
+                    $"SELECT * FROM menu.MenuOption WHERE Name LIKE '%{filter}%'")
                     .ToListAsync();
             }
             else

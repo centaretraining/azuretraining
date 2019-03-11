@@ -8,7 +8,7 @@ namespace WebAppFoodOrder.Data
     {
         public void Configure(EntityTypeBuilder<MenuOption> builder)
         {
-            builder.ToTable("MenuOption", "dbo");
+            builder.ToTable("MenuOption", "menu");
             builder.HasKey(e => e.Id);
         }
     }

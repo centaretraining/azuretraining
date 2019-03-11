@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebAppFoodOrder.Data;
 using WebAppFoodOrder.Services;
+using WebAppFoodOrder.Services.Events;
 using WebAppFoodOrder.Services.Models;
 
 namespace WebAppFoodOrder.Api
@@ -24,15 +25,18 @@ namespace WebAppFoodOrder.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            
             services.AddDbContext<MenuDbContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("MenuConnection")));
             services.AddDbContext<OrderDbContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("OrderConnection")));
-            services.AddScoped<IMenuOptionRepository, MenuOptionRepository>();
-            services.AddScoped<IOrderRepository, OrderRepository>();
-            services.AddScoped<MenuService>();
-            services.AddScoped<OrderService>();
+            services.AddTransient<IMenuOptionRepository, MenuOptionRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<MenuService>();
+            services.AddTransient<OrderService>();
+            services.AddTransient<IServiceBus, AzureServiceBus>();
+
+            InitializeDatabase(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,17 +58,23 @@ namespace WebAppFoodOrder.Api
                 builder.AllowAnyMethod();
                 builder.AllowAnyHeader();
             });
-        app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseMvc();
 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var orderContext = serviceScope.ServiceProvider.GetRequiredService<OrderDbContext>();
-                orderContext.Database.EnsureCreated();
-                var menuContext = serviceScope.ServiceProvider.GetRequiredService<MenuDbContext>();
-                menuContext.Database.EnsureCreated();
-                SeedDatabase(menuContext);                    
+                                    
             }
+        }
+
+        private static void InitializeDatabase(IConfiguration configuration)
+        {
+            var menuOptsBuilder = new DbContextOptionsBuilder<MenuDbContext>();
+            menuOptsBuilder.UseSqlServer(configuration.GetConnectionString("MenuConnection"));
+            var menuContext = new MenuDbContext(menuOptsBuilder.Options, configuration);
+            menuContext.Database.EnsureCreated();
+
+            SeedDatabase(menuContext);
         }
 
         private static void SeedDatabase(MenuDbContext menuContext)

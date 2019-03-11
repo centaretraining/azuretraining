@@ -9,16 +9,19 @@ namespace WebAppFoodOrder.Services
 {
     public class OrderService
     {
-        private IOrderRepository _orderRepository;
-        private MenuService _menuService;
-        private IServiceBus _serviceBus;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IMenuOptionRepository _menuOptionRepository;
+        private readonly MenuService _menuService;
+        private readonly IServiceBus _serviceBus;
 
         public OrderService(
             IOrderRepository orderRepository,
+            IMenuOptionRepository menuOptionRepository,
             MenuService menuService, 
             IServiceBus serviceBus)
         {
             _orderRepository = orderRepository;
+            _menuOptionRepository = menuOptionRepository;
             _menuService = menuService;
             _serviceBus = serviceBus;
         }
@@ -47,7 +50,7 @@ namespace WebAppFoodOrder.Services
                 var item = items.Skip(new Random().Next(0, items.Count() - 1)).First();
                 order.OrderItems.Add(new OrderItem()
                 {
-                    MenuOption = item,
+                    MenuOptionId = item.Id,
                     Quantity = 1
                 });
 
@@ -65,6 +68,9 @@ namespace WebAppFoodOrder.Services
             {
                 await _orderRepository.Add(order);
 
+                var items = await _menuOptionRepository.GetByIds(
+                    order.OrderItems.Select(i => i.MenuOptionId).ToArray());
+
                 var message = new OrderPlacedEvent()
                 {
                     Name = order.Name,
@@ -73,7 +79,7 @@ namespace WebAppFoodOrder.Services
                         .Select(i => new OrderPlacedItem()
                         {
                             MenuItemId = i.Id.ToString(),
-                            MenuItemName = i.MenuOption.Name,
+                            MenuItemName = items.FirstOrDefault(m => m.Id == i.MenuOptionId)?.Name,
                             Quantity = i.Quantity
                         })
                         .ToArray()

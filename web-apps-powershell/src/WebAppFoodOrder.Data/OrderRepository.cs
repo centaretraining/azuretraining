@@ -5,7 +5,7 @@ namespace WebAppFoodOrder.Data
 {
     public class OrderRepository : Repository<Order>, IOrderRepository
     {
-        public OrderRepository(OrderDbContext dbContext) : base(dbContext)
+        public OrderRepository(MenuDbContext dbContext) : base(dbContext)
         {
         }
     }

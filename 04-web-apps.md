@@ -134,7 +134,7 @@ The application code for the website and API has already been created for you. Y
 
     ```powershell
     $sqlServerName = "lunch-sql"
-    $sqlServerDatabaseName = "lunch-db"
+    $sqlDatabaseName = "lunch-db"
     $sqlAdminUserName = "XXXXX"
     $sqlAdminPassword = "XXXXX"
 
