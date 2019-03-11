@@ -130,7 +130,14 @@ The application code for the website and API has already been created for you. Y
     Invoke-RestMethod -Uri "https://$webAppServiceName.scm.azurewebsites.net/api/zipdeploy" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)} -UserAgent "powershell/1.0" -Method POST -InFile "./publish/webappweb.zip" -ContentType "multipart/form-data"
     ```
 
-14. Update the app service's configuration settings with the SQL server location, database name, and credentials you used in the Azure SQL exercise.
+14. Update the web app service's configuration settings with the URL of the API.
+
+    ```powershell
+    $newAppSettings = @{"ApiDomain"="https://$apiAppServiceName.azurewebsites.net"}
+    Set-AzureRmWebApp -AppSettings $newAppSettings -Name $webAppServiceName -ResourceGroupName $resourceGroupName
+    ```
+
+15. Update the API app service's configuration settings with the SQL server location, database name, and credentials you used in the Azure SQL exercise.
 
     ```powershell
     $sqlServerName = "lunch-sql"
@@ -138,15 +145,12 @@ The application code for the website and API has already been created for you. Y
     $sqlAdminUserName = "XXXXX"
     $sqlAdminPassword = "XXXXX"
 
-    $newAppSettings = @{"ApiDomain"="https://$apiAppServiceName.azurewebsites.net"}
-    Set-AzureRmWebApp -AppSettings $newAppSettings -Name $webAppServiceName -ResourceGroupName $resourceGroupName
-
     $connectionString = "Server=tcp:$sqlServerName.database.windows.net,1433;Initial Catalog=$sqlDatabaseName;Persist Security Info=False;User ID=$sqlAdminUserName;Password=$sqlAdminPassword;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
     $newAppSettings = @{"MenuConnection"=$connectionString;"OrderConnection"=$connectionString}
     Set-AzureRmWebApp -AppSettings $newAppSettings -Name $apiAppServiceName -ResourceGroupName $resourceGroupName
     ```
     > Configuration settings is Azure Web Applications are passed to your application as environment variables.  A common pattern for .Net applications is to use the Microsoft.Extensions.Configuration NuGet package and merge together the values in your appsettings.json file with environment variables.
 
-15. Open a browser and navigate to your site at https://[your app service name].azurewebsites.net.  A basic site should come up that allows you to place lunch orders.
+16. Open a browser and navigate to your site at https://[your app service name].azurewebsites.net.  A basic site should come up that allows you to place lunch orders.
 
 Next: [Containers and Kubernetes](05-containers-kubernetes.md)

@@ -8,6 +8,7 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using Microsoft.Extensions.Configuration;
+using ServerlessFoodOrder.Data.Models;
 
 namespace ServerlessFoodOrder.Data
 {
@@ -113,12 +114,47 @@ namespace ServerlessFoodOrder.Data
                         UriFactory.CreateDatabaseUri(DatabaseId),
                         new DocumentCollection { Id = CollectionId },
                         new RequestOptions { OfferThroughput = 400, PartitionKey = new PartitionKey("id") });
+                    await SeedData();
                 }
                 else
                 {
                     throw;
                 }
             }
+        }
+
+        private async Task SeedData()
+        {
+            await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), new MenuOption()
+            {
+                Name = "Bacon, Lettuce, and Tomato Sandwich",
+                Price = 5
+            });
+            await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), new MenuOption()
+            {
+                Name = "Turkey Bacon Sandwich",
+                Price = 6
+            });
+            await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), new MenuOption()
+            {
+                Name = "Bacon Cheeseburger",
+                Price = 7
+            });
+            await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), new MenuOption()
+            {
+                Name = "Small Soda",
+                Price = 1.5
+            });
+            await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), new MenuOption()
+            {
+                Name = "Large Soda",
+                Price = 2.5
+            });
+            await client.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId), new MenuOption()
+            {
+                Name = "Fries",
+                Price = 3
+            });
         }
     }
 }
