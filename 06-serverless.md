@@ -8,9 +8,20 @@ All resources will be created with ARM templates.
 
 ## Azure Shell file editor
 
-1. Follow the setup instructions to connect to an Azure Shell. 
+1. Follow the instructions in the [Azure Shell Exercise](./03-azure-shell.md) if you have not already to connect to [Azure Shell](shell.azure.com).  
 
-2. The Azure Shell includes a file editor that we will be using to view and modify files for the exercises.  Click on the "{}" icon at the top of the window.  You will see the folder structure of your $home drive (/home/[your user name]).
+    - Make sure you are in the azuretraining folder under you $home directory.
+        ```powershell
+        cd $home/azuretraining
+        ```
+    - Make sure your **$resourceGroupName** and **$uniqueString** variables are set:
+        ```powershell
+        if ("$resourceGroupName" -eq "") { Write-Error '$resourceGroupName is NOT set!' } else { '$resourceGroupName is set!' }
+
+        if ("$uniqueString" -eq "") { Write-Error '$uniqueString is NOT set!' } else { '$uniqueString is set!' }
+        ```
+
+2. The Azure Shell includes a file editor that we will be using to view and modify files for the exercises.  Click on the "{}" icon at the top of the window to open the editor.  You will see the folder structure of your $home drive (/home/[your user name]).
 
     ![Open editor](images/shell-editor.png)
 
@@ -20,7 +31,7 @@ All resources will be created with ARM templates.
 
 ## ARM templates
 
-4. Open the ARM template file /serverless-cli/src/ServerlessFoodOrder.ArmTemplates/azuredeploy.json. This is the root ARM template which references the child ARM templates in the "templates" folder.  Review the resources that will be created when you deploy this template.
+4. Open the ARM template file **/azuretraining/serverless-cli/src/ServerlessFoodOrder.ArmTemplates/azuredeploy.json**. This is the root ARM template which references the child ARM templates in the "templates" folder.  Review the resources that will be created when you deploy this template.
 
 > Some items to note about the template:
 >    - All of the resource types in azuredeploy.json are of type "deployment".  A deployment is itself a type of resource which is used to track the inputs, outputs, and status of the deployment, which itself could include additional child deployments.
@@ -29,13 +40,12 @@ All resources will be created with ARM templates.
 >    - All child templates get their parameters passed to them from the parent template.
 >    - The function app template gets some of its parameters from the output of the other templates. For example - the access key for the CosmosDB instance is output from the cosmosdb.json ARM template and this value is passed into the Function App ARM template so the key can be stored in the Function App's configuration settings.
 
-3. Open the azuredeploy.parameters.json file.  This file contains the parameter values that will be passed to the ARM template.  All of the resources we are creating **must have a unique name**.  Update the values by replacing "[put a unique string here]" with a short string that should be unique among the class attendees (like your user name or the random number generated at the beginning of this exercise).
+3. Open the **azuredeploy.parameters.json** file.  This file contains the parameter values that will be passed to the ARM template.  All of the resources we are creating **must have a unique name**.  Update the values by replacing "[put a unique string here]" with a short string that should be unique among the class attendees (like your user name or the random number generated at the beginning of this exercise).
 
 4. Run the deployment script. This will take a while to provision all of the resources.
 
     ```powershell
-    $resourceGroupName = "training-exercise3-rg"
-    .\Deploy-AzureResourceGroup.ps1 -ResourceGroupName $resourceGroupName
+    ./serverless-cli/src/ServerlessFoodOrder.ArmTemplates/Deploy-AzureResourceGroup.ps1 -ResourceGroupName $resourceGroupName
     ```
 
     > What is happening here:
@@ -47,7 +57,7 @@ All resources will be created with ARM templates.
     >  4. Uploads the artifacts to the storage account.
     >  5. Executes the ARM template using the New-AzureRmResourceGroupDeployment command, passing in the root ARM template, parameter file, and parameter values for the artifact storage account URL and SAS token.
 
-5. While the deployment is running we will update the single page app with the URL of our API. Go to the /serverless-cli/src/ServerlessFoodOrder.Web/dist folder and edit the index.html.
+5. While the deployment is running we will update the single page app with the URL of our API. Go to the **/azuretraining/serverless-cli/src/ServerlessFoodOrder.Web/dist** folder and edit **index.html**.
 Change the section
 
     ```javascript
@@ -65,6 +75,7 @@ Change the section
 7. Enable static website hosting on your web storage account.  There currently isn't a way to do this via ARM templates, so we must execute a command to update the existing storage account.
 
     ```powershell
+    # Set this to the website storage account you specified in the azuredeploy.parameters.json file.
     $storageAccountName = "lunch$($uniqueString)websa"
     az storage blob service-properties update --account-name $storageAccountName --static-website --404-document 404.html --index-document index.html
     ```
@@ -72,9 +83,9 @@ Change the section
 10. Upload the website to the $web container in the storage account created by the static website hosting feature.
 
     ```powershell
-    az storage blob upload-batch -s .\dist -d \$web --account-name $storageAccountName
+    az storage blob upload-batch -s ./serverless-cli/src/ServerlessFoodOrder.Web/dist -d '$web' --account-name $storageAccountName
     ```
 
-9. Open a web browser to https://[your web storage account name]. The home page with a list of menu options should be displayed.
+9. Open a web browser to https://[your web storage account name].web.core.windows.net/ The home page with a list of menu options should be displayed.
 
 Next: [Azure Service Bus](07-messaging-service-bus.md)

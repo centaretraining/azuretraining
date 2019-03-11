@@ -23,7 +23,7 @@
     "functionAppPlanName": {
       "type": "string",
       "metadata": {
-        "description": "The name of the consumption based App Service Plan that will be used by the Function"
+        "description": "The name of the consumption based App Service Plan that will host the Function"
       }
     },
     "webStorageAccountName": {
