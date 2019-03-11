@@ -21,12 +21,13 @@
 
 > The Azure Shell does not support Ctrl-V for pasting commands. However, it does support right-click > Paste if you want to save typing for some of the longer commands in the exercises.
 
-4. Set the current active subscription you will run your commands against. First, get a list of all subscriptions you have associated with your account:
+5. Set the current active subscription you will run your commands against. First, get a list of all subscriptions you have associated with your account:
 
     Using the Azure CLI ("az" command)
     ```bash
     az account list
     ```
+    >This is a good place to try adding a format parameter, like `az account list -o table`
 
     Using the AZ Powershell module
     ```powershell
@@ -35,10 +36,10 @@
 
     > Azure shell supports the Azure CLI ("az" commands) and the new Powershell AZ Module.  The Powershell module has the backwards compatibility flag set so the older \*-AzureRM\* commands will also work.
 
-5. You will get an output with one or more subscriptions like below:
+6. You will get an output with one or more subscriptions like below:
 
     Azure CLI
-    ```json
+    ```powershell
     [
       {
         "cloudName": "AzureCloud",
@@ -82,7 +83,7 @@
     State    : Enabled
     ```
 
-6. **If you have more than one subscription** - Find the name of your Azure subscription you want to use and set the current subscription for both the Azure Powershell module and AZ CLI, we will be using both.
+7. **If you have more than one subscription** - Find the name of your Azure subscription you want to use and set the current subscription for both the Azure Powershell module and AZ CLI, we will be using both.
 
     Azure CLI
     ```powershell
@@ -96,7 +97,7 @@
 
     All commands you run will now be performed on this subscription.
 
-7. Create some Powershell variables that will be referenced in other exercises:
+8. Create some Powershell variables that will be referenced in other exercises:
 
     ```powershell
     # Set this string to the resource group you made in exercise 1 to store your Azure SQL Server.
@@ -107,8 +108,9 @@
     $uniqueString = "$(Get-Random 99999)"
     Write-Host "Your unique string is '$uniqueString', take note of this value for future exercises"
     ```
+  >If you close the Azure Shell window or if it resets, you'll need to recreate your shell variables. You might want to keep track of these using the build in editor.
 
-8. View the resource group properties to make sure you set it correctly:
+9. View the resource group properties to make sure you set it correctly:
 
     Azure CLI
     ```powershell
@@ -120,19 +122,19 @@
     Get-AzResourceGroup -Name $resourceGroupName
     ```
 
-9. Change to your home directory. Any files uploaded to this directory will be persisted across sessions in the storage account you created earlier.
+10. Change to your home directory. Any files uploaded to this directory will be persisted across sessions in the storage account you created earlier.
 
     ```powershell
     cd $home
     ```
 
-10. Clone the Git repository with all of the exercises and code.
+11. Clone the Git repository with all of the exercises and code.
 
     ```powershell
     git clone https://github.com/centaretraining/azuretraining
     ```
 
-11. Change the current working directory to the **azuretraining** folder. All exercises will assume you are in this subfolder:
+12. Change the current working directory to the **azuretraining** folder. All exercises will assume you are in this subfolder:
 
     ```powershell
     cd $home/azuretraining
@@ -142,4 +144,4 @@ You are now ready to start!
 
 **KEEP THIS BROWSER WINDOW OPEN!** We will reuse some of the variables and environment settings
 
-Next: [Create a Web Application](04-web-apps.md)
+Next: [Create a SQL Server](03-azure-sql.md)

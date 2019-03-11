@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace WebAppFoodOrder.Api
 {
@@ -12,6 +13,11 @@ namespace WebAppFoodOrder.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(c =>
+                {
+                    c.AddJsonFile("appsettings.json", true);
+                    c.AddEnvironmentVariables();
+                })
                 .UseStartup<Startup>();
     }
 }

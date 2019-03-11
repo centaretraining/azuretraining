@@ -17,7 +17,7 @@ To create a namespace:
     2. Select the **Standard** pricing tier. We will be creating Topics which are not supported in the Basic tier.
     3. Select your **Subscription** in the drop down.
     4. Select your **Resource group**, choose an existing resource group in which the namespace will live, or create a new one.
-    5. For **Location**, choose the region in which your namespace should be hosted.
+    5. For **Location**, select "North Central US".
     6. Select **Create**. The system now creates your namespace and enables it. You might have to wait several minutes as the system provisions resources for your account.
 
         ![Create namespace](images/service-bus-create.png)
@@ -35,7 +35,7 @@ To create a namespace:
 
 6. On the Service Bus Namespace page, select Topics on the left menu.
 
-7. Select + Topic on the toolbar.
+7. Select **+ Topic** on the toolbar.
 
 8. Enter "order-placed-sbt" for the topic name. Leave the other options with their default values.
 
@@ -43,7 +43,7 @@ To create a namespace:
 
 10. Select the topic that you created in the previous step.
 
-11. On the Service Bus Topic page, select Subscriptions from the left menu, and then select + Subscription on the toolbar.
+11. On the Service Bus Topic page, select Subscriptions from the left menu, and then select **+ Subscription** on the toolbar.
 
 12. On the Create subscription page, enter "cc-processor-sbs" as the name for the subscription, and then select **Create**.  This will be the subscription for a credit card processing application that will charge the users card when a new order is placed.
 
@@ -53,18 +53,17 @@ To create a namespace:
 
 The customer interface website deployed to Azure App Services will publish an "OrderPlacedEvent" to Azure Service Bus when new orders are created if a configuration values exist named "ServiceBusConnectionString" and "ServiceBusTopicName".
 
-14. Get the connection string. 
-Creating a new namespace automatically generates an initial Shared Access Signature (SAS) rule with an associated pair of primary and secondary keys that each grant full control over all aspects of the namespace. To copy the primary and secondary keys for your namespace: 
+14. Get the connection string for the service bus:
+
+    Creating a new namespace automatically generates an initial Shared Access Signature (SAS) rule with an associated pair of primary and secondary keys that each grant full control over all aspects of the namespace. To copy the primary and secondary keys for your namespace: 
 
     1. Click **All resources**, then click the newly created namespace name.
     2. In the namespace window, click **Shared access policies**.
     3. In the **Shared access policies** screen, click **RootManageSharedAccessKey**.
-    
-        ![connection-info](./media/service-bus-create-namespace-portal/connection-info.png)
         
     4. In the **Policy: RootManageSharedAccessKey** window, click the copy button next to **Primary Connection String**, to copy the connection string to your clipboard for later use.
-   
-    ![connection-string](./media/service-bus-create-namespace-portal/connection-string.png)
+    
+        ![connection-info](./images/service-bus-connection-info.png)
 
 15. Paste the connection string into the script below and run it to add a new config variables to the web app named "ServiceBusConnectionString" and "SerivceBusTopicName":
 
@@ -74,8 +73,19 @@ Creating a new namespace automatically generates an initial Shared Access Signat
     # Enter your topic name here
     $topicName = "order-placed-sbt"
 
-    $newAppSettings = @{"ServiceBusConnectionString"=$serviceBusConnectionString; "ServiceBusTopic"=$topicName}
-    Set-AzureRmWebApp -AppSettings $newAppSettings -Name $webAppServiceName -ResourceGroupName $resourceGroupName
+    # Get the current app settings
+    $apiApp = Get-AzureRMWebApp -ResourceGroupName $resourceGroupName -Name $apiAppServiceName
+    $appSettingList = $apiApp.SiteConfig.AppSettings
+
+    $newAppSettings = @{}
+    ForEach ($kvp in $appSettingList) {
+        $newAppSettings[$kvp.Name] = $kvp.Value
+    }
+
+    $newAppSettings["ServiceBusConnectionString"] = $serviceBusConnectionString
+    $newAppSettings["ServiceBusTopicName"] = $topicName
+    Set-AzureRmWebApp -AppSettings $newAppSettings -Name $apiAppServiceName -ResourceGroupName $resourceGroupName
+    ```
 
 16. Go to your customer order Web Application and place a few orders. After a short period of time you should be able to go back to your service bus Overview page and see the **Requests** and **Messages** charts update to show activity in the bus.
 
@@ -117,16 +127,17 @@ While Azure Service Bus supports messaging protocol standars like AMQP, you can 
     # Enter the connection string you copied earlier
     $serviceBusConnectionString = "[Your connection string goes here]"
     $topicName = "order-placed-sbt"
-    $subscriptionName = "cc-processor-sbs"
-    dotnet run ./service-bus/src/Events.CreditCardProcessor $serviceBusConnectionString $topicName $subscriptionName
+    $ccSubscriptionName = "cc-processor-sbs"
+    dotnet run ./service-bus/src/Events.CreditCardProcessor $serviceBusConnectionString $topicName $ccSubscriptionName
     ```
 
 3. The application should start receiving the OrderPlacedEvent messages you generated earlier.  There is a built in sleep of 5 seconds when an event is received to simulate the application doing some work.
 
-4. Hit a key to stop this application. How run the Notification application. Because this application will be listening on a different subscription, it will receive the same messages that the Credit Card Processor application received.
+4. Hit a key to stop this application. Now run the Notification application. Because this application will be listening on a different subscription, it will receive the same messages that the Credit Card Processor application received.
 
     ```powershell
-    dotnet run ./service-bus/src/Events.Notifications $serviceBusConnectionString $topicName $subscriptionName
+    $ntfSubscriptionName = "notify-processor-sbs"
+    dotnet run ./service-bus/src/Events.Notifications $serviceBusConnectionString $topicName $ntfSubscriptionName
     ```
 
 5. Try placing more orders and watch as the events are picked up immediately after the order save operation completes.
@@ -135,7 +146,7 @@ While Azure Service Bus supports messaging protocol standars like AMQP, you can 
 
     ```powershell
     cd $home/azuretraining
-    dotnet run ./service-bus/src/Events.Notifications $serviceBusConnectionString $topicName $subscriptionName
+    dotnet run ./service-bus/src/Events.Notifications $serviceBusConnectionString $topicName $ntfSubscriptionName
     ```
 
 7. Start placing lots of orders in quick succession by hitting the **Random Order** button on the web application.  Switch between the two shell.azure.com windows and notice how the events are only being picked up by one instance, doubling the processing throughput of the events.
