@@ -8,7 +8,7 @@ All resources will be created using the Powershell AzureRM module.
 
 ## Create an Azure App Service Hosting Plan with two App Services for your UI and API
 
-1. Follow the setup instructions to connect to an Azure Shell.  
+1. Follow the instructions in the [Azure Shell Exercise](./03-azure-shell.md) if you have not already to connect to [Azure Shell](shell.azure.com).  
 
     - Make sure you are in the azuretraining folder under you $home directory.
         ```powershell
