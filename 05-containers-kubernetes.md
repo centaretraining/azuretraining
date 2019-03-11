@@ -20,7 +20,7 @@ az acr create --resource-group menuApi --name $ACR_NAME --sku Standard --locatio
 3. Build your docker images and upload them to Azure Container Registry
 
 ```powershell
-az acr build --registry $ACR_NAME --image restaurant-frontend:v1.0.0 ./azuretraining/kubernetes-cli/src/restaurant-frontend
+az acr build --registry $ACR_NAME --image restaurant-frontend:v1.0.0 $home/azuretraining/kubernetes-cli/src/restaurant-frontend
 ```
 
 > If this was a local project, you'd run `docker build`. Azure container registry runs this for you.
