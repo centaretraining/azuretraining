@@ -71,37 +71,36 @@ namespace WebAppFoodOrder.Api
         {
             var menuRepo = new MenuOptionRepository(menuContext);
 
-            Task.WaitAll(
-                menuRepo.Add(new MenuOption()
-                {
-                    Name = "Bacon, Lettuce, and Tomato Sandwich",
-                    Price = 5
-                }),
-                menuRepo.Add(new MenuOption()
-                {
-                    Name = "Turkey Bacon Sandwich",
-                    Price = 6
-                }),
-                menuRepo.Add(new MenuOption()
-                {
-                    Name = "Bacon Cheeseburger",
-                    Price = 7
-                }),
-                menuRepo.Add(new MenuOption()
-                {
-                    Name = "Small Soda",
-                    Price = 1.5
-                }),
-                menuRepo.Add(new MenuOption()
-                {
-                    Name = "Large Soda",
-                    Price = 2.5
-                }),
-                menuRepo.Add(new MenuOption()
-                {
-                    Name = "Fries",
-                    Price = 3
-                }));
+            menuRepo.Add(new MenuOption()
+            {
+                Name = "Bacon, Lettuce, and Tomato Sandwich",
+                Price = 5
+            }).Wait();
+            menuRepo.Add(new MenuOption()
+            {
+                Name = "Turkey Bacon Sandwich",
+                Price = 6
+            }).Wait();
+            menuRepo.Add(new MenuOption()
+            {
+                Name = "Bacon Cheeseburger",
+                Price = 7
+            }).Wait();
+            menuRepo.Add(new MenuOption()
+            {
+                Name = "Small Soda",
+                Price = 1.5
+            }).Wait();
+            menuRepo.Add(new MenuOption()
+            {
+                Name = "Large Soda",
+                Price = 2.5
+            }).Wait();
+            menuRepo.Add(new MenuOption()
+            {
+                Name = "Fries",
+                Price = 3
+            }).Wait();
         }
     }
 }

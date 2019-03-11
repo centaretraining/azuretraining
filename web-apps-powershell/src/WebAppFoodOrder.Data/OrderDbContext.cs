@@ -8,7 +8,7 @@ namespace WebAppFoodOrder.Data
     public class OrderDbContext : DbContext
     {
         public OrderDbContext(
-            DbContextOptions<MenuDbContext> options,
+            DbContextOptions<OrderDbContext> options,
             IConfiguration configuration) : base(options)
         {
             if (configuration["EnableManagedServiceIdentity"]?.ToLower() == "true")
