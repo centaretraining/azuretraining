@@ -1,8 +1,9 @@
 # SQL Server in Azure
 
-## SQL Server (in the portal)
 
-You’re going to create a SQL Server Database in Azure using the Azure Portal.  We will use this database in subsequent exercises as the back end for a lunch ordering system.
+You’re going to create a SQL Server Database in Azure. We will use this database in subsequent exercises as the back end for a lunch ordering system. You can use the portal or the CLI. Instructions for both are included in this step.
+
+## SQL Server (in the portal)
 
 Steps
 
@@ -48,11 +49,11 @@ $password='Password1234!'
 #change this to something unique
 $servername='server-name'
 
-#change this to your resource group
+#change this to your resource group from step 1
 $resourceGroup='an existing resource group'
 
-#change this to a database
-$databaseName='a database you want to make'
+#This is the DB we'll use later
+$databaseName='lunch-db'
 ```
 
 2. Create a Database Server
@@ -75,4 +76,4 @@ az sql db create `
 	--name $databaseName `
 	--service-objective S0
 ```
-Next: [Azure Shell and the CLI](03-azure-shell.md)
+Next: [Build a Web Application](04-web-apps.md)

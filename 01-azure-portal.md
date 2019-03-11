@@ -23,4 +23,4 @@ The Azure Portal is a web based UI for Azure. Everything you can do in Azure CLI
 
 5. Click "Create". You should see your resource group in the list after a few seconds.
 
-Next: [SQL Server in Azure](02-azure-sql.md)
+Next: [Azure Shell](02-azure-shell.md)
