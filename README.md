@@ -2,8 +2,8 @@
 
 ## Exercises
 1. [Using the Azure Portal](01-azure-portal.md)
-2. [Create an Azure SQL database](02-azure-sql.md)
-3. [Using Azure Shell and the CLI](03-azure-shell.md)
+2. [Using Azure Shell and the CLI](02-azure-shell.md)
+3. [Create an Azure SQL database](03-azure-sql.md)
 4. [Create a web application](04-web-apps.md)
 5. [Containers and Kubernetes](05-containers-kubernetes.md)
 6. [Create a serverless application](06-serverless.md)
