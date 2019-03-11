@@ -5,7 +5,7 @@
             <th>Name</th>
             <th>Order Items</th>
             <th>Total Cost</th>
-            <th></th>
+            <!--<th></th>-->
         </tr>
     </thead>
     <tbody>
@@ -17,14 +17,14 @@
                 </div>
             </td>
             <td>{{getCost(order) | currency}}</td>
-            <td class="button-column">
+            <!--<td class="button-column">
                 <div class="row">
                     <div class="col-6">
                         <button class="btn btn-success" (click)="completeOrder(order.id)">Complete</button>
                     </div>
                 </div>
 
-            </td>
+            </td>-->
         </tr>
     </tbody>
 </table>

@@ -25,6 +25,9 @@
         </div>
         <div class="card-text" *ngIf="!order || !order.orderItems ||  order.orderItems.length <= 0">
             <div>You have not added anything to your order yet</div>
+            <!--<div class="col-12" *ngIf="!order || !order.orderItems ||  order.orderItems.length <= 0">
+                <button class="btn btn-success" (click)="onSubmit()" [disabled]="form.invalid">Submit Random Order</button>
+            </div>-->
         </div>
     </div>
 </div>

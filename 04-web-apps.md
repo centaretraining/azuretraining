@@ -8,18 +8,30 @@ All resources will be created using the Powershell AzureRM module.
 
 ## Create an Azure App Service Hosting Plan with two App Services for your UI and API
 
-1. Follow the setup instructions to connect to an Azure Shell.  Make sure you are in the azuretraining folder under you $home directory.
+1. Follow the setup instructions to connect to an Azure Shell.  
 
-    ```powershell
-    cd $home/azuretraining
-    ```
+    - Make sure you are in the azuretraining folder under you $home directory.
+        ```powershell
+        cd $home/azuretraining
+        ```
+    - Make sure your **$resourceGroupName** and **$uniqueString** variables are set:
+        ```powershell
+        if ("$resourceGroupName" -eq "") { Write-Error '$resourceGroupName is NOT set!' } else { '$resourceGroupName is set!' }
+
+        if ("$uniqueString" -eq "") { Write-Error '$uniqueString is NOT set!' } else { '$uniqueString is set!' }
+        ```
 
 2. Create an App Service Plan using the Standard tier.
 
     ```powershell
     # The name of the hosting plan that will contain the app services
     $appServicePlanName = "lunch-$uniqueString-hp"
-    New-AzureRmAppServicePlan -Name $appServicePlanName -Location "North Central US" -ResourceGroupName $resourceGroupName -Tier Standard
+    
+    New-AzureRmAppServicePlan `
+        -Name $appServicePlanName `
+        -Location "North Central US" `
+        -ResourceGroupName $resourceGroupName `
+        -Tier Standard
     ```
 
 4. Create an App Service in the hosting plan for the front end UI.
@@ -27,22 +39,42 @@ All resources will be created using the Powershell AzureRM module.
     ```powershell
     # the name of the app service, the URL for your site will be https://[app servicename].azurewebsites.net
     $webAppServiceName = "lunch-$uniqueString-web-as"
-    New-AzureRmWebApp -Name $webAppServiceName -AppServicePlan $appServicePlanName -ResourceGroupName $resourceGroupName
+
+    $webApp = New-AzureRmWebApp `
+        -Name $webAppServiceName `
+        -AppServicePlan $appServicePlanName `
+        -ResourceGroupName $resourceGroupName
+    
+    # Write out the results of the command
+    $webApp
+    # Get the host name for the new site
+    $webApp.DefaultHostName
     ```
 
-5. The output of the previous command will include a DefaultHostName value in the format XXXX.azurewebsites.net. Open up a browser an go this URL.  A default web application page should be displayed.
+5. The output of the "$webApp.DefaultHostName" command will be the URL for your new site in the format XXXX.azurewebsites.net. Open up a browser an go this URL.  A default web application page should be displayed.
 
 6. Create an App Service in the hosting plan for the APIs.
 
     ```powershell
     # The name of the app service, the URL for your site will be https://[app servicename].azurewebsites.net
     $apiAppServiceName = "lunch-$uniqueString-api-as"
-    New-AzureRmWebApp -Name $apiAppServiceName -AppServicePlan $appServicePlanName -ResourceGroupName $resourceGroupName
+
+    $apiApp = New-AzureRmWebApp `
+        -Name $apiAppServiceName `
+        -AppServicePlan $appServicePlanName `
+        -ResourceGroupName $resourceGroupName
+    
+    # Write out the results of the command
+    $apiApp
+    # Get the host name for the new site
+    $apiApp.DefaultHostName
     ```
 
 7. Verify your API app was created by navigating to the app service URL in a browser.
 
 8. Open the Azure portal at https://portal.azure.com.  Navigate to your resource group.  You should see resources for the App Hosting Plan and the two App Services in that plan.  Open them up and explore the options available for monitoring and configuring your App Service.
+
+    ![Web App Resources](images/web-apps-resource-group.png)
 
 ## Deploy your code to the UI and API App Services
 
@@ -54,16 +86,16 @@ The application code for the website and API has already been created for you. Y
 
     ```powershell
     # Build the ASP.Net Core API project
-    dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Api/WebAppFoodOrder.Api.csproj -o ./publish/webappapi
+    dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Api/WebAppFoodOrder.Api.csproj -o $home/azuretraining/publish/webappapi
 
-    dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Web/WebAppFoodOrder.Web.csproj -o ./publish/webappweb
+    dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Web/WebAppFoodOrder.Web.csproj -o $home/azuretraining/publish/webappweb
     ```
 
 14. Zip up the output of the publish operations
 
     ```powershell
-    Compress-Archive -Path ./publish/webappapi/* -DesinationPath ./publish/webappapi.zip
-    Compress-Archive -Path ./publish/webappweb/* -DesinationPath ./publish/webappweb.zip
+    Compress-Archive -Path ./publish/webappapi/* -DestinationPath ./publish/webappapi.zip -Force
+    Compress-Archive -Path ./publish/webappweb/* -DestinationPath ./publish/webappweb.zip -Force
     ```
 
 12. Deploy API application using zip file deployment.
@@ -78,6 +110,7 @@ The application code for the website and API has already been created for you. Y
     $deployPassword = $xml.SelectNodes("//publishProfile[@publishMethod=`"MSDeploy`"]/@userPWD").value
     $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $deployUserName, $deployPassword)))
 
+    # HTTP POST the zip file to the app service management API
     Invoke-RestMethod -Uri "https://$apiAppServiceName.scm.azurewebsites.net/api/zipdeploy" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)} -UserAgent "powershell/1.0" -Method POST -InFile "./publish/webappapi.zip" -ContentType "multipart/form-data"
     ```
 
@@ -100,8 +133,8 @@ The application code for the website and API has already been created for you. Y
 14. Update the app service's configuration settings with the SQL server location, database name, and credentials you used in the Azure SQL exercise.
 
     ```powershell
-    $sqlServerName = "lunch-$uniqueString-sql"
-    $sqlServerDatabaseName = "lunch-$uniqueString-db"
+    $sqlServerName = "lunch-sql"
+    $sqlServerDatabaseName = "lunch-db"
     $sqlAdminUserName = "XXXXX"
     $sqlAdminPassword = "XXXXX"
 

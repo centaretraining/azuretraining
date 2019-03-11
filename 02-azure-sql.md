@@ -2,31 +2,38 @@
 
 ## SQL Server (in the portal)
 
-You’re going to create a SQL Server Database in Azure using the Azure Portal.
+You’re going to create a SQL Server Database in Azure using the Azure Portal.  We will use this database in subsequent exercises as the back end for a lunch ordering system.
 
 Steps
 
 1. Open the portal (portal.azure.com)
 
-2. Click “Create a Resource” (top left corner)
+2. Click "Create a Resource" (top left corner)
 
-3. Click “SQL Database”. If you don't see it, search for SQL Database and select that.
+3. Click "Databases" then "SQL Database". If you don't see it, search for SQL Database and select that.
 
 4. Fill out the Basic Tab
 
-- Select a subscription
-- Select the resource group you created in the previous step
-- Enter a database name
-- Under Server, click “Create New”
-  - Fill out the server name, server admin credentials, and pick an admin password.
+	- Select a subscription
+	- Select the resource group you created in the previous step
+	- Enter **"lunch-db"** as the database name
+	- Under Server, click “Create New”
+	- Fill out the server name. Server names must be globally unique, so use something like **"lunch-[your user name]-sql"**
+	- Enter the server admin credentials and pick an admin password.
 
-- Click “Next”
+	- Click “Next”
+
+> Take note of the server name, user name, and password you selected. We will be using this Azure SQL Server for subsequent exercises.
 
 5. On the Additional Settings and Tags tabs, Click Next
 
 6. Click Create
 
-Once the database is deployed (this takes a few minutes), go to SQL databases and see if your database is present. Feel free to connect to the server using your preferred SQL tool (SQL Server Management Studio or Visual Studio)
+7. A new message will pop up in your Notifications menu for your resource deployment that will alert you when the deployment is complete.
+
+	![Notifications](images/notifications-deployment-in-progress.png)
+
+Once the database is deployed (this takes a few minutes), you can click **Go to resource** in your Notifications or to the SQL databases resource in the left menu. Feel free to connect to the server using your preferred SQL tool (SQL Server Management Studio or Visual Studio)
 
 ## SQL Server (using the CLI)
 
