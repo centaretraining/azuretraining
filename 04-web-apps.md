@@ -158,6 +158,8 @@ The application code for the website and API has already been created for you. Y
 
 az webapp cors add -g $resourceGroupName -n $apiAppServiceName --allowed-origins *
 
+> Don't set your allowed origins to "*" in production. That opens you up to cross site scripting attacks.
+
 17. Open a browser and navigate to your site at https://[your app service name].azurewebsites.net.  A basic site should come up that allows you to place lunch orders.
 
 Next: [Containers and Kubernetes](05-containers-kubernetes.md)

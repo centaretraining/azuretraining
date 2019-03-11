@@ -36,6 +36,15 @@ Steps
 
 Once the database is deployed (this takes a few minutes), you can click **Go to resource** in your Notifications or to the SQL databases resource in the left menu. Feel free to connect to the server using your preferred SQL tool (SQL Server Management Studio or Visual Studio)
 
+8. Setup the SQL Server Firewall
+* Open your Database
+* On the main page, click "Set server firewall" 
+* On the firewall settings page, toggle "Allow access to Azure services" from "OFF" to "ON". 
+* Add your client ip address by clicking on "+ Add Client IP"
+* Click Save
+
+> SQL Server is locked down by default, only allowing specific IP address ranges. You'll need to add your local IP to connect using SQL Server Management Studio.
+
 ## SQL Server (using the CLI)
 
 1. Setup some variables
@@ -79,4 +88,10 @@ az sql db create `
 	--name $databaseName `
 	--service-objective S0
 ```
+
+4. Allow connections from other Azure Services
+
+az sql server firewall-rule create -g $resourceGroupName -s $servername -n "allowAzure" --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
+
+
 Next: [Build a Web Application](04-web-apps.md)
