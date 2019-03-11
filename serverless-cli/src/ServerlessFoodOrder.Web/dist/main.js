@@ -397,7 +397,7 @@ module.exports = "<app-navbar></app-navbar>\r\n<div class=\"container main-outle
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".main-outlet {\n  margin-top: 10px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvQzpcXFByb2plY3RzXFxDZW50YXJlXFxHaXRcXGF6dXJlLXdvcmtzaG9wc1xcU2VydmVybGVzc0Zvb2RPcmRlckFwaVxcU2VydmVybGVzc0Zvb2RPcmRlci5XZWIvc3JjXFxhcHBcXGFwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFnQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1haW4tb3V0bGV0IHtcclxuICAgIG1hcmdpbi10b3A6IDEwcHg7XHJcbn0iXX0= */"
+module.exports = ".main-outlet {\n  margin-top: 10px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvQzpcXFByb2plY3RzXFxHaXRIdWJcXGNlbnRhcmV0cmFpbmluZ1xcYXp1cmV0cmFpbmluZ1xcc2VydmVybGVzcy1jbGlcXHNyY1xcU2VydmVybGVzc0Zvb2RPcmRlci5XZWIvc3JjXFxhcHBcXGFwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGdCQUFnQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1haW4tb3V0bGV0IHtcclxuICAgIG1hcmdpbi10b3A6IDEwcHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -533,7 +533,7 @@ module.exports = "<div class=\"card\">\r\n    <div class=\"card-body\">\r\n     
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".btn {\n  width: 100%; }\n\n.submit-container {\n  margin-top: 10px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FydC9DOlxcUHJvamVjdHNcXENlbnRhcmVcXEdpdFxcYXp1cmUtd29ya3Nob3BzXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyQXBpXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyLldlYi9zcmNcXGFwcFxcY2FydFxcY2FydC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQVcsRUFBQTs7QUFHZjtFQUNJLGdCQUFnQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvY2FydC9jYXJ0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJ0biB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuLnN1Ym1pdC1jb250YWluZXIge1xyXG4gICAgbWFyZ2luLXRvcDogMTBweDtcclxufSJdfQ== */"
+module.exports = ".btn {\n  width: 100%; }\n\n.submit-container {\n  margin-top: 10px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FydC9DOlxcUHJvamVjdHNcXEdpdEh1YlxcY2VudGFyZXRyYWluaW5nXFxhenVyZXRyYWluaW5nXFxzZXJ2ZXJsZXNzLWNsaVxcc3JjXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyLldlYi9zcmNcXGFwcFxcY2FydFxcY2FydC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQVcsRUFBQTs7QUFHZjtFQUNJLGdCQUFnQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvY2FydC9jYXJ0LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJ0biB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuLnN1Ym1pdC1jb250YWluZXIge1xyXG4gICAgbWFyZ2luLXRvcDogMTBweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -630,7 +630,7 @@ module.exports = "<div class=\"row\">\r\n    <div class=\"col-sm-9\">\r\n       
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".menu-option-wrapper {\n  margin-bottom: 10px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9DOlxcUHJvamVjdHNcXENlbnRhcmVcXEdpdFxcYXp1cmUtd29ya3Nob3BzXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyQXBpXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyLldlYi9zcmNcXGFwcFxcaG9tZVxcaG9tZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1lbnUtb3B0aW9uLXdyYXBwZXIge1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxufSJdfQ== */"
+module.exports = ".menu-option-wrapper {\n  margin-bottom: 10px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9DOlxcUHJvamVjdHNcXEdpdEh1YlxcY2VudGFyZXRyYWluaW5nXFxhenVyZXRyYWluaW5nXFxzZXJ2ZXJsZXNzLWNsaVxcc3JjXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyLldlYi9zcmNcXGFwcFxcaG9tZVxcaG9tZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvaG9tZS9ob21lLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1lbnUtb3B0aW9uLXdyYXBwZXIge1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -692,7 +692,7 @@ module.exports = "<div class=\"edit-menu-container\">\r\n    <h5>Add New Menu Op
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".edit-menu-container {\n  padding-top: 10px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWVudS1vcHRpb24vZWRpdC9DOlxcUHJvamVjdHNcXENlbnRhcmVcXEdpdFxcYXp1cmUtd29ya3Nob3BzXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyQXBpXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyLldlYi9zcmNcXGFwcFxcbWVudS1vcHRpb25cXGVkaXRcXGVkaXQtbWVudS1vcHRpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxpQkFBaUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL21lbnUtb3B0aW9uL2VkaXQvZWRpdC1tZW51LW9wdGlvbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5lZGl0LW1lbnUtY29udGFpbmVyIHtcclxuICAgIHBhZGRpbmctdG9wOiAxMHB4O1xyXG59Il19 */"
+module.exports = ".edit-menu-container {\n  padding-top: 10px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWVudS1vcHRpb24vZWRpdC9DOlxcUHJvamVjdHNcXEdpdEh1YlxcY2VudGFyZXRyYWluaW5nXFxhenVyZXRyYWluaW5nXFxzZXJ2ZXJsZXNzLWNsaVxcc3JjXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyLldlYi9zcmNcXGFwcFxcbWVudS1vcHRpb25cXGVkaXRcXGVkaXQtbWVudS1vcHRpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxpQkFBaUIsRUFBQSIsImZpbGUiOiJzcmMvYXBwL21lbnUtb3B0aW9uL2VkaXQvZWRpdC1tZW51LW9wdGlvbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5lZGl0LW1lbnUtY29udGFpbmVyIHtcclxuICAgIHBhZGRpbmctdG9wOiAxMHB4O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -782,7 +782,7 @@ module.exports = "<div class=\"card\">\r\n    <div class=\"card-body\">\r\n     
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#menuOptionDescription {\n  font-size: 11pt; }\n\n.btn {\n  width: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWVudS1vcHRpb24vQzpcXFByb2plY3RzXFxDZW50YXJlXFxHaXRcXGF6dXJlLXdvcmtzaG9wc1xcU2VydmVybGVzc0Zvb2RPcmRlckFwaVxcU2VydmVybGVzc0Zvb2RPcmRlci5XZWIvc3JjXFxhcHBcXG1lbnUtb3B0aW9uXFxtZW51LW9wdGlvbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQWUsRUFBQTs7QUFHbkI7RUFDSSxXQUNKLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9tZW51LW9wdGlvbi9tZW51LW9wdGlvbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIiNtZW51T3B0aW9uRGVzY3JpcHRpb24ge1xyXG4gICAgZm9udC1zaXplOiAxMXB0O1xyXG59XHJcblxyXG4uYnRuIHtcclxuICAgIHdpZHRoOiAxMDAlXHJcbn0iXX0= */"
+module.exports = "#menuOptionDescription {\n  font-size: 11pt; }\n\n.btn {\n  width: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbWVudS1vcHRpb24vQzpcXFByb2plY3RzXFxHaXRIdWJcXGNlbnRhcmV0cmFpbmluZ1xcYXp1cmV0cmFpbmluZ1xcc2VydmVybGVzcy1jbGlcXHNyY1xcU2VydmVybGVzc0Zvb2RPcmRlci5XZWIvc3JjXFxhcHBcXG1lbnUtb3B0aW9uXFxtZW51LW9wdGlvbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGVBQWUsRUFBQTs7QUFHbkI7RUFDSSxXQUNKLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9tZW51LW9wdGlvbi9tZW51LW9wdGlvbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIiNtZW51T3B0aW9uRGVzY3JpcHRpb24ge1xyXG4gICAgZm9udC1zaXplOiAxMXB0O1xyXG59XHJcblxyXG4uYnRuIHtcclxuICAgIHdpZHRoOiAxMDAlXHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -973,7 +973,7 @@ module.exports = "<h5>Outstanding Orders</h5>\r\n<table class=\"table table-stri
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".button-column {\n  width: 250px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvb3JkZXIvQzpcXFByb2plY3RzXFxDZW50YXJlXFxHaXRcXGF6dXJlLXdvcmtzaG9wc1xcU2VydmVybGVzc0Zvb2RPcmRlckFwaVxcU2VydmVybGVzc0Zvb2RPcmRlci5XZWIvc3JjXFxhcHBcXG9yZGVyXFxvcmRlcnMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9vcmRlci9vcmRlcnMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYnV0dG9uLWNvbHVtbiB7XHJcbiAgICB3aWR0aDogMjUwcHg7XHJcbn0iXX0= */"
+module.exports = ".button-column {\n  width: 250px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvb3JkZXIvQzpcXFByb2plY3RzXFxHaXRIdWJcXGNlbnRhcmV0cmFpbmluZ1xcYXp1cmV0cmFpbmluZ1xcc2VydmVybGVzcy1jbGlcXHNyY1xcU2VydmVybGVzc0Zvb2RPcmRlci5XZWIvc3JjXFxhcHBcXG9yZGVyXFxvcmRlcnMuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9vcmRlci9vcmRlcnMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYnV0dG9uLWNvbHVtbiB7XHJcbiAgICB3aWR0aDogMjUwcHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1444,7 +1444,7 @@ var UrlService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Projects\Centare\Git\azure-workshops\ServerlessFoodOrderApi\ServerlessFoodOrder.Web\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Projects\GitHub\centaretraining\azuretraining\serverless-cli\src\ServerlessFoodOrder.Web\src\main.ts */"./src/main.ts");
 
 
 /***/ })

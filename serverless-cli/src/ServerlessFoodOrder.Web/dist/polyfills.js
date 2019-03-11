@@ -5784,8 +5784,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Projects\Centare\Git\azure-workshops\ServerlessFoodOrderApi\ServerlessFoodOrder.Web\src\polyfills.ts */"./src/polyfills.ts");
-module.exports = __webpack_require__(/*! C:\Projects\Centare\Git\azure-workshops\ServerlessFoodOrderApi\ServerlessFoodOrder.Web\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
+__webpack_require__(/*! C:\Projects\GitHub\centaretraining\azuretraining\serverless-cli\src\ServerlessFoodOrder.Web\src\polyfills.ts */"./src/polyfills.ts");
+module.exports = __webpack_require__(/*! C:\Projects\GitHub\centaretraining\azuretraining\serverless-cli\src\ServerlessFoodOrder.Web\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */"./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/jit-polyfills.js");
 
 
 /***/ })

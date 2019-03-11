@@ -29,7 +29,7 @@ module.exports = [[module.i, "/* based on angular-toastr css https://github.com/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = [[module.i, "/* You can add global styles to this file, and also import other style files */\n#toast-container > div {\n  opacity: 1; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9DOlxcUHJvamVjdHNcXENlbnRhcmVcXEdpdFxcYXp1cmUtd29ya3Nob3BzXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyQXBpXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyLldlYi9zcmNcXHN0eWxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLDhFQUFBO0FBQ0E7RUFDSSxVQUFTLEVBQUEiLCJmaWxlIjoic3JjL3N0eWxlcy5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogWW91IGNhbiBhZGQgZ2xvYmFsIHN0eWxlcyB0byB0aGlzIGZpbGUsIGFuZCBhbHNvIGltcG9ydCBvdGhlciBzdHlsZSBmaWxlcyAqL1xyXG4jdG9hc3QtY29udGFpbmVyID4gZGl2IHtcclxuICAgIG9wYWNpdHk6MTtcclxufSJdfQ== */", '', '']]
+module.exports = [[module.i, "/* You can add global styles to this file, and also import other style files */\n#toast-container > div {\n  opacity: 1; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9DOlxcUHJvamVjdHNcXEdpdEh1YlxcY2VudGFyZXRyYWluaW5nXFxhenVyZXRyYWluaW5nXFxzZXJ2ZXJsZXNzLWNsaVxcc3JjXFxTZXJ2ZXJsZXNzRm9vZE9yZGVyLldlYi9zcmNcXHN0eWxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLDhFQUFBO0FBQ0E7RUFDSSxVQUFTLEVBQUEiLCJmaWxlIjoic3JjL3N0eWxlcy5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogWW91IGNhbiBhZGQgZ2xvYmFsIHN0eWxlcyB0byB0aGlzIGZpbGUsIGFuZCBhbHNvIGltcG9ydCBvdGhlciBzdHlsZSBmaWxlcyAqL1xyXG4jdG9hc3QtY29udGFpbmVyID4gZGl2IHtcclxuICAgIG9wYWNpdHk6MTtcclxufSJdfQ== */", '', '']]
 
 /***/ }),
 
@@ -639,9 +639,9 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Projects\Centare\Git\azure-workshops\ServerlessFoodOrderApi\ServerlessFoodOrder.Web\src\styles.scss */"./src/styles.scss");
-__webpack_require__(/*! C:\Projects\Centare\Git\azure-workshops\ServerlessFoodOrderApi\ServerlessFoodOrder.Web\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
-module.exports = __webpack_require__(/*! C:\Projects\Centare\Git\azure-workshops\ServerlessFoodOrderApi\ServerlessFoodOrder.Web\node_modules\ngx-toastr\toastr.css */"./node_modules/ngx-toastr/toastr.css");
+__webpack_require__(/*! C:\Projects\GitHub\centaretraining\azuretraining\serverless-cli\src\ServerlessFoodOrder.Web\src\styles.scss */"./src/styles.scss");
+__webpack_require__(/*! C:\Projects\GitHub\centaretraining\azuretraining\serverless-cli\src\ServerlessFoodOrder.Web\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
+module.exports = __webpack_require__(/*! C:\Projects\GitHub\centaretraining\azuretraining\serverless-cli\src\ServerlessFoodOrder.Web\node_modules\ngx-toastr\toastr.css */"./node_modules/ngx-toastr/toastr.css");
 
 
 /***/ })
