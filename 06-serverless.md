@@ -36,7 +36,7 @@ All resources will be created with ARM templates.
 > Some items to note about the template:
 >    - All of the resource types in azuredeploy.json are of type "deployment".  A deployment is itself a type of resource which is used to track the inputs, outputs, and status of the deployment, which itself could include additional child deployments.
 >    - Some of the resources have dependencies on other deployments. Azure Resource Manager will figure out the dependency graph and deploy as many resources in parallel as it can.
->    - The child templates are referenced by a URL (built from the _artifactsLocation parameters) NOT from a local file path.  Azure Resource Manager runs in the cloud and must be able to download the child templates from a internet accessible location.  The deployment script will create a storage account, upload the child templates, and pass this URL in as a parameter.
+>    - The child templates are referenced by a URL (built from the _artifactsLocation parameters) NOT from a local file path.  Azure Resource Manager runs in the cloud and must be able to download the child templates from an internet accessible location.  The deployment script will create a storage account, upload the child templates, and pass this URL in as a parameter.
 >    - All child templates get their parameters passed to them from the parent template.
 >    - The function app template gets some of its parameters from the output of the other templates. For example - the access key for the CosmosDB instance is output from the cosmosdb.json ARM template and this value is passed into the Function App ARM template so the key can be stored in the Function App's configuration settings.
 
@@ -87,11 +87,17 @@ Change the section
     ```
 
 11. Update the CORS settings to allow cross
+    * Get the url for your static site
 
+    ```powershell
+    $staticWebUrl = az storage account show -n $storageAccountName -g $resourceGroupName --query "primaryEndpoints.web" --output tsv
+    $staticWebUrl = ($staticWebUrl).Replace(".net/",".net")
+    ```
+    * Add it as an allowed origin to the CORS settings on your function app
     ```powershell
     # Set this to the Function name you specified in the azuredeploy.parameters.json file.
     $functionAppName = "lunch-$uniqueString-func-fa"
-    az functionapp cors add -g $resourceGroupName -n $functionAppName --allowed-origins https://$storageAccountName.z14.web.core.windows.net
+    az functionapp cors add -g $resourceGroupName -n $functionAppName --allowed-origins $staticWebUrl
     ```
 
 9. Open a web browser to https://[your web storage account name].web.core.windows.net/ The home page with a list of menu options should be displayed.
