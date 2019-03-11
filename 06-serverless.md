@@ -86,6 +86,14 @@ Change the section
     az storage blob upload-batch -s ./serverless-cli/src/ServerlessFoodOrder.Web/dist -d '$web' --account-name $storageAccountName
     ```
 
+11. Update the CORS settings to allow cross
+
+    ```powershell
+    # Set this to the Function name you specified in the azuredeploy.parameters.json file.
+    $functionAppName = "lunch-$uniqueString-func-fa"
+    az functionapp cors add -g $resourceGroupName -n $functionAppName --allowed-origins https://$storageAccountName.z14.web.core.windows.net
+    ```
+
 9. Open a web browser to https://[your web storage account name].web.core.windows.net/ The home page with a list of menu options should be displayed.
 
 Next: [Azure Service Bus](07-messaging-service-bus.md)
