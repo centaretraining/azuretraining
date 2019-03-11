@@ -41,7 +41,7 @@
       }
     },
     "variables": {
-      "dnsNamePrefix": "[concat('security', parameters('uniqueString'))]",
+      "dnsNamePrefix": "[concat(parameters('dnsLabelPrefix'), parameters('uniqueString'))]",
       "storageAccountName": "[concat('security',parameters('uniqueString'), 'vmsa')]",
       "nicName": "security-vm-nic",
       "addressPrefix": "10.0.0.0/16",
@@ -72,7 +72,7 @@
         "properties": {
           "publicIPAllocationMethod": "Dynamic",
           "dnsSettings": {
-            "domainNameLabel": "[parameters('dnsLabelPrefix')]"
+            "domainNameLabel": "[variables('dnsNamePrefix')]"
           }
         }
       },

@@ -8,7 +8,7 @@
 5. [Containers and Kubernetes](05-containers-kubernetes.md)
 6. [Create a serverless application](06-serverless.md)
 7. [Messaging with Azure Service Bus](07-messaging-service-bus.md)
-8. [Network security groups](08-network-security.md)
+8. [Service endpoints and network security groups](08-network-security.md)
 <!--
 9. [Create an Application Gateway](09-app-gateway.md)
 10. [Managed Service Identities](10-managed-service-identity.md)

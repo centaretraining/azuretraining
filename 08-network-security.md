@@ -1,8 +1,10 @@
 # Network Security
 
-In this exercise we will secure the Azure Web App created in exercise #4 at the networking layer.  We will lock down access to the application to a private VNet, apply Network Security Group filters, and expose the site to the internet through an Application Gateway.
+In this exercise we will secure the Azure Web App created in exercise #4 at the networking layer.  We will lock down access to the SQL Server from a private VNet and apply Network Security Group rules so only one VM on the subnet can access it.
 
 ## Create a service endpoint to Azure SQL
+
+1. Edit the azuredeploy.parameters.json file in the /security-web-apps/ and replace the "[unique string here]" in the parameter values with a unique value to avoid naming conflicts.
 
 1. Deploy the ARM template that will set up a VNet with one private subnet and a VM in it we can use for testing.
 
@@ -10,16 +12,13 @@ In this exercise we will secure the Azure Web App created in exercise #4 at the 
 # If your $uniqueString and/or $resourceGroupName variables are not set, set them  here
 # $uniqueString = "$(Get-Random 99999)"
 # $resourceGroupName = "azure-training-rg"
-az group deployment create --resource-group "$resourceGroupName" --template-file ./security-web-apps/azuredeploy.json --parameters '@./security-web-apps/azuredeploy.parameters.json' --parameters "{'uniqueString': { 'value': '$uniqueString' }}"
+cd $home/azuretraining
+az group deployment create --resource-group "$resourceGroupName" --template-file ./security-web-apps/azuredeploy.json --parameters '@./security-web-apps/azuredeploy.parameters.json' --parameters "{'uniqueString': { 'value': '$uniqueString' }}" --verbose
 ```
 
-2. Open up the [Azure Portal](https://portal.azure.com) and navigate to your resource group.  Click on the Deployments link on the left hand side to see the status of the deployments.
+2. Once the deployment is complete open up the [Azure Portal](https://portal.azure.com) and navigate to the Virtual Network resource "security-vnet"
 
-    ![Resource Group Deployments](images/resource-group-deployments.png)
-
-3. Once the deploy is complete open the Virtual Network resource "security-vnet"
-
-4. Select the "Service endpoints" menu option
+3. Select the "Service endpoints" menu option
 
     ![Service endpoints](images/vnet-service-endpoint-menu.png)
 
@@ -79,23 +78,38 @@ This will switch outgoing traffic from your private subnet to this Azure service
 
 20. Click the **Associate** button and select the VNet and Subnet that your Virtual Machine is in.  Click the **OK** button to save the association.
 
+23. Click on **Outbound Security Rules** in the menu on the left and click the **Add** button to create a new rule to deny all outbound traffic:
+
+    1. Select **Any** in the **Source** dropdown
+    2. Enter **"\*"** as the source port.
+    3. Select **Any** in the **Destination** dropdown.
+    4. Enter **"\*"** as the destination port.
+    5. Name the rule something like **"DenyAllOutBound"**
+    6. Select **Deny** for the **Action**
+    6. Set the **Priority** as **999**
+    8. Click **Add**
+
+    ![Deny all outbound rule](images/nsg-deny-all-outbound.png)
+
+24. Wait a minute or so for the rule to take effect.
+
 21. Open your RDP session again and attempt to connect to the Azure SQL Server.  You will not be able to connect since outbound traffic on port 1433 to the Azure SQL service is not explicitly allowed.
 
-## Add explicity access to the VM
+## Add explicit access to the VM
 
 22. Open the [Azure Portal](https://portal.azure.com) and navigate back to the Network Security Group you just created.
 
-23. Click on **Outbound Security Rules** in the menu on the left and click the **Add** button to create a new rule:
-
     1. Select **IP Address** in the **Source** dropdown
-    2. Enter the private IP address of the Virtual Machine.
-    3. Enter **1433** as the source port.
+    2. Enter the private IP address of the Virtual Machine with a "/32" at the end to signify a single IP instead of a range.
+    3. Enter **"\*"** as the source port.
     4. Select **Service Tag** in the **Destination** dropdown.
     5. Select **Sql.NorthCentralUS** in the **Destination Service Tag** drop down. 
-    6. Enter **1433** as the destination port.
+    6. Enter **"\*"** as the destination port.
     7. Name the rule something like **"AllowSqlNorthCentralUSFromVM"**
     8. Click **Add**
 
     ![Outbound Rule](images/nsg-outbound-sql-rule.png)
 
 24. Open your RDP session again and attempt to connect to the Azure SQL Server. You should be able to open a connection to the server and execute commands again.
+
+Next: []

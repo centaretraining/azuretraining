@@ -82,12 +82,15 @@ The customer interface website deployed to Azure App Services will publish an "O
         $newAppSettings[$kvp.Name] = $kvp.Value
     }
 
+    # Add new settings
     $newAppSettings["ServiceBusConnectionString"] = $serviceBusConnectionString
     $newAppSettings["ServiceBusTopicName"] = $topicName
+
+    # Update settings
     Set-AzureRmWebApp -AppSettings $newAppSettings -Name $apiAppServiceName -ResourceGroupName $resourceGroupName
     ```
 
-16. Go to your customer order Web Application and place a few orders. After a short period of time you should be able to go back to your service bus Overview page and see the **Requests** and **Messages** charts update to show activity in the bus.
+16. Go to your customer order Web Application and place a few orders. After a short period of time you should be able to go back to your service bus topic overview page and under the Subscriptions the message count match the number of orders you've placed.
 
 <!--
 ## Send and receive messages with the REST API
@@ -128,29 +131,35 @@ While Azure Service Bus supports messaging protocol standars like AMQP, you can 
     $serviceBusConnectionString = "[Your connection string goes here]"
     $topicName = "order-placed-sbt"
     $ccSubscriptionName = "cc-processor-sbs"
-    dotnet run ./service-bus/src/Events.CreditCardProcessor $serviceBusConnectionString $topicName $ccSubscriptionName
+    dotnet run --project $home/azuretraining/service-bus/src/Events.CreditCardProcessor $serviceBusConnectionString $topicName $ccSubscriptionName
     ```
 
 3. The application should start receiving the OrderPlacedEvent messages you generated earlier.  There is a built in sleep of 5 seconds when an event is received to simulate the application doing some work.
 
-4. Hit a key to stop this application. Now run the Notification application. Because this application will be listening on a different subscription, it will receive the same messages that the Credit Card Processor application received.
+4. Hit the ENTER key to stop this application. Now run the Notification application. Because this application will be listening on a different subscription, it will receive the same messages that the Credit Card Processor application received.
 
     ```powershell
     $ntfSubscriptionName = "notify-processor-sbs"
-    dotnet run ./service-bus/src/Events.Notifications $serviceBusConnectionString $topicName $ntfSubscriptionName
+    dotnet run --project $home/azuretraining/service-bus/src/Events.Notifications $serviceBusConnectionString $topicName $ntfSubscriptionName
     ```
 
 5. Try placing more orders and watch as the events are picked up immediately after the order save operation completes.
 
+<!--
 6.  Keep the notification app running and open an additional shell.azure.com window and run a second copy of the Notification Processor
 
     ```powershell
-    cd $home/azuretraining
-    dotnet run ./service-bus/src/Events.Notifications $serviceBusConnectionString $topicName $ntfSubscriptionName
+    $serviceBusConnectionString = "[Your connection string goes here]"
+    $topicName = "order-placed-sbt"
+    $ntfSubscriptionName = "notify-processor-sbs"
+    
+    dotnet run --project $home/azuretraining/service-bus/src/Events.Notifications $serviceBusConnectionString $topicName $ntfSubscriptionName
     ```
 
 7. Start placing lots of orders in quick succession by hitting the **Random Order** button on the web application.  Switch between the two shell.azure.com windows and notice how the events are only being picked up by one instance, doubling the processing throughput of the events.
 
 > This is referred to as the "competing consumer" model for message processing.  Simply by adding more consuming applications on a queue or subscription messages will be processed in parallel. You can rely on the Service Bus to atomically lock the messages so they only get delivered once to each consumer in your processing pool.
+
+-->
 
 Next: [Azure Network Security](./08-network-security.md)
