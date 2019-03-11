@@ -138,7 +138,7 @@ The application code for the website and API has already been created for you. Y
     Set-AzureRmWebApp -AppSettings $newAppSettings -Name $webAppServiceName -ResourceGroupName $resourceGroupName
     ```
 
-15. Update the API app service's configuration settings with the SQL server location, database name, and credentials you used in the Azure SQL exercise.
+15. Update the API app service's configuration settings with the SQL server location, database name, and credentials you used in the Azure SQL exercise. We will also set the ASPNETCORE_ENVIRONMENT variable to "Development" so ASP.Net Core will show us exception details if we have any issues.
 
     ```powershell
     $sqlServerName = "lunch-sql"
