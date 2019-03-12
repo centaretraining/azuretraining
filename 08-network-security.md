@@ -112,4 +112,8 @@ This will switch outgoing traffic from your private subnet to this Azure service
 
 24. Open your RDP session again and attempt to connect to the Azure SQL Server. You should be able to open a connection to the server and execute commands again.
 
-Next: []
+25. Before you end this exercise:
+    - Go back to your Azure SQL Server firewall settings and turn **Allow access to all Azure services** back on.  We will need this on for our API App Service to connect to the database.
+    - Go back to your Network Security Group and delete it or disassociate it from the subnet. This will allow you to use this VM for other exercises if you don't have SQL Server Management Studio installed.
+
+Next: [Application Gateway](09-app-gateway.md)
