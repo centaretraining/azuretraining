@@ -99,7 +99,12 @@ Change the section
     $functionAppName = "lunch-$uniqueString-func-fa"
     az functionapp cors add -g $resourceGroupName -n $functionAppName --allowed-origins $staticWebUrl
     ```
+12. Go to the [Azure Portal](portal.azure.com) and navigate to your web storage account (lunch[unique string]websa)
 
-9. Open a web browser to https://[your web storage account name].web.core.windows.net/ The home page with a list of menu options should be displayed.
+13. Click **Static website** in the left menu
+
+14. Copy the **Primary Endpoint** value and open a browser tab to this URL.  The home page with a list of menu options should be displayed.
+
+    ![Static Website URL](images/static-website-url.png)
 
 Next: [Azure Service Bus](07-messaging-service-bus.md)
