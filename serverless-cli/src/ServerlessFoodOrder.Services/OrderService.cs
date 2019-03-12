@@ -12,11 +12,13 @@ namespace ServerlessFoodOrder.Services
 {
     public class OrderService
     {
+        private readonly IServiceBus serviceBus;
         private DataRepository<Order> repo;
         private MenuService menuService;
 
-        public OrderService(IConfigurationRoot config)
+        public OrderService(IConfigurationRoot config, IServiceBus serviceBus)
         {
+            this.serviceBus = serviceBus;
             this.repo = new DataRepository<Order>(config);
             this.menuService = new MenuService(config);
         }
@@ -37,7 +39,24 @@ namespace ServerlessFoodOrder.Services
         {
             if (String.IsNullOrEmpty(order.Id))
             {
-                return await this.repo.CreateItemAsync(order);
+                var result = await this.repo.CreateItemAsync(order);
+
+                var message = new OrderPlacedEvent()
+                {
+                    Name = order.Name,
+                    OrderId = order.Id,
+                    OrderItems = order.OrderItems
+                        .Select(i => new OrderPlacedItem()
+                        {
+                            MenuItemId = i.MenuOption.Id,
+                            MenuItemName = i.MenuOption.Name,
+                            Quantity = i.Quantity
+                        })
+                        .ToArray()
+                };
+                await serviceBus.PublishAsync(message);
+
+                return result;
             }
 
             return await this.repo.UpdateItemAsync(order.Id, order);

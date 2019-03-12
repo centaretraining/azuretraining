@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -11,6 +12,7 @@ using ServerlessFoodOrder.Services;
 using ServerlessFoodOrder.Data.Models;
 using System.Net.Http;
 using Microsoft.Extensions.Configuration;
+using ServerlessFoodOrder.Data;
 
 namespace ServerlessFoodOrder.Api
 {
@@ -26,7 +28,7 @@ namespace ServerlessFoodOrder.Api
                 .AddEnvironmentVariables()
                 .Build();
 
-            orderService = new OrderService(config);
+            orderService = new OrderService(config, new AzureServiceBus(config));
         }
 
         [FunctionName("GetActiveOrders")]
@@ -65,7 +67,7 @@ namespace ServerlessFoodOrder.Api
             Initialize(context);
             var order = await req.Content.ReadAsAsync<Order>();
             var result = await orderService.SaveOrder(order);
-            return new OkObjectResult(JsonConvert.SerializeObject(result, Formatting.Indented));
+        return new OkObjectResult(JsonConvert.SerializeObject(result, Formatting.Indented));
         }
     }
 }

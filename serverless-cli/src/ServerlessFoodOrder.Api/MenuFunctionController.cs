@@ -11,6 +11,7 @@ using ServerlessFoodOrder.Services;
 using System.Net.Http;
 using ServerlessFoodOrder.Data.Models;
 using Microsoft.Extensions.Configuration;
+using ServerlessFoodOrder.Data;
 
 namespace ServerlessFoodOrder.Api
 {
