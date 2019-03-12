@@ -5,14 +5,16 @@ You're going to build a couple of microservices with .NET Core and SQL server an
 1. Create a resource group for your app
 
 ```powershell
-az group create -l eastus -n menuApi
+
+$kubernetesResourceGroup="<something unique>" #replace this with a unique name
+az group create -l eastus -n $kubernetesResourceGroup
 ```
 
 2. Create an Azure container registry to hold your images.
 
 ```powershell
 $ACR_NAME='<registry-name>' #change this name (make it lowercase and unique)
-az acr create --resource-group menuApi --name $ACR_NAME --sku Standard --location eastus
+az acr create --resource-group $kubernetesResourceGroup --name $ACR_NAME --sku Standard --location eastus
 ```
 
 >Think of a container registry like you'd think of a NuGet or NPM repository, just for whole applications instead of libraries.
@@ -64,22 +66,10 @@ $appId='<app id from the previous command output>'
 $password='<password from the previous command output>'
 ```
 
-5. Grab the resource Id for your container registry.
+5. Grab the resource Id for your container registry and save it as a variable
 
 ```powershell
-az acr show --resource-group menuApi --name $ACR_NAME --query "id" --output tsv
-```
-
-You'll get something that looks like this.
-
-```powershell
-/subscriptions/8326d01c-4f7e-47d6-b58f-8d4596245ec1/resourceGroups/menuApi/providers/Microsoft.ContainerRegistry/registries/TestAppRegistry
-```
-
-Save that result as a variable
-
-```powershell
-$acrID='<arc ID from the previous command>'
+$acrID=az acr show --resource-group $kubernetesResourceGroup --name $ACR_NAME --query "id" --output tsv
 ```
 
 6. Grant pull permission to the app ID you just created. 
@@ -93,7 +83,7 @@ az role assignment create --assignee $appId --scope $acrID --role acrpull
 
 ```powershell
 az aks create `
-    --resource-group menuApi `
+    --resource-group $kubernetesResourceGroup `
     --name OrderingAppCluster `
     --node-count 1 `
     --service-principal $appId `
@@ -107,7 +97,7 @@ az aks create `
 8. Verify your AKS Cluster
 
 ```powershell
-az aks get-credentials --resource-group menuApi --name OrderingAppCluster
+az aks get-credentials --resource-group $kubernetesResourceGroup --name OrderingAppCluster
 kubectl get nodes
 ```
 
@@ -121,7 +111,7 @@ aks-nodepool1-31029395-0   Ready    agent   3m    v1.11.8
 9. Let's get the name of your container registry
 
 ```powershell
-az acr list --resource-group menuApi --query "[].{acrLoginServer:loginServer}" --output table
+az acr list --resource-group $kubernetesResourceGroup --query "[].{acrLoginServer:loginServer}" --output table
 ```
 
 You should get something that looks like this
