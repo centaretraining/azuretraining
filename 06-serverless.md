@@ -103,7 +103,7 @@ Change the section
 
 13. Click **Static website** in the left menu
 
-14. Copy the **Primary Endpoint** value and open a browser tab to this URL.  The home page with a list of menu options should be displayed.
+14. Copy the **Primary Endpoint** value and open a browser tab to this URL.  The home page should be displayed.  There are currently no menu items in CosmosDB.  Click on the **Add Menu Option** menu item and add some products and submit some orders to verify your function is working.
 
     ![Static Website URL](images/static-website-url.png)
 
