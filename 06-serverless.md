@@ -40,12 +40,10 @@ All resources will be created with ARM templates.
 >    - All child templates get their parameters passed to them from the parent template.
 >    - The function app template gets some of its parameters from the output of the other templates. For example - the access key for the CosmosDB instance is output from the cosmosdb.json ARM template and this value is passed into the Function App ARM template so the key can be stored in the Function App's configuration settings.
 
-
-3. Open the **azuredeploy.parameters.json** file.  This file contains the parameter values that will be passed to the ARM template.  All of the resources we are creating **must have a unique name**.  Update the values by replacing "[put a unique string here]" with a short string that should be unique among the class attendees (like your user name or the random number generated at the beginning of this exercise).
+5. Open the **azuredeploy.parameters.json** file.  This file contains the parameter values that will be passed to the ARM template.  All of the resources we are creating **must have a unique name**.  Update the values by replacing "[put a unique string here]" with a short string that should be unique among the class attendees (like your user name or the random number generated at the beginning of this exercise).
 
 > **Note** Storage account names can't contain dashes, so don't use those in the storage account name variables.
-
-4. Run the deployment script. This will take a while to provision all of the resources.
+6. Run the deployment script. This will take a while to provision all of the resources.
 
     ```powershell
     ./serverless-cli/src/ServerlessFoodOrder.ArmTemplates/Deploy-AzureResourceGroup.ps1 -ResourceGroupName $resourceGroupName
@@ -60,7 +58,7 @@ All resources will be created with ARM templates.
     >  4. Uploads the artifacts to the storage account.
     >  5. Executes the ARM template using the New-AzureRmResourceGroupDeployment command, passing in the root ARM template, parameter file, and parameter values for the artifact storage account URL and SAS token.
 
-5. While the deployment is running we will update the single page app with the URL of our API. Go to the **/azuretraining/serverless-cli/src/ServerlessFoodOrder.Web/dist** folder and edit **index.html**.
+7. While the deployment is running we will update the single page app with the URL of our API. Go to the **/azuretraining/serverless-cli/src/ServerlessFoodOrder.Web/dist** folder and edit **index.html**.
 Change the section
 
     ```javascript
@@ -73,9 +71,9 @@ Change the section
     
     > Normally this process would be done as part of a build pipeline
 
-6. Wait for the deployment to complete. It may take several minutes to provision all resources.
+8. Wait for the deployment to complete. It may take several minutes to provision all resources.
 
-7. Enable static website hosting on your web storage account.  There currently isn't a way to do this via ARM templates, so we must execute a command to update the existing storage account.
+9. Enable static website hosting on your web storage account.  There currently isn't a way to do this via ARM templates, so we must execute a command to update the existing storage account.
 
     ```powershell
     # Set this to the website storage account you specified in the azuredeploy.parameters.json file.

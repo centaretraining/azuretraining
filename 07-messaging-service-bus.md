@@ -65,7 +65,14 @@ The customer interface website deployed to Azure App Services will publish an "O
     
         ![connection-info](./images/service-bus-connection-info.png)
 
-15. Paste the connection string into the script below and run it to add a new config variables to the web app named "ServiceBusConnectionString" and "SerivceBusTopicName":
+15. Navigate to your Function App in the portal. Under "Configured Features" click on **Application settings**. 
+
+    ![App Settings](images/function-app-settings.png)
+
+16. Create two new variables named "ServiceBusConnectionString" and "ServiceBusTopicName".  Paste the connection service bus string into "ServiceBusConnectionString" and the topic name "order-placed-sbt" into the "ServiceBusTopicName".  Click **Save** at the top of the form.
+
+<!--
+ the script below and run it to add a new config variables to the web app named "ServiceBusConnectionString" and "SerivceBusTopicName":
 
     ```powershell
     # Paste your connection string here
@@ -89,6 +96,7 @@ The customer interface website deployed to Azure App Services will publish an "O
     # Update settings
     Set-AzureRmWebApp -AppSettings $newAppSettings -Name $apiAppServiceName -ResourceGroupName $resourceGroupName
     ```
+--->
 
 16. Go to your customer order Web Application and place a few orders. After a short period of time you should be able to go back to your service bus topic overview page and under the Subscriptions the message count match the number of orders you've placed.
 
