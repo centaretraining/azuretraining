@@ -11,7 +11,7 @@ az group create -l eastus -n menuApi
 2. Create an Azure container registry to hold your images.
 
 ```powershell
-$ACR_NAME='<registry-name>' #change this name (make it lowercase, though)
+$ACR_NAME='<registry-name>' #change this name (make it lowercase and unique)
 az acr create --resource-group menuApi --name $ACR_NAME --sku Standard --location eastus
 ```
 
