@@ -156,7 +156,7 @@ The application code for the website and API has already been created for you. Y
 
 16. Set CORS on your API so it will respond to requests from the web app. 
 
-az webapp cors add -g $resourceGroupName -n $apiAppServiceName --allowed-origins *
+az webapp cors add -g $resourceGroupName -n $apiAppServiceName --allowed-origins '*'
 
 > Don't set your allowed origins to "*" in production. That opens you up to cross site scripting attacks.
 
