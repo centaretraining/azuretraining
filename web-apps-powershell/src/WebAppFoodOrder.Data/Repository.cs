@@ -33,9 +33,8 @@ namespace WebAppFoodOrder.Data
             if (!string.IsNullOrWhiteSpace(filter) && typeof(T) == typeof(MenuOption))
             {
                 // Totally not a SQL injection vulnerability...
-                return await _dbContext.Set<T>().FromSql(
-                    $"SELECT * FROM menu.MenuOption WHERE Name LIKE '%{filter}%'")
-                    .ToListAsync();
+                var sql = "SELECT * FROM menu.MenuOption WHERE Name LIKE '%" + filter + "%'";
+                return await _dbContext.Set<T>().FromSql(sql).ToListAsync();
             }
             else
             {

@@ -71,9 +71,10 @@ namespace WebAppFoodOrder.Api
             var menuOptsBuilder = new DbContextOptionsBuilder<MenuDbContext>();
             menuOptsBuilder.UseSqlServer(configuration.GetConnectionString("MenuConnection"));
             var menuContext = new MenuDbContext(menuOptsBuilder.Options, configuration);
-            menuContext.Database.EnsureCreated();
-
-            SeedDatabase(menuContext);
+            if (menuContext.Database.EnsureCreated())
+            {
+                SeedDatabase(menuContext);
+            }
         }
 
         private static void SeedDatabase(MenuDbContext menuContext)
