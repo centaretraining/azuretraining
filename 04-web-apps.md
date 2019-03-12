@@ -149,7 +149,7 @@ The application code for the website and API has already been created for you. Y
     $connectionString = "Server=tcp:$sqlServerName.database.windows.net,1433;Initial Catalog=$sqlDatabaseName;Persist Security Info=False;User ID=$sqlAdminUserName;Password=$sqlAdminPassword;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
     $newAppSettings = @{"MenuConnection"=@{ Type="SQLAzure"; Value=$connectionString };"OrderConnection"=@{ Type="SQLAzure"; Value=$connectionString }}
 
-    Set-AzureRmWebApp -AppSettings $connectionStrings -Name $apiAppServiceName -ResourceGroupName $resourceGroupName
+    Set-AzureRmWebApp -ConnectionStrings $newAppSettings -Name $apiAppServiceName -ResourceGroupName $resourceGroupName
     ```
     > Configuration settings is Azure Web Applications are passed to your application as environment variables.  A common pattern for .Net applications is to use the Microsoft.Extensions.Configuration NuGet package and merge together the values in your appsettings.json file with environment variables.
 
