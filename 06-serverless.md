@@ -40,7 +40,10 @@ All resources will be created with ARM templates.
 >    - All child templates get their parameters passed to them from the parent template.
 >    - The function app template gets some of its parameters from the output of the other templates. For example - the access key for the CosmosDB instance is output from the cosmosdb.json ARM template and this value is passed into the Function App ARM template so the key can be stored in the Function App's configuration settings.
 
+
 3. Open the **azuredeploy.parameters.json** file.  This file contains the parameter values that will be passed to the ARM template.  All of the resources we are creating **must have a unique name**.  Update the values by replacing "[put a unique string here]" with a short string that should be unique among the class attendees (like your user name or the random number generated at the beginning of this exercise).
+
+> **Note** Storage account names can't contain dashes, so don't use those in the storage account name variables.
 
 4. Run the deployment script. This will take a while to provision all of the resources.
 
