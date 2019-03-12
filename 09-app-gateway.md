@@ -56,12 +56,32 @@ To protect against issues like this we will put the site behind an Application G
 
 12. Click **Save**
 
-13. Click the **Overview** menu option for the App Gateway.
+13. Click on **Health probes** in the left menu and click **Add**
 
-14. Get the public
+14. Enter the name **"default-agwhp"**
 
-15. Open a browser tab to the public DNS of the app gateway and attempt a SQL injection attack like:
+15. Check the **Pick host name from backend HTTP settings** checkbox
 
-    https://lunch-[unique value]-api-as.azurewebsites.net/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--
+16. Enter **"/"** in the **Path**
+
+17. Click **OK**
+
+18. Click **HTTP settings** in the left menu
+
+19. Select **appGatewayBackendHttpSettings**
+
+20. Check the **Use for App Services** checkbox and select your **default-agwhp** health probe from the drop down list.
+
+21. Click **Save**
+
+13. Click the **Overview** menu option for the App Gateway and get the public DNS name of the App Gateway from the **Frontend public IP address** field 
+
+    ![Public DNS](images/app-gateway-dns.png)
+
+14. Open a browser tab to the public DNS of the app gateway and attempt a SQL injection attack like:
+
+    https://[App Gateway GUID].cloudapp.net/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--
+
+    You should get a 403 - Forbidden: Access is denied to the resource since the Application Gateway detected a potential SQL injection attack
 
 Next: [SQL Data Security](11-sql-data-security.md)
