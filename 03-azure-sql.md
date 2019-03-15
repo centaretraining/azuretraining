@@ -62,56 +62,64 @@ If you didn't configure the firewall correctly, you'll get a prompt to login to 
 1. Setup some variables
 
 ```PowerShell
-$adminLogin='ServerAdmin'
+$sqlAdminUserName='ServerAdmin'
 
 #change this to a better password...
-$password='Password1234!'
+$sqlAdminPassword='Password1234!'
 
 #change this to something unique
-$servername='server-name'
+$sqlServerName='server-name'
 
 #change this to your resource group from step 1
 #if you already set this, you don't need to set it again.
 $resourceGroupName='an existing resource group'
 
 #This is the DB we'll use later
-$databaseName='lunch-db'
+$sqlDatabaseName='lunch-db'
 ```
 
 2. Create a Database Server
 
-```PowerShell
+```powershell
 az sql server create `
-	--name $servername `
+	--name $sqlServerName `
 	--resource-group $resourceGroupName `
 	--location northcentralus  `
-	--admin-user $adminLogin `
-	--admin-password $password
+	--admin-user $sqlAdminUserName `
+	--admin-password $sqlAdminUserName
 ```
 
-> This will take a few minutes. That's OK.
+> This will take a few minutes. That's OK. This command will create the server your SQL database will run on.
 
 3. Make a database on the server
 
-```PowerShell
+```powershell
 az sql db create `
 	--resource-group $resourceGroupName `
-	--server $servername `
-	--name $databaseName `
+	--server $sqlServerName `
+	--name $sqlDatabaseName `
 	--service-objective S0
 ```
 
+> This command will make your SQL database on the server you made in the previous step. 
+
 4. Allow connections from other Azure Services
 
-az sql server firewall-rule create -g $resourceGroupName -s $servername -n "allowAzure" --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
+```powershell
+az sql server firewall-rule create -g $resourceGroupName -s $sqlServerName -n "allowAzure" --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
+```
 
+> This command creates a firewall rule that allows Azure resources to connect to the server. Setting it to a range of 0.0.0.0 - 0.0.0.0 allows any Azure service.
 
-5. Feel free to connect to the server using your preferred SQL tool (SQL Server Management Studio or Visual Studio)
+### Further Exploration
+Go into the Azure portal and check out the database you made.
+
+Connect to the server using your preferred SQL tool (SQL Server Management Studio or Visual Studio)
 
 In SQL Server Management, here are the connection options you'll need: 
 
 Server Type: Database Engine
-Servername: <your server name>.database.windows.net (dewers-lunch-db-server.database.windows.net)
+Servername: <your server name>.database.windows.net(example lunch-server-dje.database.windows.net)
 Authentication: SQL Server Authentication
 Login: <The username you made>
 Password: <The password you made>

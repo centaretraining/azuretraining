@@ -1,81 +1,84 @@
-# Exercise 1: Web Apps and Azure SQL with Powershell
+# Exercise 1: Web Apps and Azure SQL
 
 In this exercise we will deploy a .Net website with a SQL back end to an Azure Web Application with a managed Azure SQL instance.
 
 The application consists of an ASP.Net Core API project, and an ASP.Net Core website that serves up the home page for an Angular single page application.
 
-All resources will be created using the Powershell AzureRM module.
-
 ## Create an Azure App Service Hosting Plan with two App Services for your UI and API
 
-1. Follow the instructions in the [Azure Shell Exercise](./02-azure-shell.md) if you have not already to connect to [Azure Shell](shell.azure.com).  
+1. Open up a PowerShell window and navigate to the azuretraining folder you downloaded in step 2.
 
-    - Make sure you are in the azuretraining folder under you $home directory.
-        ```powershell
-        cd $home/azuretraining
-        ```
-    - Make sure your **$resourceGroupName** and **$uniqueString** variables are set:
-        ```powershell
-        if ("$resourceGroupName" -eq "") { Write-Error '$resourceGroupName is NOT set!' } else { '$resourceGroupName is set!' }
+2. Set a variable for the resource group you're going to use. Then use it to make a new resource group. You can also reuse your group from exercise one if you want.
 
-        if ("$uniqueString" -eq "") { Write-Error '$uniqueString is NOT set!' } else { '$uniqueString is set!' }
-        ```
-        >If your variables have cleared out, remake them. 
+```powershell
+$resourceGroupName = "lunch-webapp-<unique value>"
+az group create -n $resourceGroupName -l northcentralus
+```
 
-2. Create an App Service Plan using the Standard tier.
+> If you see `<unique value>`, replace that with something unique, like your username, initials, or a number.
+
+3. Create an App Service Plan using the Standard tier.
 
     ```powershell
     # The name of the hosting plan that will contain the app services
-    $appServicePlanName = "lunch-$uniqueString-hp"
-    
-    New-AzureRmAppServicePlan `
-        -Name $appServicePlanName `
-        -Location "North Central US" `
-        -ResourceGroupName $resourceGroupName `
-        -Tier Standard
+    $appServicePlanName = "lunch-<unique value>-hp"
+    az appservice plan create -g $resourceGroupName `
+    --name $appServicePlanName `
+    --sku S1 `
+    --location northcentralus 
     ```
 
-4. Create an App Service in the hosting plan for the front end UI.
+> You should now have an app service plan. An app service plan is a group of servers that underlie hosting options. This is the Azure equivalent of setting up an IIS server and putting your apps on it.
+
+4. Create a Web App that uses the App Service Plan for the front end UI.
 
     ```powershell
     # the name of the app service, the URL for your site will be https://[app servicename].azurewebsites.net
-    $webAppServiceName = "lunch-$uniqueString-web-as"
-
-    $webApp = New-AzureRmWebApp `
-        -Name $webAppServiceName `
-        -AppServicePlan $appServicePlanName `
-        -ResourceGroupName $resourceGroupName
-    
-    # Write out the results of the command
-    $webApp
-    # Get the host name for the new site
-    $webApp.DefaultHostName
+    $webAppServiceName = "lunch-<unique value>-web-as"
+    az webapp create -n $webAppServiceName `
+                    -p $appServicePlanName `
+                    -g $resourceGroupName `
+                    --verbose
     ```
 
-5. The output of the "$webApp.DefaultHostName" command will be the URL for your new site in the format XXXX.azurewebsites.net. Open up a browser an go this URL.  A default web application page should be displayed.
+> This is like creating a new website in IIS.
+
+    ```powershell
+    # Grab the hostname of the site. You can also look this up in the Azure portal.
+
+    az webapp show --name $webAppServiceName `
+                   --resource-group $resourceGroupName `
+                   --query defaultHostName `
+                   -o table
+    ```
+
+> You can use the query option to filter on specific fields. This is a handy way to get specific values to use in later variables. Try querying some different fields on the object.
+
+5. Open up a browser go to the URL.  A default web application page should be displayed.
 
 6. Create an App Service in the hosting plan for the APIs.
 
     ```powershell
     # The name of the app service, the URL for your site will be https://[app servicename].azurewebsites.net
-    $apiAppServiceName = "lunch-$uniqueString-api-as"
-
-    $apiApp = New-AzureRmWebApp `
-        -Name $apiAppServiceName `
-        -AppServicePlan $appServicePlanName `
-        -ResourceGroupName $resourceGroupName
+    $apiAppServiceName = "lunch-<unique value>-api-as"
+    az webapp create -n $apiAppServiceName `
+                    -p $appServicePlanName `
+                    -g $resourceGroupName `
+                    --verbose
     
-    # Write out the results of the command
-    $apiApp
-    # Get the host name for the new site
-    $apiApp.DefaultHostName
+    # Grab the hostname of the site. You can also look this up in the Azure portal.
+
+    az webapp show --name $apiAppServiceName `
+                   --resource-group $resourceGroupName `
+                   --query defaultHostName `
+                   -o table
     ```
 
 7. Verify your API app was created by navigating to the app service URL in a browser.
 
 8. Open the Azure portal at https://portal.azure.com.  Navigate to your resource group.  You should see resources for the App Hosting Plan and the two App Services in that plan.  Open them up and explore the options available for monitoring and configuring your App Service.
 
-    ![Web App Resources](images/web-apps-resource-group.png)
+![Web App Resources](images/web-apps-resource-group.png)
 
 ## Deploy your code to the UI and API App Services
 
@@ -87,79 +90,71 @@ The application code for the website and API has already been created for you. Y
 
     ```powershell
     # Build the ASP.Net Core API project
-    dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Api/WebAppFoodOrder.Api.csproj -o $home/azuretraining/publish/webappapi
+    dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Api/WebAppFoodOrder.Api.csproj -o ./publish/webapi
 
-    dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Web/WebAppFoodOrder.Web.csproj -o $home/azuretraining/publish/webappweb
+    dotnet publish ./web-apps-powershell/src/WebAppFoodOrder.Web/WebAppFoodOrder.Web.csproj -o ./publish/webapp
     ```
 
-14. Zip up the output of the publish operations
+10. Zip up the output of the publish operations
 
     ```powershell
-    Compress-Archive -Path ./publish/webappapi/* -DestinationPath ./publish/webappapi.zip -Force
-    Compress-Archive -Path ./publish/webappweb/* -DestinationPath ./publish/webappweb.zip -Force
+    Compress-Archive -Path ./web-apps-powershell/src/WebAppFoodOrder.Api/publish/webapi/* -DestinationPath ./web-apps-powershell/src/WebAppFoodOrder.Api/publish/webappapi.zip -Force
+
+    Compress-Archive -Path ./web-apps-powershell/src/WebAppFoodOrder.Web/publish/webapp/* -DestinationPath ./web-apps-powershell/src/WebAppFoodOrder.Web/publish/webappweb.zip -Force
     ```
 
-12. Deploy API application using zip file deployment.
+11. Deploy API application using zip file deployment.
 
     ```powershell
-    # This script assumes the variable $apiAppServiceName is still set in your Powershell environment. If it is not set uncomment the line below and set it to your unique app service name.
-    # $apiAppServiceName = "lunch-$uniqueString-api-as"
-
-    # Retrieve the deploy user name and password
-    $xml = [xml](Get-AzureRmWebAppPublishingProfile -Name $apiAppServiceName -ResourceGroupName $resourceGroupName)
-    $deployUserName = $xml.SelectNodes("//publishProfile[@publishMethod=`"MSDeploy`"]/@userName").value
-    $deployPassword = $xml.SelectNodes("//publishProfile[@publishMethod=`"MSDeploy`"]/@userPWD").value
-    $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $deployUserName, $deployPassword)))
-
-    # HTTP POST the zip file to the app service management API
-    Invoke-RestMethod -Uri "https://$apiAppServiceName.scm.azurewebsites.net/api/zipdeploy" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)} -UserAgent "powershell/1.0" -Method POST -InFile "./publish/webappapi.zip" -ContentType "multipart/form-data"
+    az webapp deployment source config-zip  -g $resourceGroupName `
+                    -n $apiAppServiceName `
+                    --src ./web-apps-powershell/src/WebAppFoodOrder.Api/publish/webappapi.zip
     ```
 
-13. Deploy the web application using zip file deployment.
+12. Deploy the web application using zip file deployment.
 
     ```powershell
-    # This script assumes the variable $webAppServiceName is still set in your Powershell environment. If it is not set uncomment the line below and set it to your unique app service name.
-    # $webAppServiceName = "lunch-$uniqueString-web-as"
-
-    # Retrieve the deploy user name and password
-    $xml = [xml](Get-AzureRmWebAppPublishingProfile -Name $webAppServiceName -ResourceGroupName $resourceGroupName)
-    $deployUserName = $xml.SelectNodes("//publishProfile[@publishMethod=`"MSDeploy`"]/@userName").value
-    $deployPassword = $xml.SelectNodes("//publishProfile[@publishMethod=`"MSDeploy`"]/@userPWD").value
-    $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $deployUserName, $deployPassword)))
-
-    # HTTP POST the zip file to the app service management API
-    Invoke-RestMethod -Uri "https://$webAppServiceName.scm.azurewebsites.net/api/zipdeploy" -Headers @{Authorization=("Basic {0}" -f $base64AuthInfo)} -UserAgent "powershell/1.0" -Method POST -InFile "./publish/webappweb.zip" -ContentType "multipart/form-data"
+    az webapp deployment source config-zip  -g $resourceGroupName `
+                    -n $webAppServiceName `
+                    --src ./web-apps-powershell/src/WebAppFoodOrder.Web/publish/webappweb.zip
     ```
 
-14. Update the web app service's configuration settings with the URL of the API.
+13. Update the web app service's configuration settings with the URL of the API.
 
     ```powershell
-    $newAppSettings = @{"ApiDomain"="https://$apiAppServiceName.azurewebsites.net"}
-    Set-AzureRmWebApp -AppSettings $newAppSettings -Name $webAppServiceName -ResourceGroupName $resourceGroupName
+    $newAppSettings= "ApiDomain=https://$apiAppServiceName.azurewebsites.net"
+    az webapp config appsettings set --settings $newAppSettings `
+                        -n $webAppServiceName `
+                        -g $resourceGroupName
+
     ```
 
-15. Update the API app service's configuration settings with the SQL server location, database name, and credentials you used in the Azure SQL exercise. We will also set the ASPNETCORE_ENVIRONMENT variable to "Development" so ASP.Net Core will show us exception details if we have any issues.
+14. Update the API app service's configuration settings with the SQL server location, database name, and credentials you used in the Azure SQL exercise. We will also set the ASPNETCORE_ENVIRONMENT variable to "Development" so ASP.Net Core will show us exception details if we have any issues.
 
     ```powershell
+    # Grab these from exercise 3 or make a new database
     $sqlServerName = "lunch-sql"
     $sqlDatabaseName = "lunch-db"
     $sqlAdminUserName = "XXXXX"
     $sqlAdminPassword = "XXXXX"
 
     $connectionString = "Server=tcp:$sqlServerName.database.windows.net,1433;Initial Catalog=$sqlDatabaseName;Persist Security Info=False;User ID=$sqlAdminUserName;Password=$sqlAdminPassword;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-    $newAppSettings = @{"MenuConnection"=@{ Type="SQLAzure"; Value=$connectionString };"OrderConnection"=@{ Type="SQLAzure"; Value=$connectionString }}
 
-    Set-AzureRmWebApp -ConnectionStrings $newAppSettings -Name $apiAppServiceName -ResourceGroupName $resourceGroupName
+    az webapp config connection-string set -g $resourceGroupName `
+                        -n $apiAppServiceName -t SQLAzure `
+                        --settings MenuConnection=$connectionString OrderConnection=$connectionString
     ```
     > Configuration settings is Azure Web Applications are passed to your application as environment variables.  A common pattern for .Net applications is to use the Microsoft.Extensions.Configuration NuGet package and merge together the values in your appsettings.json file with environment variables.
 
-
-16. Set CORS on your API so it will respond to requests from the web app. 
+15. Set CORS on your API so it will respond to requests from the web app. 
 
 az webapp cors add -g $resourceGroupName -n $apiAppServiceName --allowed-origins '*'
 
 > Don't set your allowed origins to "*" in production. That opens you up to cross site scripting attacks.
 
-17. Open a browser and navigate to your site at https://[your app service name].azurewebsites.net.  A basic site should come up that allows you to place lunch orders.
+16. Open a browser and navigate to your site at https://[your app service name].azurewebsites.net.  A basic site should come up that allows you to place lunch orders.
+
+### Further Exploration
+Go to the portal and check out the resources you made. Explore the different web app options.
 
 Next: [Containers and Kubernetes](05-containers-kubernetes.md)
