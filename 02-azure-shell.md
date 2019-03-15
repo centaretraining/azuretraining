@@ -1,44 +1,25 @@
 # Set up Azure Shell
 
-  Azure Shell is a cloud based command line interface that can interact with your Azure account. Each shell session starts up an isolated environment with all of the tools needed to manage Azure resources including Azure CLI, Azure Powershell modules, docker, git, npm, and many others.  We will use this interface to run many of the exercises.
+  For many of the exercises, we will be using the Azure CLI. The Azure CLI is a command line interface that you can use with Power shell or the standard command line. If you haven't installed the Azure CLI, do so now. It only takes a few minutes.
 
-## Connect to Azure Shell
+  If can't / don't want to setup Azure CLI, you can also use the Azure Cloud Shell. Cloud shell has many utilities pre-installed (docker, git, npm, etc...), so it's a handy way to use occasional commands. Unfortunately, the Azure Shell times out after 20 minutes, so it's not easy to use for long term Azure sessions.
 
-1. Navigate to shell.azure.com in a browser
-
-2. Log in to your Azure account
-
-3. On first launch you will have to configure your console syntax and the storage account used by the shell.
-    1. A welcome screen will ask you what type of console you want to use. Select **PowerShell**.
-    ![Shell Welcome](images/shell-welcome.png)
-    2. If you have more than one subscription select which one you want to use to persist files. A new storage account will be created for this purpose.
-    ![Shell Storage](images/shell-storage.png)
-    3. Wait for the storage account to be
-
-4. Try typing some basic commands like "cd /" and "dir"
+  You can access the cloud shell by  navigating to [shell.azure.com](https://shell.azure.com) or clicking on the command line icon in the Azure Portal.
 
 ## Initialize environment
 
-> The Azure Shell does not support Ctrl-V for pasting commands. However, it does support right-click > Paste if you want to save typing for some of the longer commands in the exercises.
+1. Open a PowerShell window. You can either open up a PowerShell directly (I recommend using PowerShell ISE) or use an embedded PowerShell window in Visual Studio Code.
 
-5. Set the current active subscription you will run your commands against. First, get a list of all subscriptions you have associated with your account:
+2. Set the current active subscription you will run your commands against. First, get a list of all subscriptions you have associated with your account:
 
     Using the Azure CLI ("az" command)
-    ```bash
+    ```powershell
     az account list
     ```
-    >This is a good place to try adding a format parameter, like `az account list -o table`
+    >Try adding a format parameter, like `az account list -o table` or `az account list -o tsv` These will be easier to read than the default json format.
 
-    Using the AZ Powershell module
-    ```powershell
-    Get-AzSubscription
-    ```
+You will get an output with one or more subscriptions like below:
 
-    > Azure shell supports the Azure CLI ("az" commands) and the new Powershell AZ Module.  The Powershell module has the backwards compatibility flag set so the older \*-AzureRM\* commands will also work.
-
-6. You will get an output with one or more subscriptions like below:
-
-    Azure CLI
     ```powershell
     [
       {
@@ -68,80 +49,45 @@
         }
       }
     ]
-    ```
 
-    AZ Powershell module
-    ```
-    Name     : Visual Studio Premium with MSDN
-    Id       : 12345678-90ab-cdef-1234-567890123456
-    TenantId : 12345678-90ab-cdef-1234-567890123456
-    State    : Enabled
-
-    Name     : Azure Free Trial
-    Id       : 12345678-90ab-cdef-1234-567890123456
-    TenantId : 12345678-90ab-cdef-1234-567890123456
-    State    : Enabled
-    ```
-
-7. **If you have more than one subscription** - Find the name of your Azure subscription you want to use and set the current subscription for both the Azure Powershell module and AZ CLI, we will be using both.
+3. **If you have more than one subscription** - Find the name of your Azure subscription you want to use and set the current subscription. You MSDN subscription will likely be the "Visual Studio Enterprise" one.
 
     Azure CLI
     ```powershell
     az account set --subscription "Your Subscription Name"
     ```
 
-    AZ Powershell module
-    ```powershell
-    Set-AzContext -Subscription "Your Subscription Name"
-    ```
-
     All commands you run will now be performed on this subscription.
 
-8. Create some Powershell variables that will be referenced in other exercises:
+4. Create a PowerShell variable for the resource group. We'll be using variables throughout the lab:
 
     ```powershell
     # Set this string to the resource group you made in exercise 1 to store your Azure SQL Server.
-    $resourceGroupName = "azure-training-rg"
-
-    # This is a string that will be added to some resource names to make sure there are no name conflicts among the class attendees. Many Azure resources require a name that is globally unique so public DNS entries can be assigned to them.
-    # You can set this to any short string you think will make your resource names (like your user name).
-    $uniqueString = "$(Get-Random 99999)"
-    Write-Host "Your unique string is '$uniqueString', take note of this value for future exercises"
+    $resourceGroupName = "<resource group from the previous exercise>"
     ```
-  >If you close the Azure Shell window or if it resets, you'll need to recreate your shell variables. You might want to keep track of these using the build in editor.
+  >If you close the Azure Shell window or if it resets, you'll need to recreate your shell variables. You might want to keep track of these in a text file.
 
-9. View the resource group properties to make sure you set it correctly:
+5. View the resource group properties to make sure you set it correctly:
 
     Azure CLI
     ```powershell
     az group show --name "$resourceGroupName"
     ```
 
-    AZ Powershell module
-    ```powershell
-    Get-AzResourceGroup -Name $resourceGroupName
-    ```
-
-10. Change to your home directory. Any files uploaded to this directory will be persisted across sessions in the storage account you created earlier.
+6. Clone the Git repository with all of the exercises and code. If you don't have git installed, go to the repository and download the zip file.
 
     ```powershell
-    cd $home
-    ```
-
-11. Clone the Git repository with all of the exercises and code.
-
-    ```powershell
+    cd <wherever you want to put the code>
     git clone https://github.com/centaretraining/azuretraining
     ```
 
-12. Change the current working directory to the **azuretraining** folder. All exercises will assume you are in this subfolder:
+7. Change the current working directory to the **azuretraining** folder. All exercises will assume you are in this subfolder:
 
     ```powershell
-    cd $home/azuretraining
+    cd <code directory>/azuretraining
     ```
 
-You are now ready to start!
-
-**KEEP THIS BROWSER WINDOW OPEN!** We will reuse some of the variables and environment settings
+### Further Exploration
+Use `az help` to explore the Azure CLI and some of the commands. Each command also has it's own help. For example `az group --help`
 
 Next: [Create a SQL Server](03-azure-sql.md)
