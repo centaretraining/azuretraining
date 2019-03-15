@@ -11,7 +11,7 @@ Steps
 
 2. Click "Create a Resource" (top left corner)
 
-3. Click "Databases" then "SQL Database". If you don't see it, search for SQL Database and select that.
+3. Click "Databases" then "SQL Database". If you don't see it, search for SQL Database.
 
 4. Fill out the Basic Tab
 
@@ -34,7 +34,7 @@ Steps
 
 	![Notifications](images/notifications-deployment-in-progress.png)
 
-Once the database is deployed (this takes a few minutes), you can click **Go to resource** in your Notifications or to the SQL databases resource in the left menu. Feel free to connect to the server using your preferred SQL tool (SQL Server Management Studio or Visual Studio)
+Once the database is deployed (this takes a few minutes), you can click **Go to resource** in your Notifications or to the SQL databases resource in the left menu.
 
 8. Setup the SQL Server Firewall
 * Open your Database
@@ -44,6 +44,18 @@ Once the database is deployed (this takes a few minutes), you can click **Go to 
 * Click Save
 
 > SQL Server is locked down by default, only allowing specific IP address ranges. You'll need to add your local IP to connect using SQL Server Management Studio.
+
+9. Feel free to connect to the server using your preferred SQL tool (SQL Server Management Studio or Visual Studio)
+
+In SQL Server Management, here are the connection options you'll need: 
+
+Server Type: Database Engine
+Servername: <your server name>.database.windows.net (dewers-lunch-db-server.database.windows.net)
+Authentication: SQL Server Authentication
+Login: <The username you made>
+Password: <The password you made>
+
+If you didn't configure the firewall correctly, you'll get a prompt to login to Azure to add your IP address to the firewall. Enter your login and follow the prompts.
 
 ## SQL Server (using the CLI)
 
@@ -93,5 +105,17 @@ az sql db create `
 
 az sql server firewall-rule create -g $resourceGroupName -s $servername -n "allowAzure" --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
 
+
+5. Feel free to connect to the server using your preferred SQL tool (SQL Server Management Studio or Visual Studio)
+
+In SQL Server Management, here are the connection options you'll need: 
+
+Server Type: Database Engine
+Servername: <your server name>.database.windows.net (dewers-lunch-db-server.database.windows.net)
+Authentication: SQL Server Authentication
+Login: <The username you made>
+Password: <The password you made>
+
+You'll get a prompt to login to Azure to add your IP address to the firewall. Enter your login and follow the prompts.
 
 Next: [Build a Web Application](04-web-apps.md)
