@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public string MenuOptionId { get; set; }
+        public virtual MenuOption MenuOption { get; set; }
 
         public int Quantity { get; set; }
     }

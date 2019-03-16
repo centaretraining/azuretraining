@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace WebAppFoodOrder.Services
@@ -10,7 +11,7 @@ namespace WebAppFoodOrder.Services
 
         Task<IEnumerable<T>> GetAll(string filter);
 
-        Task<IEnumerable<T>> Get(Func<T, bool> predicate);
+        Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate);
 
         Task Add(T item);
 

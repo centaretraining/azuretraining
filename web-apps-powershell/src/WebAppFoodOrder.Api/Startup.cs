@@ -23,17 +23,15 @@ namespace WebAppFoodOrder.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc();
             
             services.AddDbContext<MenuDbContext>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("MenuConnection")));
-            services.AddDbContext<OrderDbContext>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("OrderConnection")));
-            services.AddTransient<IMenuOptionRepository, MenuOptionRepository>();
-            services.AddTransient<IOrderRepository, OrderRepository>();
-            services.AddTransient<MenuService>();
-            services.AddTransient<OrderService>();
-            services.AddTransient<IServiceBus, AzureServiceBus>();
+            services.AddScoped<IMenuOptionRepository, MenuOptionRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<MenuService>();
+            services.AddScoped<OrderService>();
+            services.AddScoped<IServiceBus, AzureServiceBus>();
 
             InitializeDatabase(Configuration);
         }
@@ -59,11 +57,6 @@ namespace WebAppFoodOrder.Api
             });
             app.UseHttpsRedirection();
             app.UseMvc();
-
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                                    
-            }
         }
 
         private static void InitializeDatabase(IConfiguration configuration)

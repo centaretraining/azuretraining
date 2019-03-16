@@ -10,6 +10,7 @@ namespace WebAppFoodOrder.Data
         {
             builder.ToTable("OrderItem", "order");
             builder.HasKey(e => e.Id);
+            builder.HasOne(e => e.MenuOption).WithMany();
         }
     }
 }

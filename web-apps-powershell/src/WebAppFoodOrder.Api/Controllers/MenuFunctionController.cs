@@ -5,6 +5,7 @@ using WebAppFoodOrder.Services.Models;
 
 namespace WebAppFoodOrder.Api.Controllers
 {
+    [ApiController]
     [Route("api")]
     public class MenuFunctionController
     {

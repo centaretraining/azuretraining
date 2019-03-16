@@ -5,6 +5,7 @@ using WebAppFoodOrder.Services.Models;
 
 namespace WebAppFoodOrder.Api.Controllers
 {
+    [ApiController]
     [Route("api")]
     public class OrderFunctionController
     {
@@ -37,16 +38,16 @@ namespace WebAppFoodOrder.Api.Controllers
         }
 
         [HttpPost("order")]
-        public async Task<IActionResult> SaveOrder(Order order)
+        public async Task<IActionResult> SaveOrder(Order request)
         {
             Order result;
-            if (order.OrderItems == null)
+            if (request.OrderItems == null)
             {
-                result = await _orderService.SaveRandomOrder(order.Name);
+                result = await _orderService.SaveRandomOrder(request.Name);
             }
             else
             {
-                result = await _orderService.SaveOrder(order);
+                result = await _orderService.SaveOrder(request);
             }
             return new OkObjectResult(result);
         }

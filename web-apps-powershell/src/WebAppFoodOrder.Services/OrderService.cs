@@ -50,7 +50,7 @@ namespace WebAppFoodOrder.Services
                 var item = items.Skip(new Random().Next(0, items.Count() - 1)).First();
                 order.OrderItems.Add(new OrderItem()
                 {
-                    MenuOptionId = item.Id,
+                    MenuOption = item,
                     Quantity = 1
                 });
 
@@ -68,9 +68,6 @@ namespace WebAppFoodOrder.Services
             {
                 await _orderRepository.Add(order);
 
-                var items = await _menuOptionRepository.GetByIds(
-                    order.OrderItems.Select(i => i.MenuOptionId).ToArray());
-
                 var message = new OrderPlacedEvent()
                 {
                     Name = order.Name,
@@ -79,7 +76,7 @@ namespace WebAppFoodOrder.Services
                         .Select(i => new OrderPlacedItem()
                         {
                             MenuItemId = i.Id.ToString(),
-                            MenuItemName = items.FirstOrDefault(m => m.Id == i.MenuOptionId)?.Name,
+                            MenuItemName = i.MenuOption.Name,
                             Quantity = i.Quantity
                         })
                         .ToArray()

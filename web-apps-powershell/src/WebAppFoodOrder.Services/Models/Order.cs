@@ -13,7 +13,7 @@ namespace WebAppFoodOrder.Services.Models
 
         public string Name { get; set; }
 
-        public Collection<OrderItem> OrderItems { get; set; }
+        public virtual Collection<OrderItem> OrderItems { get; set; }
 
         public string CompletedTime { get; set; }
 

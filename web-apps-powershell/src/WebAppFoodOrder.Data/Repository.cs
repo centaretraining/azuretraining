@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebAppFoodOrder.Services;
@@ -11,21 +12,16 @@ namespace WebAppFoodOrder.Data
     public class Repository<T> : IRepository<T>
         where T : class
     {
-        private readonly DbContext _dbContext;
-
         public Repository(DbContext dbContext)
         {
-            _dbContext = dbContext;
+            DbContext = dbContext;
         }
 
-        public DbContext DbContext
-        {
-            get { return _dbContext; }
-        }
+        public DbContext DbContext { get; }
 
         public Task<T> GetById(string id)
         {
-            return _dbContext.Set<T>().FindAsync(id);
+            return DbContext.Set<T>().FindAsync(id);
         }
 
         public async Task<IEnumerable<T>> GetAll(string filter = null)
@@ -34,38 +30,38 @@ namespace WebAppFoodOrder.Data
             {
                 // Totally not a SQL injection vulnerability...
                 var sql = "SELECT * FROM menu.MenuOption WHERE Name LIKE '%" + filter + "%'";
-                return await _dbContext.Set<T>().FromSql(sql).ToListAsync();
+                return await DbContext.Set<T>().FromSql(sql).ToListAsync();
             }
             else
             {
-                return await _dbContext.Set<T>().ToListAsync();
+                return await DbContext.Set<T>().ToListAsync();
             }
         }
 
-        public async Task<IEnumerable<T>> Get(Func<T, bool> predicate)
+        public virtual async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate)
         {
-            return await _dbContext.Set<T>().Where(predicate).ToAsyncEnumerable().ToList();
+            return await DbContext.Set<T>().Where(predicate).ToListAsync();
         }
 
         public async Task Add(T item)
         {
-            _dbContext.Set<T>().Add(item);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Set<T>().Attach(item);
+            await DbContext.SaveChangesAsync();
         }
 
         public async Task Update(T item)
         {
-            _dbContext.Set<T>().Update(item);
-            await _dbContext.SaveChangesAsync();
+            DbContext.Set<T>().Update(item);
+            await DbContext.SaveChangesAsync();
         }
 
         public async Task Delete(string id)
         {
-            var item = await _dbContext.Set<T>().FindAsync(id);
+            var item = await DbContext.Set<T>().FindAsync(id);
             if (item != null)
             {
-                _dbContext.Set<T>().Remove(item);
-                await _dbContext.SaveChangesAsync();
+                DbContext.Set<T>().Remove(item);
+                await DbContext.SaveChangesAsync();
             }
         }
     }
