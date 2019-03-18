@@ -4,7 +4,7 @@
 
   If can't / don't want to setup Azure CLI, you can also use the Azure Cloud Shell. Cloud shell has many utilities pre-installed (docker, git, npm, etc...), so it's a handy way to use occasional commands. Unfortunately, the Azure Shell times out after 20 minutes, so it's not easy to use for long term Azure sessions.
 
-  You can access the cloud shell by  navigating to [shell.azure.com](https://shell.azure.com) or clicking on the command line icon in the Azure Portal.
+  You can access the cloud shell by navigating to [shell.azure.com](https://shell.azure.com) or clicking on the command line icon in the Azure Portal.
 
 ## Initialize environment
 
@@ -54,40 +54,41 @@ You will get an output with one or more subscriptions like below:
 
     Azure CLI
     ```powershell
-    az account set --subscription "Your Subscription Name"
+    az account set --subscription "Your Subscription Name or ID"
     ```
 
     All commands you run will now be performed on this subscription.
 
-4. Create a PowerShell variable for the resource group. We'll be using variables throughout the lab:
+    > **Note that it is possible, though unlikely, that you have multiple subscriptions named the same thing. If this is the case you must use the ID.  Be careful when creating resources in the portal as many will not work across subscriptions.**
 
-    ```powershell
-    # Set this string to the resource group you made in exercise 1 to store your Azure SQL Server.
-    $resourceGroupName = "<resource group from the previous exercise>"
-    ```
-  >If you close the Azure Shell window or if it resets, you'll need to recreate your shell variables. You might want to keep track of these in a text file.
-
-5. View the resource group properties to make sure you set it correctly:
+4. View the properties of the resource group you created in exercise 1 to make sure everything is set up correctly:
 
     Azure CLI
     ```powershell
-    az group show --name "$resourceGroupName"
+    az group show --name "$env:username-lunch-webapp-rg"
     ```
 
-6. Clone the Git repository with all of the exercises and code. If you don't have git installed, go to the repository and download the zip file.
+    > The $env variable is a built in Powershell value that allows you to access system information. Here we are using it to get your Windows user name.  **Note: if you are using the Azure Shell you will have to replace instances of $env:username by hand**.
+
+    If you don't get any results back from this you either selected the wrong subscription or entered your resource group name incorrectly. If you are sure
+    ```powershell
+    az group create --name "$env:username-lunch-webapp-rg" --location "North Central US"
+    ```
+
+5. Clone the Git repository with all of the exercises and code. If you don't have git installed, go to the repository and download the zip file.
 
     ```powershell
     cd <wherever you want to put the code>
     git clone https://github.com/centaretraining/azuretraining
     ```
 
-7. Change the current working directory to the **azuretraining** folder. All exercises will assume you are in this subfolder:
+6. Change the current working directory to the **azuretraining** folder. All exercises will assume you are in this subfolder:
 
     ```powershell
     cd <code directory>/azuretraining
     ```
 
 ### Further Exploration
-Use `az help` to explore the Azure CLI and some of the commands. Each command also has it's own help. For example `az group --help`
+Use `az help` to explore the Azure CLI and some of the commands. Each command and their sub-commands also have their own help. For example `az group --help` or `az group create --help`.
 
 Next: [Create a SQL Server](03-azure-sql.md)

@@ -1,7 +1,6 @@
 # SQL Server in Azure
 
-
-You’re going to create a SQL Server Database in Azure. We will use this database in subsequent exercises as the back end for a lunch ordering system. You can use the portal or the CLI. Instructions for both are included in this step.
+In this exercise You’re going to create your first resource in Azure a SQL Server Database in Azure. We will use this database in subsequent exercises as the back end for a lunch ordering system. You can use the portal **or** the CLI. Instructions for both are included in this step.
 
 ## SQL Server (in the portal)
 
@@ -16,15 +15,14 @@ Steps
 4. Fill out the Basic Tab
 
 	- Select a subscription
-	- Select the resource group you created in the previous step
+	- Select the resource group you created in the previous step named **"[your CMUTUAL user name]-lunch-webapp-rg"**.
 	- Enter **"lunch-db"** as the database name
 	- Under Server, click “Create New”
-	- Fill out the server name. Server names must be globally unique, so use something like **"lunch-[your user name]-sql"**
-	- Enter the server admin credentials and pick an admin password.
-
+	- Fill out the server name. Server names must be globally unique, so use **"[your CMUTUAL user name]-lunch-sql"**
+	- Enter **"lunchadmin"** and **"%Lunch4U!"** as the user name and password.
 	- Click “Next”
 
-> Take note of the server name, user name, and password you selected. We will be using this Azure SQL Server for subsequent exercises.
+	> You must use the specified values for server name (**[your CMUTUAL user name]-lunch-sql**), database name (**lunch-db**) and credentials (**lunchadmin** / **%Lunch4U!**). We will be using this Azure SQL Server for subsequent exercises.
 
 5. On the Additional Settings and Tags tabs, Click Next
 
@@ -40,7 +38,7 @@ Once the database is deployed (this takes a few minutes), you can click **Go to 
 * Open your Database
 * On the main page, click "Set server firewall" 
 * On the firewall settings page, toggle "Allow access to Azure services" from "OFF" to "ON". 
-* Add your client ip address by clicking on "+ Add Client IP"
+* Add your client ip address by clicking on "+ Add Client IP" (you can get your IP by visiting whatismyip.com)
 * Click Save
 
 > SQL Server is locked down by default, only allowing specific IP address ranges. You'll need to add your local IP to connect using SQL Server Management Studio.
@@ -49,11 +47,11 @@ Once the database is deployed (this takes a few minutes), you can click **Go to 
 
 In SQL Server Management, here are the connection options you'll need: 
 
-Server Type: Database Engine
-Servername: <your server name>.database.windows.net (dewers-lunch-db-server.database.windows.net)
-Authentication: SQL Server Authentication
-Login: <The username you made>
-Password: <The password you made>
+**Server Type:** Database Engine  
+**Servername:** [your CMUTUAL user name]-lunch-sql.database.windows.net (e.g. shk6756-lunch-server.database.windows.net)  
+**Authentication:** SQL Server Authentication  
+**Login:** lunchadmin  
+**Password:** %Lunch4U!  
 
 If you didn't configure the firewall correctly, you'll get a prompt to login to Azure to add your IP address to the firewall. Enter your login and follow the prompts.
 
@@ -62,17 +60,15 @@ If you didn't configure the firewall correctly, you'll get a prompt to login to 
 1. Setup some variables
 
 ```PowerShell
-$sqlAdminUserName='ServerAdmin'
+$sqlAdminUserName='lunchadmin'
+$sqlAdminPassword='%Lunch4U!'
+# The $env variable is a built in Powershell value that allows you to access system information.
+# Here we are using it to get your Windows user name to make your SQL Server name unique.
+# See https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-6
+$sqlServerName="$env:username-lunch-sql"
 
-#change this to a better password...
-$sqlAdminPassword='Password1234!'
-
-#change this to something unique
-$sqlServerName='server-name'
-
-#change this to your resource group from step 1
-#if you already set this, you don't need to set it again.
-$resourceGroupName='an existing resource group'
+# Your resource group from exercise 1
+$resourceGroupName="$env:username-lunch-webapp-rg"
 
 #This is the DB we'll use later
 $sqlDatabaseName='lunch-db'
@@ -101,7 +97,7 @@ az sql db create `
 	--service-objective S0
 ```
 
-> This command will make your SQL database on the server you made in the previous step. 
+> This command will make your SQL database on the server you made in the previous step.
 
 4. Allow connections from other Azure Services
 
@@ -118,11 +114,11 @@ Connect to the server using your preferred SQL tool (SQL Server Management Studi
 
 In SQL Server Management, here are the connection options you'll need: 
 
-Server Type: Database Engine
-Servername: <your server name>.database.windows.net(example lunch-server-dje.database.windows.net)
-Authentication: SQL Server Authentication
-Login: <The username you made>
-Password: <The password you made>
+Server Type: Database Engine  
+Servername: [Your CMUTUAL user name]-lunch-sql.database.windows.net (example shk6756-lunch-sql.database.windows.net)  
+Authentication: SQL Server Authentication  
+Login: lunchadmin  
+Password: %Lunch4U!  
 
 You'll get a prompt to login to Azure to add your IP address to the firewall. Enter your login and follow the prompts.
 

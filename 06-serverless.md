@@ -6,32 +6,9 @@ The application consists of an ASP.Net Core API project, and an Angular single p
 
 All resources will be created with ARM templates.
 
-## Azure Shell file editor
-
-1. Follow the instructions in the [Azure Shell Exercise](./03-azure-shell.md) if you have not already to connect to [Azure Shell](shell.azure.com).  
-
-    - Make sure you are in the azuretraining folder under you $home directory.
-        ```powershell
-        cd $home/azuretraining
-        ```
-    - Make sure your **$resourceGroupName** and **$uniqueString** variables are set:
-        ```powershell
-        if ("$resourceGroupName" -eq "") { Write-Error '$resourceGroupName is NOT set!' } else { '$resourceGroupName is set!' }
-
-        if ("$uniqueString" -eq "") { Write-Error '$uniqueString is NOT set!' } else { '$uniqueString is set!' }
-        ```
-
-2. The Azure Shell includes a file editor that we will be using to view and modify files for the exercises.  Click on the "{}" icon at the top of the window to open the editor.  You will see the folder structure of your $home drive (/home/[your user name]).
-
-    ![Open editor](images/shell-editor.png)
-
-3. Close the editor using the "..." menu in the upper right corner.
-
-    ![Close editor](images/shell-close.png)
-
 ## ARM templates
 
-4. Open the ARM template file **/azuretraining/serverless-cli/src/ServerlessFoodOrder.ArmTemplates/azuredeploy.json**. This is the root ARM template which references the child ARM templates in the "templates" folder.  Review the resources that will be created when you deploy this template.
+1. Open the ARM template file **/azuretraining/serverless-cli/src/ServerlessFoodOrder.ArmTemplates/azuredeploy.json**. This is the root ARM template which references the child ARM templates in the "templates" folder.  Review the resources that will be created when you deploy this template.
 
 > Some items to note about the template:
 >    - All of the resource types in azuredeploy.json are of type "deployment".  A deployment is itself a type of resource which is used to track the inputs, outputs, and status of the deployment, which itself could include additional child deployments.
@@ -40,10 +17,23 @@ All resources will be created with ARM templates.
 >    - All child templates get their parameters passed to them from the parent template.
 >    - The function app template gets some of its parameters from the output of the other templates. For example - the access key for the CosmosDB instance is output from the cosmosdb.json ARM template and this value is passed into the Function App ARM template so the key can be stored in the Function App's configuration settings.
 
-5. Open the **azuredeploy.parameters.json** file.  This file contains the parameter values that will be passed to the ARM template.  All of the resources we are creating **must have a unique name**.  Update the values by replacing "[put a unique string here]" with a short string that should be unique among the class attendees (like your user name or the random number generated at the beginning of this exercise).
+2. Open the **azuredeploy.parameters.json** file.  This file contains the parameter values that will be passed to the ARM template.  All of the resources we are creating **must have a unique name**, so the ARM template will prepend all resource names with the value of the **"uniqueString"** parameter.  Update the **"uniqueString"** value by replacing **"[Your CMUTUAL user name here]"** with your user name:
 
-> **Note** Storage account names can't contain dashes, so don't use those in the storage account name variables.
-6. Run the deployment script. This will take a while to provision all of the resources.
+    ```json
+    "parameters": {
+        "uniqueString": {
+            "value": "shk6756"
+        },
+        ...
+    ```
+
+3. Create a PowerShell variable for the name of the resource group that will hold your resources:
+
+    ```powershell
+    $resourceGroupName = "$env:username-lunch-serverless-rg"
+    ```
+
+4. Run the deployment script. This will take a while to provision all of the resources.
 
     ```powershell
     ./serverless-cli/src/ServerlessFoodOrder.ArmTemplates/Deploy-AzureResourceGroup.ps1 -ResourceGroupName $resourceGroupName
@@ -63,11 +53,17 @@ Change the section
 
     ```javascript
     var globalConfig = {
-      apiDomain: "https://[Your API function name].azurewebsites.net"
+      apiDomain: "https://[Your CMUTUAL user name]-lunch-func-fa.azurewebsites.net"
     };
     ```
 
-    by replacing "[Your API function name]" with the name of the function app you put in your azuredeploy.parameters.json file.
+    by replacing **"[Your CMUTUAL user name]"** with your user name like you did in the azuredeploy.parameters.json file. For example: 
+
+    ```javascript
+    var globalConfig = {
+      apiDomain: "https://shk6756-lunch-func-fa.azurewebsites.net"
+    };
+    ```
     
     > Normally this process would be done as part of a build pipeline
 
@@ -76,14 +72,16 @@ Change the section
 9. Enable static website hosting on your web storage account.  There currently isn't a way to do this via ARM templates, so we must execute a command to update the existing storage account.
 
     ```powershell
-    # Set this to the website storage account you specified in the azuredeploy.parameters.json file.
-    $storageAccountName = "lunch$($uniqueString)websa"
+    # This is the name of the storage account created by the ARM template that contains your static website
+    $storageAccountName = "$($env:username)lunchwebsa"
+
     az storage blob service-properties update --account-name $storageAccountName --static-website --404-document 404.html --index-document index.html
     ```
 
 10. Upload the website to the $web container in the storage account created by the static website hosting feature.
 
     ```powershell
+    # The "$web" value here is not actually a variable (notice the single, not double, quotes). "$web" is the name of the storage container that Azure creates when you enable static site hosting
     az storage blob upload-batch -s ./serverless-cli/src/ServerlessFoodOrder.Web/dist -d '$web' --account-name $storageAccountName
     ```
 
@@ -97,14 +95,17 @@ Change the section
     * Add it as an allowed origin to the CORS settings on your function app
     ```powershell
     # Set this to the Function name you specified in the azuredeploy.parameters.json file.
-    $functionAppName = "lunch-$uniqueString-func-fa"
+    $functionAppName = "$env:username-lunch-func-fa"
     az functionapp cors add -g $resourceGroupName -n $functionAppName --allowed-origins $staticWebUrl
     ```
-12. Go to the [Azure Portal](portal.azure.com) and navigate to your web storage account (lunch[unique string]websa)
 
-13. Click **Static website** in the left menu
+12. The **$staticWebUrl** PowerShell variable contains the URL to your static website that hosts the single page application. Print out that value:
 
-14. Copy the **Primary Endpoint** value and open a browser tab to this URL.  The home page should be displayed.  There are currently no menu items in CosmosDB.  Click on the **Add Menu Option** menu item and add some products and submit some orders to verify your function is working.
+    ```powershell
+    $staticWebUrl
+    ```
+
+13. Open a browser tab to this URL.  The home page should be displayed.  There are currently no menu items in CosmosDB.  Click on the **Add Menu Option** menu item and add some products and submit some orders to verify your function is working.
 
     ![Static Website URL](images/static-website-url.png)
 

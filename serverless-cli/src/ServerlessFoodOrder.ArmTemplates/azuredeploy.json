@@ -2,6 +2,12 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "uniqueString": {
+      "type": "string",
+      "metadata": {
+        "description": "A unique string that will be added to all resource names to make them unique"
+      }
+    },
     "cosmosDbAccountName": {
       "type": "string",
       "metadata": {
@@ -47,7 +53,12 @@
   },
   "variables": {
     "nestedTemplateFolder": "templates",
-    "functionsFolder": "functions"
+    "functionsFolder": "functions",
+    "cosmosDbAccountUniqueName": "[concat(parameters('uniqueString'), '-', parameters('cosmosDbAccountName'))]",
+    "functionAppStorageAccountUniqueName": "[concat(parameters('uniqueString'), parameters('functionAppStorageAccountName'))]",
+    "functionAppUniqueName": "[concat(parameters('uniqueString'), '-', parameters('functionAppName'))]",
+    "functionAppPlanUniqueName": "[concat(parameters('uniqueString'), '-', parameters('functionAppPlanName'))]",
+    "webStorageAccountUniqueName": "[concat(parameters('uniqueString'), parameters('webStorageAccountName'))]"
   },
   "resources": [
     {
@@ -62,7 +73,7 @@
         },
         "parameters": {
           "databaseAccountName": {
-            "value": "[parameters('cosmosdbAccountName')]"
+            "value": "[variables('cosmosdbAccountUniqueName')]"
           }
         }
       },
@@ -83,7 +94,7 @@
         },
         "parameters": {
           "storageAccountName": {
-            "value": "[parameters('functionAppStorageAccountName')]"
+            "value": "[variables('functionAppStorageAccountUniqueName')]"
           }
         }
       }
@@ -101,7 +112,7 @@
         },
         "parameters": {
           "storageAccountName": {
-            "value": "[parameters('webStorageAccountName')]"
+            "value": "[variables('webStorageAccountUniqueName')]"
           }
         }
       }
@@ -122,13 +133,13 @@
         },
         "parameters": {
           "functionAppName": {
-            "value": "[parameters('functionAppName')]"
+            "value": "[variables('functionAppUniqueName')]"
           },
           "hostingPlanName": {
-            "value": "[parameters('functionAppPlanName')]"
+            "value": "[variables('functionAppPlanUniqueName')]"
           },
           "storageAccountName": {
-            "value": "[parameters('functionAppStorageAccountName')]"
+            "value": "[variables('functionAppStorageAccountUniqueName')]"
           },
           "cosmosDbKey": {
             "value": "[reference('cosmosdb').outputs.primaryKey.value]"

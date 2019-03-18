@@ -2,20 +2,23 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "uniqueString": {
+      "value": "[Your CMUTUAL user name here]"
+    },
     "cosmosDbAccountName": {
-      "value": "lunch-[put a unique string here]-cdb"
+      "value": "lunch-cdb"
     },
     "functionAppStorageAccountName": {
-      "value": "lunch[put a unique string here]funcsa"
+      "value": "lunchfuncsa"
     },
     "functionAppName": {
-      "value": "lunch-[put a unique string here]-func-fa"
+      "value": "lunch-func-fa"
     },
     "functionAppPlanName": {
-      "value": "lunch-[put a unique string here]-func-hp"
+      "value": "lunch-func-hp"
     },
     "webStorageAccountName": {
-      "value": "lunch[put a unique string here]websa"
+      "value": "lunchwebsa"
     }
   }
 }
