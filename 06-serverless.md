@@ -109,4 +109,7 @@ Change the section
 
     ![Static Website URL](images/static-website-url.png)
 
+### Further Exploration
+Go to the portal and check out the resources you made. Try to add a simple function to the project or create a new function app. Play with some different triggers and see what you can build.
+
 Next: [Azure Service Bus](07-messaging-service-bus.md)
