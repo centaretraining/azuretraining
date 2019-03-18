@@ -82,7 +82,7 @@ az sql server create `
 	--resource-group $resourceGroupName `
 	--location northcentralus  `
 	--admin-user $sqlAdminUserName `
-	--admin-password $sqlAdminUserName
+	--admin-password $sqlAdminPassword
 ```
 
 > This will take a few minutes. That's OK. This command will create the server your SQL database will run on.
