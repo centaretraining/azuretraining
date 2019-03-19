@@ -1,4 +1,4 @@
-# Building An App Using Containers and Kubernetes
+# Building an App Using Containers and Kubernetes
 
 In this exercise, you're going to create a Kubernetes environment, upload a container, and run it. This exercise will use a mix of the Azure Portal and the CLI.
 
@@ -14,7 +14,7 @@ az group create -l eastus -n $kubernetesResourceGroup
 **Portal**
 Search for "Container Registry" and entering a unique name and resource group from step 1. You can also run the following CLI commands.
 
-![Container Registry](images/kubernetes-container-reg-portal.png)
+![Container Registry](images/kubernetes-container-reg-portal.PNG)
 
 **CLI**
 ```powershell
@@ -40,7 +40,7 @@ When you are done, run the following command to see your registry.
 ```powershell
 az acr repository list --name $ACR_NAME --output table
 ```
-
+Make note of the AcrID that is returned, we will need it later.
 You should see the following.
 
 ```powershell
@@ -51,7 +51,7 @@ restaurant-frontend
 
 4. Grant your application permission to pull images from your container repository.
 
-> This step requires a service principal to be created. If you're running this on your own subscription, make a principal using the following command: `az ad sp create-for-rbac --skip-assignment` the result of this command will contain an appId and a password. Keep track of these. <br /><br/> If you are running this on a corporate network, you are not allowed to do this and we'll give you an app id and password.
+> This step requires a service principal to be created. If you're running this on your own subscription, make a principal using the following command: `az ad sp create-for-rbac --skip-assignment` the result of this command will contain an appId and a password. Keep track of these. <br /><br/> If you are running this on a corporate network, you are not allowed to do this, and we'll give you an app id and password.
 
 ```powershell
 az role assignment create --assignee $appId --scope $acrID --role acrpull
@@ -88,7 +88,7 @@ az aks create `
 
 > Now you have your own Kubernetes cluster. You can host a single application or dozens of them. In the next few steps, we'll take the image you created and put it in the cluster.
 
-6. Install the Kubernetes CLI on your machine to get access to the kubctl tool we'll use in the next few steps. Run the following commands and follow the on screen instructions.
+6. Install the Kubernetes CLI on your machine to get access to the kubctl tool we'll use in the next few steps. Run the following commands and follow the on-screen instructions.
 
 ```powershell
 az aks install-cli
