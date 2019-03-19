@@ -6,7 +6,7 @@ In this exercise You’re going to create your first resource in Azure a SQL Ser
 
 Steps
 
-1. Open the portal (portal.azure.com)
+1. Open the portal ([portal.azure.com](https://portal.azure.com))
 
 2. Click "Create a Resource" (top left corner)
 
