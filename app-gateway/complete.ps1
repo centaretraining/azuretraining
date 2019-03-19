@@ -1,11 +1,11 @@
 $resourceGroupName = "$env:username-lunch-webapp-rg"
+$location = "eastus"
 $backEndSubnetName = "backend-sn"
 $appGatewaySubnetName = "dmz-sn"
 $vnetName = "app-gateway-vnet"
 $appGatewayName = "lunch-api-agw"
 $publicIpAddressName = "lunch-app-gateway-ip"
 $sku = "WAF_v2" # "Standard_Medium"
-$location = "eastus"
 $apiAppDnsName = "$env:username-lunch-api-as.azurewebsites.net"
 
 Write-Host "Cleaning up resources..."

@@ -4,6 +4,11 @@ In this exercise we will deploy a .Net website with a SQL back end to an Azure W
 
 The application consists of an ASP.Net Core API project, and an ASP.Net Core website that serves up the home page for an Angular single page application.
 
+> This exercise builds on the Azure SQL Server created in exercise 3. If you did not complete it or made potentially breaking changes to the configuration you can run the following script to delete any resources you have and recreate the server:
+> ```powershell
+> ./azure-sql/complete.ps1
+> ```
+
 ## Create an Azure App Service Hosting Plan with two App Services for your UI and API
 
 1. Open up a PowerShell window and navigate to the azuretraining folder you downloaded in step 2.

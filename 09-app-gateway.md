@@ -17,6 +17,11 @@ To protect against coding issues like this we will put the site behind an Applic
 
 This exercise can be done through the portal or using the Azure CLI.
 
+> This exercise builds on the App Service created in exercise 4. If you did not complete it or made potentially breaking changes to the configuration you can run the following script to delete any resources you have and recreate the app:
+> ```powershell
+> ./web-apps-powershell/complete.ps1
+> ```
+
 ## Create an Application Gateway using the portal
 
 1. Click the **Create a resource** button in the upper left menu.
