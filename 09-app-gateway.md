@@ -15,6 +15,8 @@ in your browser, then load the /api/menu URL again.  You will see that the names
 
 To protect against coding issues like this we will put the site behind an Application Gateway with the Web Firewall feature enabled.
 
+## Create an Application Gateway using the portal
+
 1. Click the **Create a resource** button in the upper left menu.
 
 2. Select **Networking --> Application Gateway** or search for **Application Gateway** in the search box.
@@ -22,10 +24,12 @@ To protect against coding issues like this we will put the site behind an Applic
 3. Fill out the **Basics** form:
     - Enter **"lunch-api-agw"** for the **Name**
     - Select the **Resource Group** with your API App Service
-    - Select the **North Central US** location
-    - Select **WAF** for the **Tier**
+    - Select the **East US** location
+    - Select **WAF V2** for the **Tier**
     - Keep all other values at the defaults.
     - Click **OK**
+
+    > We are picking the East US location since our normal North Central US location does not support version 2 of the Web Application Firewall.  The reason we want version 2 is simply because it deploys faster (5-6 minutes vs up to 20+ minutes). We will not be using any v2 functionality
 
 4. Fill out the **Settings** form:
     - Create a new virtual network for the App Gateway named **"app-gateway-vnet"**

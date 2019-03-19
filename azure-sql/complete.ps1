@@ -22,9 +22,9 @@ if (Get-Command "git.exe" -ErrorAction SilentlyContinue)
 }
 
 Write-Host "Checking if resource group exists..."
-if ("true" -eq (az group show --name $resourceGroupName)) {
+if ("true" -eq (az group exists --name $resourceGroupName)) {
     Write-Host "Resource group $resourceGroupName exists, deleting..."
-    az group delete --name $resourceGroupName
+    az group delete --name $resourceGroupName -y
 }
 
 Write-Host "Creating resource group $resourceGroupName"
