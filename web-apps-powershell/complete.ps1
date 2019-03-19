@@ -74,5 +74,3 @@ az webapp cors add -g $resourceGroupName -n $apiAppServiceName --allowed-origins
 
 Write-Host "Done!"
 Write-Host "Website at https://$webAppServiceName.azurewebsites.net"
-
-& "start https://$webAppServiceName.azurewebsites.net" 
