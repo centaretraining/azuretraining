@@ -75,14 +75,21 @@ Change the section
     # This is the name of the storage account created by the ARM template that contains your static website
     $storageAccountName = "$($env:username)lunchwebsa"
 
-    az storage blob service-properties update --account-name $storageAccountName --static-website --404-document 404.html --index-document index.html
+    az storage blob service-properties update `
+        --account-name $storageAccountName `
+        --static-website `
+        --404-document 404.html `
+        --index-document index.html
     ```
 
 10. Upload the website to the $web container in the storage account created by the static website hosting feature.
 
     ```powershell
     # The "$web" value here is not actually a variable (notice the single, not double, quotes). "$web" is the name of the storage container that Azure creates when you enable static site hosting
-    az storage blob upload-batch -s ./serverless-cli/src/ServerlessFoodOrder.Web/dist -d '$web' --account-name $storageAccountName
+    az storage blob upload-batch `
+        -s ./serverless-cli/src/ServerlessFoodOrder.Web/dist `
+        -d '$web' `
+        --account-name $storageAccountName
     ```
 
 11. Update the CORS settings to allow cross
@@ -96,7 +103,10 @@ Change the section
     ```powershell
     # Set this to the Function name you specified in the azuredeploy.parameters.json file.
     $functionAppName = "$env:username-lunch-func-fa"
-    az functionapp cors add -g $resourceGroupName -n $functionAppName --allowed-origins $staticWebUrl
+    az functionapp cors add `
+        -g $resourceGroupName `
+        -n $functionAppName `
+        --allowed-origins $staticWebUrl
     ```
 
 12. The **$staticWebUrl** PowerShell variable contains the URL to your static website that hosts the single page application. Print out that value:
