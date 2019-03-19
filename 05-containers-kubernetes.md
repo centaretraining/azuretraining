@@ -14,7 +14,7 @@ az group create -l eastus -n $kubernetesResourceGroup
 **Portal**
 Search for "Container Registry" and entering a unique name and resource group from step 1. You can also run the following CLI commands.
 
-![Container Registry](images/kubernetes-container-reg-portal.png)
+![Container Registry](images/kubernetes-container-reg.png)
 
 **CLI**
 ```powershell
