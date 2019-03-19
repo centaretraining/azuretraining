@@ -16,5 +16,9 @@
 10. [Managed Service Identities](10-managed-service-identity.md)
 -->
 
+## Cleanup
+When you're done with all of the exercises, please make sure to delete any resources you used. The easiest way to delete the resource groups you created.
+
+
 ## Reference Material
 1. [Azure CLI Command Reference](https://docs.microsoft.com/en-us/cli/azure/reference-index)
