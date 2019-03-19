@@ -67,7 +67,7 @@ The application consists of an ASP.Net Core API project, and an ASP.Net Core web
                     -p $appServicePlanName `
                     -g $resourceGroupName `
                     --verbose
-    
+
     # Grab the hostname of the site. You can also look this up in the Azure portal.
 
     az webapp show --name $apiAppServiceName `
