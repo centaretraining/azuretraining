@@ -2,18 +2,18 @@
 # Create an Application Gateway
 
 Our lunch API App Service has a SQL injection issue.  Load the API endpoint with the URL
-**https://lunch-[unique value]-api-as.azurewebsites.net/api/menu?filter=Soda**
+**https://[Your CMUTUAL user name]-lunch-api-as.azurewebsites.net/api/menu?filter=Soda**
 in your browser.  It will return only menu items with the text "Soda" in them.
 
 > If you get a **Client with IP address XXX.XXX.XXX.XXX error you have to go back to your SQL server firewall settings and enable traffic from Azure services.
 
 However, the developers didn't properly parameterize the SQL WHERE clause, so it is vulnerable to injection attacks.  Enter the URL:
 
-**https://lunch-[unique value]-api-as.azurewebsites.net/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--**
+**https://[Your CMUTUAL user name]-lunch-api-as.azurewebsites.net/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--**
 
 in your browser, then load the /api/menu URL again.  You will see that the names of the products have been changed.
 
-To protect against issues like this we will put the site behind an Application Gateway with the Web Firewall feature enabled.
+To protect against coding issues like this we will put the site behind an Application Gateway with the Web Firewall feature enabled.
 
 1. Click the **Create a resource** button in the upper left menu.
 
@@ -31,7 +31,9 @@ To protect against issues like this we will put the site behind an Application G
     - Create a new virtual network for the App Gateway named **"app-gateway-vnet"**
     - Use 10.0.1.0/24 for the address space.
     - Create a subnet named **"dmz-sn"** with an address space of 10.0.1.0/29
+<!--
     > Application Gateway consumes one private IP address per instance, plus another private IP address if a private frontend IP configuration is configured. Also, Azure reserves the first four and last IP address in each subnet for internal usage. For example, if an application gateway is set to three instances and no private frontend IP, then a /29 subnet size or greater is needed. In this case, the application gateway uses three IP addresses. If you have three instances and an IP address for the private frontend IP configuration, then a /28 subnet size or greater is needed as four IP addresses are required.
+-->
     - Click **OK** to create the VNet
     - Make sure the **Web application firewall** status is **Enabled**
     - Change the **Firewall mode** to **Prevention**
@@ -74,7 +76,7 @@ To protect against issues like this we will put the site behind an Application G
 
 21. Click **Save**
 
-13. Click the **Overview** menu option for the App Gateway and get the public DNS name of the App Gateway from the **Frontend public IP address** field 
+13. Click the **Overview** menu option for the App Gateway and get the public DNS name of the App Gateway from the **Frontend public IP address** field
 
     ![Public DNS](images/app-gateway-dns.png)
 
@@ -82,6 +84,6 @@ To protect against issues like this we will put the site behind an Application G
 
     https://[App Gateway GUID].cloudapp.net/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--
 
-    You should get a 403 - Forbidden: Access is denied to the resource since the Application Gateway detected a potential SQL injection attack
+    You should get a **403 - Forbidden: Access is denied to the resource** since the Application Gateway detected a potential SQL injection attack
 
 Next: [SQL Data Security](11-sql-data-security.md)

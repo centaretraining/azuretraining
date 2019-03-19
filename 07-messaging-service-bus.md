@@ -68,7 +68,7 @@ The customer interface website deployed to Azure App Services will publish an "O
 
     ![App Settings](images/function-app-settings.png)
 
-16. Create two new variables named "ServiceBusConnectionString" and "ServiceBusTopicName".  Paste the connection service bus string into "ServiceBusConnectionString" and the topic name "order-placed-sbt" into the "ServiceBusTopicName".  Click **Save** at the top of the form.
+16. Create two new settings named **"ServiceBusConnectionString"** and **"ServiceBusTopicName"**.  Paste the connection service bus string into **"ServiceBusConnectionString"** and the topic name **"order-placed-sbt"** into the **"ServiceBusTopicName"**.  Click **Save** at the top of the form.
 
 <!--
  the script below and run it to add a new config variables to the web app named "ServiceBusConnectionString" and "SerivceBusTopicName":

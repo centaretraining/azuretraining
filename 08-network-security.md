@@ -4,35 +4,36 @@ In this exercise we will secure the Azure Web App created in exercise #4 at the 
 
 ## Create a service endpoint to Azure SQL
 
-1. Edit the azuredeploy.parameters.json file in the /security-web-apps/ and replace the "[unique string here]" in the parameter values with a unique value to avoid naming conflicts.
-
 1. Deploy the ARM template that will set up a VNet with one private subnet and a VM in it we can use for testing.
 
-```powershell
-# If your $uniqueString and/or $resourceGroupName variables are not set, set them  here
-# $uniqueString = "$(Get-Random 99999)"
-# $resourceGroupName = "azure-training-rg"
-cd $home/azuretraining
-az group deployment create --resource-group "$resourceGroupName" --template-file ./security-web-apps/azuredeploy.json --parameters '@./security-web-apps/azuredeploy.parameters.json' --parameters "{'uniqueString': { 'value': '$uniqueString' }}" --verbose
-```
+    ```powershell
+    $resourceGroupName = "$env:username-lunch-webapp-rg"
 
-2. Once the deployment is complete open up the [Azure Portal](https://portal.azure.com) and navigate to the Virtual Network resource "security-vnet"
+    az group deployment create `
+        --resource-group "$resourceGroupName" `
+        --template-file ./security-web-apps/azuredeploy.json `
+        --parameters '@./security-web-apps/azuredeploy.parameters.json' `
+        --parameters "{'uniqueString': { 'value': '$env:username' }}" `
+        --verbose
+    ```
 
-3. Select the "Service endpoints" menu option
+2. Once the deployment is complete open up the [Azure Portal](https://portal.azure.com) and navigate to the Virtual Network resource **"security-vnet"**
+
+3. Select the **"Service endpoints"** menu option
 
     ![Service endpoints](images/vnet-service-endpoint-menu.png)
 
-5. Click "Add"
+5. Click **"Add"**
 
-6. Select the "Microsoft.Sql" service and the "service-sn" subnet from the drop downs.
+6. Select the **"Microsoft.Sql"** service and the **"service-sn"** subnet from the drop downs.
 
-This will switch outgoing traffic from your private subnet to this Azure service to use your private address space, allowing you to lock down the Azure service to specific resources inside your private virtual network address space. 
+    This will switch outgoing traffic from your private subnet to this Azure service to use your private address space, allowing you to lock down the Azure service to specific resources inside your private virtual network address space. 
 
-3. Go back to your resource group and open the VM resource "security-vm".
+3. Go back to your resource group and open the VM resource **"security-vm"**.
 
-4. Select the Settings --> Networking menu option on the left
+4. Select the **Settings --> Networking** menu option on the left
 
-5. Take note of the "Private IP" address.  Because you created a service endpoint for Azure SQL on this VNet requests to Azure SQL will stay within the Azure network and connect from the private IP address instead of traversing the internet and appearing as the public IP address.  This means that giving this VM a publicly addressable IP is not necessary.  However, we will keep the public address around so we can RDP into the machine to test our configuration.
+5. Take note of the **"Private IP"** address.  Because you created a service endpoint for Azure SQL on this VNet, requests to Azure SQL will stay within the Azure network and connect from the private IP address instead of traversing the internet and appearing as the public IP address.  This means that giving this VM a publicly addressable IP is not necessary.  However, we will keep the public address around so we can RDP into the machine to test our configuration.
 
     ![VM Networking](images/vm-networking.png)
 
@@ -40,15 +41,13 @@ This will switch outgoing traffic from your private subnet to this Azure service
 
 6. Navigate back to the resource group with your Azure SQL Server and select that resource (make sure to select the "SQL server" resource type, not the "SQL database").
 
-7. Select the Security --> Firewalls and virtual networks menu option on the left
+7. Select the **Security --> Firewalls and virtual networks** menu option on the left
 
     ![Azure SQL Firewalls Menu](images/azuresql-firewalls-menu.png)
 
-8. Under the Virtual Networks section click "+ Add existing virtual network"
+8. Under the Virtual Networks section click **"+ Add existing virtual network"**
 
-9. Enter a unique name for the rule and select the "security-vnet" virtual network and "security-sn" subnet from the drop downs.
-
-10. Connect to the VM using RDP.  On Properties Page --> Click Connect to Download RDP file --> Save and Open RDP file.
+9. Enter a unique name for the rule and select the **"security-vnet"** virtual network and **"security-sn"** subnet from the drop downs.
 
     > After selecting the subnet the status of the service endpoint for Azure SQL in this VNet will be displayed.  If you did not create a service endpoint earlier the portal will give you the option to create it from this menu.
 
@@ -56,13 +55,26 @@ This will switch outgoing traffic from your private subnet to this Azure service
 
 ## Test the service endpoint
 
+10. Connect to the VM using RDP.  On the **Properties Page** click **Connect** to download an RDP file. Save and open the RDP file.
+
 12. Log in with the user name "securitytraining" and password "Security1!"
 
-13. Open the Start menu and start Microsoft SQL Server Tools 17 --> SQL Server MAnagement Studio
+13. Open the Start menu and start **Microsoft SQL Server Tools 17** --> **SQL Server Management Studio**
 
-14. Enter your database URL ([your SQL server name].database.windows.net), select SQL authentication, and enter the admin user name and password for your Azure SQL Server.
+14. Enter your database connection info:
+    Server Type: Database Engine  
+    Server Name: [your CMUTUAL user name]-lunch-sql.database.windows.net  
+    Authentication: SQL Server Authentication  
+    Login: lunchadmin  
+    Password: %Lunch4U!
 
-15. You should be connected to the server and be able to execute SQL commands.  Even though access to all Azure services have been removed and no IP addresses are in the whitelist, you can connect to the server through your VM since it is in a VNet that has an Azure SQL Server Service Endpoint and is in a subnet that has been granted access to the SQL Server.
+15. You should be connected to the server and be able to execute SQL commands.  Try:
+
+    ```sql
+    SELECT * FROM menu.MenuOption
+    ```
+
+    Even though access to all Azure services have been removed and no IP addresses are in the whitelist, you can connect to the server through your VM since it is in a VNet that has an **Azure SQL Server Service Endpoint** and is in a subnet that has been granted access to the SQL Server.
 
     > Keep the RDP session open, we will be returning to it in the next section.
 
