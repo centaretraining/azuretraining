@@ -88,7 +88,7 @@ We'll deploy our code using a zip file deploy.
 
 The application code for the website and API has already been created for you. You will publish it to a local folder and deploy it using zip deployments.
 
-9. Build the web and API applications
+9. Build the web and API applications. You may need to install the [.NET Core 2.2 SDK](https://dotnet.microsoft.com/download/visual-studio-sdks)
 
     ```powershell
     # Build the ASP.Net Core API project
@@ -148,7 +148,7 @@ The application code for the website and API has already been created for you. Y
     ```
     > Configuration settings is Azure Web Applications are passed to your application as environment variables.  A common pattern for .Net applications is to use the Microsoft.Extensions.Configuration NuGet package and merge together the values in your appsettings.json file with environment variables.
 
-15. Set CORS on your API so it will respond to requests from the web app. 
+15. Set [CORS](https://docs.microsoft.com/en-us/rest/api/storageservices/cross-origin-resource-sharing--cors--support-for-the-azure-storage-services) on your API so it will respond to requests from the web app. 
 
     ```powershell
     az webapp cors add -g $resourceGroupName -n $apiAppServiceName --allowed-origins '*'
