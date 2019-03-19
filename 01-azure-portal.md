@@ -9,7 +9,7 @@ The Azure Portal is a web based UI for Azure. Everything you can do in Azure CLI
     > You will be greeted with a welcome message that gives you the option get a quick tour of the portal. Click "Start Tour" to get a brief overview of some of the major menu items we will be using.
 
 2. Create a Resource Group
-* On the left hand menu, click "Resource Groups". This will bring up the Resource Group list.
+    * On the left hand menu, click "Resource Groups". This will bring up the Resource Group list.
 
     > Resource groups logically group Azure resources, like web apps and databases. Generally, you make a resource group per application.
 
