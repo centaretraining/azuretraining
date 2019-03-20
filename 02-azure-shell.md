@@ -76,7 +76,7 @@ You will get an output with one or more subscriptions like below:
 
     > The $env variable is a built in Powershell value that allows you to access system information. Here we are using it to get your Windows user name.  **Note: if you are using the Azure Shell you will have to replace instances of $env:username by hand**.
 
-    If you don't get any results back from this, you either selected the wrong subscription or entered your resource group name incorrectly. If you are sure
+    If you don't get any results back from this, you either selected the wrong subscription or entered your resource group name incorrectly. If you need to create the resource group again, run:
     ```powershell
     az group create --name "$env:username-lunch-webapp-rg" --location "North Central US"
     ```
