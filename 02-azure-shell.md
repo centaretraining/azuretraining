@@ -78,7 +78,7 @@ You will get an output with one or more subscriptions like below:
 
     If you don't get any results back from this, you either selected the wrong subscription or entered your resource group name incorrectly. If you need to create the resource group again, run:
     ```powershell
-    az group create --name "$env:username-lunch-webapp-rg" --location "North Central US"
+    az group create --name "$env:username-lunch-webapp-rg" --location "East US"
     ```
 
 6. Clone the Git repository with all of the exercises and code. If you don't have git installed download it [here](https://git-scm.com/downloads) or go to the repository and download the zip file and extract its contents.

@@ -80,7 +80,7 @@ $sqlDatabaseName='lunch-db'
 az sql server create `
 	--name $sqlServerName `
 	--resource-group $resourceGroupName `
-	--location northcentralus  `
+	--location eastus  `
 	--admin-user $sqlAdminUserName `
 	--admin-password $sqlAdminPassword
 ```

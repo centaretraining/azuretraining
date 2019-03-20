@@ -30,7 +30,7 @@ The application consists of an ASP.Net Core API project, and an ASP.Net Core web
     az appservice plan create -g $resourceGroupName `
     --name $appServicePlanName `
     --sku S1 `
-    --location northcentralus 
+    --location eastus 
     ```
 
 > You should now have an app service plan. An app service plan is a group of servers that underlie hosting options. This is the Azure equivalent of setting up an IIS server and putting your apps on it.

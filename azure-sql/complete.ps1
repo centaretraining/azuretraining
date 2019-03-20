@@ -28,13 +28,13 @@ if ("true" -eq (az group exists --name $resourceGroupName)) {
 }
 
 Write-Host "Creating resource group $resourceGroupName"
-az group create --name $resourceGroupName --location "North Central US"
+az group create --name $resourceGroupName --location "East US"
 
 Write-Host "Creating SQL Server $sqlServerName"
 az sql server create `
 	--name $sqlServerName `
 	--resource-group $resourceGroupName `
-	--location northcentralus  `
+	--location eastus  `
 	--admin-user $sqlAdminUserName `
 	--admin-password $sqlAdminPassword
 

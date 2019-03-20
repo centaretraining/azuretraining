@@ -84,7 +84,7 @@ In this exercise we will secure the Azure Web App created in exercise #4 at the 
 
 17. Choose **Networking** and select the **Network security group** resource.
 
-18. Name the security group **security-nsg** and select your subscription and resource group.  Make sure the location is **North Central US**.
+18. Name the security group **security-nsg** and select your subscription and resource group.  Make sure the location is **East US**.
 
 19. Once your NSG is deployed navigate to it and click on the **Subnets** menu on the left.
 
@@ -115,9 +115,9 @@ In this exercise we will secure the Azure Web App created in exercise #4 at the 
     2. Enter the private IP address of the Virtual Machine with a "/32" at the end to signify a single IP instead of a range.
     3. Enter **"\*"** as the source port.
     4. Select **Service Tag** in the **Destination** dropdown.
-    5. Select **Sql.NorthCentralUS** in the **Destination Service Tag** drop down. 
+    5. Select **Sql.EastUS** in the **Destination Service Tag** drop down. 
     6. Enter **"\*"** as the destination port.
-    7. Name the rule something like **"AllowSqlNorthCentralUSFromVM"**
+    7. Name the rule something like **"AllowSqlEastUSFromVM"**
     8. Click **Add**
 
     ![Outbound Rule](images/nsg-outbound-sql-rule.png)

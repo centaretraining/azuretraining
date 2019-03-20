@@ -14,7 +14,7 @@ Write-Host "Creating app service plan $appServicePlanName..."
 az appservice plan create -g $resourceGroupName `
     --name $appServicePlanName `
     --sku S1 `
-    --location northcentralus 
+    --location eastus 
 
 Write-Host "Creating app service $webAppServiceName..."
 az webapp create -n $webAppServiceName `

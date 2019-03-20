@@ -19,7 +19,7 @@ The Azure Portal is a web based UI for Azure. Everything you can do in Azure CLI
     * Select the appropriate subscription. If you have an MSDN subscription, pick the Visual Studio subscription. If you are using the free $200 credits, select the Free Trial subscription.
     * In the Resource Group field enter **"[Your CMUTUAL user name]-lunch-webapp-rg"**. For example: **"shk6756-lunch-webapp-rg"**. This resource group name will be referenced in subsequent exercises, so please use this naming convention.
     > Resource group names only need to be unique within a subscription. We are adding in your user name in case you are sharing a subscription with other class members.
-    * Select the North Central US resource group.
+    * Select the East US resource group.
 
     > There are many options for resource and resource group naming conventions. Using all lower case letters with dashes (except for storage accounts which can't have dashes) and pre or post-fixing the name with an abbreviation for the type of resource is common.  For example: "my-application-rg" for your resource group name. You will see this basic pattern in most of the exercises, however, a real world naming convention will likely be more complex.
 

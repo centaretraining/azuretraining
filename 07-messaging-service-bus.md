@@ -22,7 +22,7 @@ To create a namespace:
     2. Select the **Standard** pricing tier. We will be creating Topics which are not supported in the Basic tier.
     3. Select your **Subscription** in the drop down.
     4. Select your **Resource group**, choose an existing resource group in which the namespace will live, or create a new one.
-    5. For **Location**, select "North Central US".
+    5. For **Location**, select "East US".
     6. Select **Create**. The system now creates your namespace and enables it. You might have to wait several minutes as the system provisions resources for your account.
 
         ![Create namespace](images/service-bus-create.png)

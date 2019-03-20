@@ -1,7 +1,7 @@
 #Requires -Version 3.0
 
 Param(
-    [string] $ResourceGroupLocation = "northcentralus",
+    [string] $ResourceGroupLocation = "eastus",
     [string] $ResourceGroupName = "training-exercise3-rg",
     [string] $StorageAccountName,
     [string] $StorageContainerName = $ResourceGroupName.ToLowerInvariant() + '-stageartifacts',

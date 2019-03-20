@@ -30,7 +30,7 @@ if ("true" -eq (az group show --name $resourceGroupName)) {
 }
 
 Write-Host "Creating resource group..."
-az group create --name $resourceGroupName --location "North Central US"
+az group create --name $resourceGroupName --location "East US"
 
 Write-Host "Creating service bus namespace $serviceBusNamespaceName..."
 az servicebus namespace create `
