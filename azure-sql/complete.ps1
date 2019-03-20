@@ -1,3 +1,10 @@
+if (""+$env.username -eq "") {
+	$username = Read-Host -Prompt 'Input your CMUTUAL user name (e.g. "shk6756")'
+	$env = @{}
+	$env.username = $username
+	$env.username = ($env.username -replace "[^0-9a-z]", "")
+}
+
 $sqlAdminUserName = 'lunchadmin'
 $sqlAdminPassword = '%Lunch4U!'
 $sqlServerName = "$env:username-lunch-sql"
