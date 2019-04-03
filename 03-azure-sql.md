@@ -1,6 +1,8 @@
 # SQL Server in Azure
 
-In this exercise You’re going to create your first resource in Azure a SQL Server Database in Azure. We will use this database in subsequent exercises as the back end for a lunch ordering system. You can use the portal **or** the CLI. Instructions for both are included in this step.
+In this exercise You're going to create a SQL Server Database in Azure. We will use this database in subsequent exercises as the back end for a lunch ordering system. 
+
+You can use the portal **or** the CLI. Instructions for both are included. If you want the CLI instructions, scroll past the portal steps.
 
 ## SQL Server (in the portal)
 
@@ -121,5 +123,7 @@ Login: lunchadmin
 Password: %Lunch4U!  
 
 You'll get a prompt to login to Azure to add your IP address to the firewall. Enter your login and follow the prompts.
+
+Congrats, you just created your own SQL Database. In the next exercise, you're going to use that database to power a web application.
 
 Next: [Build a Web Application](04-web-apps.md)

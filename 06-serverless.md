@@ -1,8 +1,8 @@
 # Azure Functions and CosmosDB with ARM templates
 
-In this exercise we will deploy a static single page application and backing web service to a completely serverless setup (no servers to manage or scale, charges will be entirely based on resource usage).
+In this exercise you will deploy a static single page application and backing web service using serverless technologies. (no servers to manage or scale, charges will be entirely based on resource usage).
 
-The application consists of an ASP.Net Core API project, and an Angular single page application.  The API will be hosted in Azure Functions using a consumption based pricing model, the static SPA website will be served directly from an Azure storage BLOB, and the data will be stored in a Cosmos DB database.
+The application consists of an ASP.Net Core API project and an Angular single page application.  The API will be hosted in Azure Functions using a consumption based pricing model and the static SPA website will be served directly from Azure storage and the data will be stored in a Cosmos DB database.
 
 All resources will be created with ARM templates.
 
@@ -121,5 +121,7 @@ Change the section
 
 ### Further Exploration
 Go to the portal and check out the resources you made. Try to add a simple function to the project or create a new function app. Play with some different triggers and see what you can build.
+
+Congrats, you just created a serverless application using Azure Functions, Cosmos DB, and a static web site. In the next exercise, you'll create a service bus.
 
 Next: [Azure Service Bus](07-messaging-service-bus.md)

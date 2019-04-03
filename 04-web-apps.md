@@ -1,8 +1,8 @@
 # Exercise 1: Web Apps and Azure SQL
 
-In this exercise we will deploy a .Net website with a SQL back end to an Azure Web Application which connects to the managed Azure SQL instance you created in the previous exercise.
+In this exercise you will deploy a .Net website with a SQL back end to an Azure Web Application which connects to the managed Azure SQL instance you created in the previous exercise.
 
-The application consists of an ASP.Net Core API project, and an ASP.Net Core website that serves up the home page for an Angular single page application.
+The application consists of an ASP.Net Core API project and an ASP.Net Core website that serves up the home page for an Angular single page application.
 
 > This exercise builds on the Azure SQL Server created in exercise 3. If you did not complete it or made potentially breaking changes to the configuration you can run the following script to delete any resources you have and recreate the server:
 > ```powershell
@@ -13,13 +13,13 @@ The application consists of an ASP.Net Core API project, and an ASP.Net Core web
 
 1. Open up a PowerShell window and navigate to the azuretraining folder you downloaded in step 2.
 
-2. Set a variable for the resource group you created in previous exercises. We will use this variable in many of the commands for this exercise so we don't have to retype it.
+2. Set a variable for the resource group you created in previous exercises. You will use this variable in many of the commands for this exercise so you don't have to retype it.
 
     ```powershell
     $resourceGroupName = "$env:username-lunch-webapp-rg"
     ```
 
-    > The $env variable is a built in Powershell value that allows you to access system information. Here we are using it to get your Windows user name to make your resource group name is unique in case you are sharing a subscription with other class members.
+    > The $env variable is a built in Powershell value that allows you to access system information. Here you are using it to get your Windows user name to make your resource group name is unique in case you are sharing a subscription with other class members.
 
 3. Create an App Service Plan using the Standard tier.
 
@@ -165,5 +165,7 @@ The application code for the website and API has already been created for you. Y
 
 ### Further Exploration
 Go to the portal and check out the resources you made. Explore the different web app options.
+
+Congrats, you deployed a web application on Azure using an App Service plan. In the next exercise, you'll deploy a web application on a Kubernetes cluster.
 
 Next: [Containers and Kubernetes](05-containers-kubernetes.md)

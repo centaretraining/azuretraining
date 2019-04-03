@@ -2,6 +2,8 @@
 
 The Azure Portal is a web based UI for Azure. Everything you can do in Azure CLI, you can do in the portal. Generally, the CLI is a more efficient way to generate resources, but the portal is great for exploration and monitoring of resources.
 
+In this exercise, you're going to use the Azure Portal to create some resources.
+
 > If you haven't activated you MSDN Azure benefits yet, go to [my.visualstudio.com](https://my.visualstudio.com) and activate them.
 
 1. Head over to [portal.azure.com](https://portal.azure.com) and log in with your Azure account.
@@ -27,5 +29,7 @@ The Azure Portal is a web based UI for Azure. Everything you can do in Azure CLI
 
 ### Further Exploration
 In the portal, do some exploring and see what's available. Check out the options on your resource group.
+
+Congrats, you just made your own resource group using the Azure Portal. In the next exercise, you'll explore the Azure CLI.
 
 Next: [Azure Shell](02-azure-shell.md)

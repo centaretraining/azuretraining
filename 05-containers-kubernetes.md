@@ -1,6 +1,6 @@
 # Building an App Using Containers and Kubernetes
 
-In this exercise, you're going to create a Kubernetes environment, upload a container, and run it. This exercise will use a mix of the Azure Portal and the CLI.
+In this exercise, you're going to create a Kubernetes environment, upload a container to a registry, and run it. This exercise will use a mix of the Azure Portal and the CLI.
 
 1. Create a resource group for your app. Either click through the portal or use the CLI. Either way, make sure you create the group in the East US region. AKS is not available in the North Central Region.
 
@@ -155,5 +155,7 @@ restaurant-frontend   LoadBalancer   10.0.218.140   137.135.92.218   80:31553/TC
 
 ### Further Exploration
 Go to the portal and check out the resources you made. You can also explore the pods you deployed using `kubectrl get pods` or explore some of the other kubernetes concepts using the `kubectl explain --help`.
+
+Congrats, you just created a Kubernetes container registry, uploaded a container to it, build a Kubernetes cluster, and deployed an application on it. In the next exercise, you'll create a serverless application.
 
 Next: [Azure Functions and CosmosDB with ARM templates](06-serverless.md)

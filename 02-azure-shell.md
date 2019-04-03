@@ -1,10 +1,12 @@
 # Set up Azure Shell
 
-  For many of the exercises, we will be using the Azure CLI. The Azure CLI is a command line interface that you can use with Power shell or the standard command line. If you haven't installed the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest), do so now. It only takes a few minutes.
+  For many of the exercises, you will be using the Azure CLI. The Azure CLI is a command line interface that you can use with PowerShell or the standard command line. If you haven't installed the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest), do so now. It only takes a few minutes.
 
   If can't / don't want to setup Azure CLI, you can also use the Azure Cloud Shell. Cloud shell has many utilities pre-installed (docker, git, npm, etc...), so it's a handy way to use occasional commands. Unfortunately, the Azure Shell times out after 20 minutes, so it's not easy to use for long term Azure sessions.
 
   You can access the cloud shell by navigating to [shell.azure.com](https://shell.azure.com) or clicking on the command line icon in the Azure Portal.
+
+In this exercise, you will setup your Azure CLI environment.
 
 ## Initialize environment
 
@@ -94,7 +96,22 @@ You will get an output with one or more subscriptions like below:
     cd <code directory>/azuretraining
     ```
 
+### PowerShell basics
+These are a few things you'll see in later shell scripts. 
+
+```powershell
+cd <directory> #changes the directory
+
+$<variable name>=<value> # Sets a shell variable. You can also assign the results of commands to a variable. 
+
+$<variable name> #Anything prefixed with "$" is a variable. 
+
+` # this is a line continuation character. This allows you to use multiple lines in your commands.
+```
+
 ### Further Exploration
 Use `az help` to explore the Azure CLI and some of the commands. Each command and their sub-commands also have their own help. For example, `az group --help` or `az group create --help`.
+
+Congratulations, you just setup your Azure CLI. In the next exercise, you'll create a SQL Server. 
 
 Next: [Create a SQL Server](03-azure-sql.md)

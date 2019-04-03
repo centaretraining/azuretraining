@@ -1,6 +1,6 @@
 # Building An App Using Containers and Kubernetes
 
-You're going to build a couple of microservices with .NET Core and SQL server and we're going to host them in a Kubernetes cluster.
+In this exercise, you're going to build an application and host it in a Kubernetes cluster.
 
 1. Create a resource group for your app
 
@@ -146,5 +146,9 @@ kubectl get service restaurant-frontend --watch
 NAME                  TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)        AGE
 restaurant-frontend   LoadBalancer   10.0.218.140   137.135.92.218   80:31553/TCP   55s
 ```
+
+Congrats, you just created a Kubernetes container registry, uploaded a container to it, build a Kubernetes cluster, and deployed an application on it. In the next exercise, you'll create a serverless application.
+
+
 
 Next: [Azure Functions and CosmosDB with ARM templates](06-serverless.md)
