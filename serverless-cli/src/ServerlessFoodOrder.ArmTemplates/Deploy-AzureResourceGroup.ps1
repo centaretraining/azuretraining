@@ -13,6 +13,8 @@ Param(
 
 $UploadArtifacts = $true
 
+#$OptionalParameters["uniqueString"] = "$env:username"
+
 try {
     [Microsoft.Azure.Common.Authentication.AzureSession]::ClientFactory.AddUserAgent("VSAzureTools-$UI$($host.name)".replace(' ','_'), '3.0.0')
 } catch { }
@@ -47,7 +49,7 @@ if ($UploadArtifacts) {
 
     # Create a storage account name if none was provided
     if ($StorageAccountName -eq '') {
-        $StorageAccountName = 'stage' + (az account show --query "id").Replace('"', '').Replace('-', '').substring(0, 17) + 'sa'
+        $StorageAccountName = 'stage' + ((New-Guid).ToString().Replace('"', '').Replace("{","").Replace("}","").Replace("-","").Substring(0, 6)) + 'sa'
     }
 
     # Create the storage account if it doesn't already exist
