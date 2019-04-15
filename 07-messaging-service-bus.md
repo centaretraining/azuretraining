@@ -2,10 +2,14 @@
 
 In this exercise we will use Azure Service Bus to publish and subscribe to an "Order Placed" event message from the customer lunch ordering interface.
 
+This exercise builds on the serverless app created in exercise 6.
+
+<!--
 > This exercise builds on the App Service created in exercise 4. If you did not complete it or made potentially breaking changes to the configuration you can run the following script to delete any resources you have and recreate the app:
 > ```powershell
 > c:\azuretraining\web-apps-powershell\complete.ps1
 > ```
+-->
 
 ## Create an Azure Service Bus namespace
 
@@ -69,7 +73,7 @@ The customer interface website deployed to Azure App Services will publish an "O
     
         ![connection-info](./images/service-bus-connection-info.png)
 
-15. Navigate to your Function App in the portal. Under "Configured Features" click on **Application settings**. 
+15. Navigate to your Function App in the portal. Under **Configured Features** click on **Application settings**. 
 
     ![App Settings](images/function-app-settings.png)
 
