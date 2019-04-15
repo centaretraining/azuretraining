@@ -138,7 +138,7 @@ While Azure Service Bus supports messaging protocol standars like AMQP, you can 
 
 ## Receive order events
 
-1. Open your [Azure Shell](https://shell.azure.com) browser window.
+1. Make sure you are in power shell 
 
 2. Start the Credit Card Processor application. This is a simple .Net Core console application that listens for events on a subscription you specify in the command line.
 
