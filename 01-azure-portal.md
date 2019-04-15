@@ -41,7 +41,7 @@ For the rest of our exercises we will be using a pre-built development virtual m
 
 In the [Azure Portal](https://portal.azure.com):
 
-1. Select All Services, and then select DevTest Labs in the DEVOPS section.
+1. Select All Services, and then select DevTest Labs in the DEVOPS section. If you select * (star) next to DevTest Labs in the DEVOPS section. This action adds DevTest Labs to the left navigational menu so that you can access it easily the next time. Then, you can select DevTest Labs on the left navigational menu.
 
     ![Azure DevTest Labs](images/devtestlab-all-services-select.png)
 
@@ -55,16 +55,23 @@ In the [Azure Portal](https://portal.azure.com):
 
 5. After a VM is claimed, it is moved from the **Claimable virtual machines** list up into the **My virtual machines** list.  Click on the machine you have claimed.
 
+    > You may have to hit the **Refresh** button at the top of the Overview pane to see the machine show up as claimed.
+
     ![Azure DevTest Labs](images/devtestlab-claim-myvms.png)
 
 6. At the top of the **"Overview"** pane, click on the **Connect** button. This will download a remote desktop file you can use to connect to the machine.
 
     ![Azure DevTest Labs](images/devtestlab-claiming-vm-connect.png)
 
-7. Run the RDP file, select **More Choices** -> **Use a different account** and enter the same user name and password you used to log into the portal (minus the domain):
+7. Run the RDP file and log in as the same user name and password you used to log into the portal (minus the domain):
 
     User Name: **[Your CUNA user name]**  
     Password: **AzureTraining1!**
+
+    > The default user will be "azuretraining".  You will need to change the user name to your own.  In the latest version of RDP select **More Choices** -> **Use a different account** to make the user name textbox editable.
+
+    ![Azure DevTest Labs](images/devtestlab-rdp.png)
+
 
 ### Further Exploration
 Open the Azure portal using the link on the desktop, do some exploring and see what's available. Check out the options on your resource group.
