@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "uniqueString": {
-      "value": "[Your CMUTUAL user name here]"
+      "value": "shk6756"
     },
     "cosmosDbAccountName": {
       "value": "lunch-cdb"

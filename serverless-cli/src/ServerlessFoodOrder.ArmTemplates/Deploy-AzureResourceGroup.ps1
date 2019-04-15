@@ -28,8 +28,6 @@ function Format-ValidationOutput {
 
 $OptionalParameters = New-Object -TypeName Hashtable
 
-$OptionalParameters["uniqueString"] = "$env:username"
-
 $TemplateFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateFile))
 $TemplateParametersFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateParametersFile))
 

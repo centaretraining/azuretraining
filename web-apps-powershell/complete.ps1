@@ -15,7 +15,7 @@ $sqlAdminUserName = "lunchadmin"
 $sqlAdminPassword = "%Lunch4U!"
 
 Write-Host "Running SQL Server deployment script..."
-./azure-sql/complete.ps1
+c:\azuretraining\azure-sql\complete.ps1
 
 Write-Host "Creating app service plan $appServicePlanName..."
 az appservice plan create -g $resourceGroupName `

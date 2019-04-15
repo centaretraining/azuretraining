@@ -1,10 +1,10 @@
 # Events with Azure Service Bus
 
-In this exercise you will use Azure Service Bus to publish and subscribe to an "Order Placed" event message from the customer lunch ordering interface.
+In this exercise we will use Azure Service Bus to publish and subscribe to an "Order Placed" event message from the customer lunch ordering interface.
 
 > This exercise builds on the App Service created in exercise 4. If you did not complete it or made potentially breaking changes to the configuration you can run the following script to delete any resources you have and recreate the app:
 > ```powershell
-> ./web-apps-powershell/complete.ps1
+> c:\azuretraining\web-apps-powershell\complete.ps1
 > ```
 
 ## Create an Azure Service Bus namespace
@@ -140,16 +140,12 @@ While Azure Service Bus supports messaging protocol standars like AMQP, you can 
 
     ```powershell
     # Enter the connection string you copied earlier
-    $serviceBusConnectionString = "[Your connection string goes here]"
+    $serviceBusConnectionString = "Your connection string goes here"
     
-    $topicName = "order-placed-sbt"
-    
-    $ccSubscriptionName = "cc-processor-sbs"
-    
-    dotnet run --project ./service-bus/src/Events.CreditCardProcessor `
+    dotnet run --project c:\azuretraining\service-bus\src\Events.CreditCardProcessor `
         $serviceBusConnectionString `
-        $topicName `
-        $ccSubscriptionName
+        "order-placed-sbt" `
+        "cc-processor-sbs"
     ```
 
 3. The application should start receiving the OrderPlacedEvent messages you generated earlier.  There is a built in sleep of 5 seconds when an event is received to simulate the application doing some work.
@@ -157,12 +153,10 @@ While Azure Service Bus supports messaging protocol standars like AMQP, you can 
 4. Hit the ENTER key to stop this application. Now run the Notification application. Because this application will be listening on a different subscription, it will receive the same messages that the Credit Card Processor application received.
 
     ```powershell
-    $ntfSubscriptionName = "notify-processor-sbs"
-
-    dotnet run --project ./service-bus/src/Events.Notifications `
+    dotnet run --project c:\azuretraining\service-bus\src\Events.Notifications `
         $serviceBusConnectionString `
-        $topicName `
-        $ntfSubscriptionName
+        "order-placed-sbt" `
+        "notify-processor-sbs"
     ```
 
 5. Leave the application running and try placing more orders.  Watch as the events are picked up immediately after the order save operation completes.

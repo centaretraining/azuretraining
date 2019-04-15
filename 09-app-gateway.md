@@ -19,7 +19,7 @@ This exercise can be done through the portal or using the Azure CLI.
 
 > This exercise builds on the App Service created in exercise 4. If you did not complete it or made potentially breaking changes to the configuration you can run the following script to delete any resources you have and recreate the app:
 > ```powershell
-> ./web-apps-powershell/complete.ps1
+> c:\azuretraining\web-apps-powershell\complete.ps1
 > ```
 
 ## Create an Application Gateway using the portal
@@ -98,17 +98,12 @@ This exercise can be done through the portal or using the Azure CLI.
 1. Create a new virtual network with one subnet to hold your application gateway.
 
     ```powershell
-    $resourceGroupName = "$env:username-lunch-webapp-rg"
-    $location = "eastus"
-    $vnetName = "app-gateway-vnet"
-    $appGatewaySubnetName = "dmz-sn"
-
     az network vnet create `
-        --name $vnetName `
-        --resource-group $resourceGroupName `
-        --location $location `
+        --name "app-gateway-vnet" `
+        --resource-group "$env:username-lunch-webapp-rg" `
+        --location "eastus" `
         --address-prefix 10.0.0.0/16 `
-        --subnet-name $appGatewaySubnetName `
+        --subnet-name "dmz-sn" `
         --subnet-prefix 10.0.1.0/24 `
         --verbose
     ```
@@ -118,33 +113,28 @@ This exercise can be done through the portal or using the Azure CLI.
 2. Create a public IP address for your app gateway so it can be accessed from the internet
 
     ```powershell
-    $publicIpAddressName = "lunch-app-gateway-ip"
-
     az network public-ip create `
-        --resource-group $resourceGroupName `
-        --location $location `
+        --resource-group "$env:username-lunch-webapp-rg" `
+        --location "eastus" `
         --sku Standard `
-        --name $publicIpAddressName `
+        --name "lunch-app-gateway-ip" `
         --verbose
     ```
 
 3. Create a WAF V2 Application Gateway. This will take some time (up to 5-6 minutes).
 
     ```powershell
-    $appGatewayName = "lunch-api-agw"
-    $apiAppDnsName = "$env:username-lunch-api-as.azurewebsites.net"
-
     az network application-gateway create `
-        --name $appGatewayName `
-        --location $location `
-        --resource-group $resourceGroupName `
+        --name "lunch-api-agw" `
+        --location "eastus" `
+        --resource-group "$env:username-lunch-webapp-rg" `
         --capacity 2 `
         --sku WAF_v2 `
         --http-settings-cookie-based-affinity Enabled `
-        --public-ip-address $publicIpAddressName `
-        --vnet-name $vnetName `
-        --subnet $appGatewaySubnetName `
-        --servers "$apiAppDnsName" `
+        --public-ip-address "lunch-app-gateway-ip" `
+        --vnet-name "app-gateway-vnet" `
+        --subnet "dmz-sn" `
+        --servers "$env:username-lunch-api-as.azurewebsites.net" `
         --verbose
     ```
 
@@ -152,9 +142,9 @@ This exercise can be done through the portal or using the Azure CLI.
 
     ```powershell
     az network application-gateway http-settings update `
-        --name appGatewayBackendHttpSettings `
-        --gateway-name $appGatewayName `
-        --resource-group $resourceGroupName `
+        --name "appGatewayBackendHttpSettings" `
+        --gateway-name "lunch-api-agw" `
+        --resource-group "$env:username-lunch-webapp-rg" `
         --host-name-from-backend-pool true
     ```
 
@@ -162,8 +152,8 @@ This exercise can be done through the portal or using the Azure CLI.
 
     ```powershell
     az network application-gateway waf-config set `
-        --gateway-name $appGatewayName `
-        --resource-group $resourceGroupName `
+        --gateway-name "lunch-api-agw" `
+        --resource-group "$env:username-lunch-webapp-rg" `
         --enabled true `
         --firewall-mode Prevention `
         --rule-set-version 3.0
@@ -173,8 +163,8 @@ This exercise can be done through the portal or using the Azure CLI.
 
     ```powershell
     $appGatewayIp = (az network public-ip show `
-    --resource-group $resourceGroupName `
-    --name $publicIpAddressName `
+    --resource-group "$env:username-lunch-webapp-rg" `
+    --name "lunch-app-gateway-ip" `
     --query ipAddress).Replace('"', '')
     Write-Host "You can reach your application gateway at: http://$appGatewayIp"
     ```
