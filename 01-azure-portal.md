@@ -66,6 +66,8 @@ In the [Azure Portal](https://portal.azure.com):
     User Name: **[Your CUNA user name]**  
     Password: **AzureTraining1!**
 
+The RDP service can take a few minutes to start after claiming a machine so you may have to wait before you can connect.
+
 ### Further Exploration
 Open the Azure portal using the link on the desktop, do some exploring and see what's available. Check out the options on your resource group.
 
