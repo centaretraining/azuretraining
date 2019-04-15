@@ -94,7 +94,14 @@ az aks create `
 
 >This will take a few minutes
 
-8. Verify your AKS Cluster
+8. Install the Kubernetes CLI on your machine. 
+Kubectl is a tool that manages Kubernetes clusters. Run the following commands and follow the on-screen instructions. After running this command, you'll need to ensure that the kubctl is in your path.
+
+```powershell
+az aks install-cli
+```
+
+9. Verify your AKS Cluster
 
 ```powershell
 az aks get-credentials --resource-group $kubernetesResourceGroup --name OrderingAppCluster
@@ -108,7 +115,7 @@ NAME                       STATUS   ROLES   AGE   VERSION
 aks-nodepool1-31029395-0   Ready    agent   3m    v1.11.8
 ```
 
-9. Let's get the name of your container registry
+10. Let's get the name of your container registry
 
 ```powershell
 az acr list --resource-group $kubernetesResourceGroup --query "[].{acrLoginServer:loginServer}" --output table
@@ -122,19 +129,19 @@ AcrLoginServer
 testappregistry.azurecr.io
 ```
 
-10. Setup your deployment file
+11. Setup your deployment file
 
 * Open up ./azuretraining/kubernetes-cli/frontend-deployment.yaml
 * find the line with the following `image: restaurant-frontend:v1.0.0`
 * prefix the image name with the url from the previous step | example: `image: testappregistry.azurecr.io/restaurant-frontend:v1.0.0`
 
-11. Apply the deployment
+12. Apply the deployment
 
 ```powershell
 kubectl apply -f ./azuretraining/kubernetes-cli/frontend-deployment.yaml
 ```
 
-12. Check your work
+13. Check your work
 
 ```powershell
 kubectl get service restaurant-frontend --watch
