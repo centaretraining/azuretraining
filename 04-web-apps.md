@@ -173,4 +173,4 @@ Go to the portal and check out the resources you made. Explore the different web
 
 Congrats, you deployed a web application on Azure using an App Service plan. In the next exercise, you'll deploy a web application on a Kubernetes cluster.
 
-Next: [Containers and Kubernetes](05-containers-kubernetes.md)
+Next: [Containers and Kubernetes](05-containers-kubernetes-cli.md)
