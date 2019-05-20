@@ -5,7 +5,7 @@
 2. [Using Azure Shell and the CLI](02-azure-shell.md)
 3. [Create an Azure SQL database](03-azure-sql.md)
 4. [Create a web application](04-web-apps.md)
-5. [Containers and Kubernetes](05-containers-kubernetes.md)
+5. [Create an application in Kubernetes](05-containers-kubernetes-cli.md)
 6. [Create a serverless application](06-serverless.md)
 7. [Messaging with Azure Service Bus](07-messaging-service-bus.md)
 8. [Service endpoints and network security groups](08-network-security.md)

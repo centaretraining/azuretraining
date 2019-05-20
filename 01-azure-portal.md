@@ -1,6 +1,6 @@
 # Azure Portal
 
-The Azure Portal is a web based UI for Azure. Everything you can do in Azure CLI, you can do in the portal. Generally, the CLI is a more efficient way to generate resources, but the portal is great for exploration and monitoring of resources.
+The Azure Portal is a web based UI for Azure. Everything you can do in Azure CLI, you can do in the portal. Generally, the CLI is a more efficient way to generate resources, but the portal is great for exploration and monitoring resources.
 
 In this exercise, you're going to use the Azure Portal to create some resources.
 

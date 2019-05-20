@@ -6,14 +6,14 @@ In this exercise, you're going to create a Kubernetes environment, upload a cont
 
 ```powershell
 
-$kubernetesResourceGroup="<something unique>" #replace this with a unique name
+$kubernetesResourceGroup="something unique" #replace this with a unique name
 az group create -l eastus -n $kubernetesResourceGroup
 ```
 
 2. Create an Azure container registry to hold your images.
 
 ```powershell
-$ACR_NAME='<registry-name>' #change this name (make it lowercase and unique)
+$ACR_NAME='registry-name' #change this name (make it lowercase and unique)
 az acr create --resource-group $kubernetesResourceGroup --name $ACR_NAME --sku Standard --location eastus
 ```
 
@@ -62,8 +62,8 @@ This will return some json. Keep track of the appId and password by assigning th
 ```
 
 ```powershell
-$appId='<app id from the previous command output>'
-$password='<password from the previous command output>'
+$appId='app id from the previous command output'
+$password='password from the previous command output'
 ```
 
 5. Grab the resource Id for your container registry and save it as a variable

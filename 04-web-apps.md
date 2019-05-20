@@ -21,7 +21,7 @@ The application consists of an ASP.Net Core API project and an ASP.Net Core webs
     $resourceGroupName = "$env:username-lunch-webapp-rg"
     ```
 
-    > The $env variable is a built in Powershell value that allows you to access system information. Here you are using it to get your Windows user name to make your resource group name is unique in case you are sharing a subscription with other class members.
+    > The $env variable is a built in Powershell value that allows you to access system information. Here you are using it  (`$env:username`) to get your Windows user name to make your resource group name is unique in case you are sharing a subscription with other class members.
 -->
 
 2. Create an App Service Plan using the Standard tier.
@@ -34,8 +34,6 @@ The application consists of an ASP.Net Core API project and an ASP.Net Core webs
         --location "eastus" `
         --verbose
     ```
-
-    > The $env variable is a built in Powershell value that allows you to access system information. Here you are using it to get your Windows user name to make your resource group and resource names are unique since you are sharing a subscription with other class members.
 
     > You should now have an app service plan. An app service plan is a group of servers that underlie hosting options. This is the Azure equivalent of setting up an IIS server and putting your apps on it.
 

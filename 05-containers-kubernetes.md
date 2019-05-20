@@ -5,7 +5,7 @@ In this exercise, you're going to create a Kubernetes environment, upload a cont
 1. Create a resource group for your app. Either click through the portal or use the CLI. Either way, make sure you create the group in the East US region. AKS is not available in the North Central Region.
 
 ```powershell
-$kubernetesResourceGroup="<something unique>"
+$kubernetesResourceGroup="something unique"
 az group create -l eastus -n $kubernetesResourceGroup
 ```
 
@@ -19,7 +19,7 @@ Search for "Container Registry" and entering a unique name and resource group fr
 **CLI**
 ```powershell
 # make sure the $kubernetesResourceGroup variable is set or just replace it with the name of your resource group
-$ACR_NAME='<registry-name>' #change this name (make it lowercase and unique)
+$ACR_NAME='registry-name' #change this name (make it lowercase and unique)
 az acr create --resource-group $kubernetesResourceGroup --name $ACR_NAME --sku Standard --location eastus
 ```
 

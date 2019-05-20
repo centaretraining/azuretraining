@@ -13,7 +13,7 @@ In this exercise, you will setup your Azure CLI environment.
 
 ## Initialize environment
 
-1. Open a PowerShell window. You can either open a standard PowerShell console, PowerShell ISE (an interactive environment with additional tools) or use an embedded PowerShell window in [Visual Studio Code](https://code.visualstudio.com/).
+1. Open a PowerShell window. I prefer the PowerShell terminal window in [Visual Studio Code](https://code.visualstudio.com/). That way you can take notes and record commands while running them in the shell without having to change windows.
 
 2. Log the CLI into your Azure account using the same credentials you used to log into the portal. Follow the directions from the CLI.
 
@@ -69,7 +69,7 @@ In this exercise, you will setup your Azure CLI environment.
     az group show --name "$env:username-lunch-webapp-rg"
     ```
 
-    > The $env variable is a built in Powershell value that allows you to access system information. Here we are using it to get your Windows user name. We will be using the variable throughout the course to ensure your resources have unique names.  **Note: if you are using the Azure Shell you will have to replace instances of $env:username by hand**.
+    > The $env variable is a built in Powershell variable that exposes the environment variables on the system. Here we are using the username environment variable, `$env:username`, to get your Windows user name. We will be using variables throughout the course to ensure your resources have unique names.  **Note: if you are using the Azure Shell you might have to set $env:username by hand** (`$env:username="your user name"`).
 
     If you don't get any results back from this, you either selected the wrong subscription or entered your resource group name incorrectly. If you need to create the resource group again, run:
     ```powershell
@@ -95,20 +95,24 @@ In this exercise, you will setup your Azure CLI environment.
 These are a few things you'll see in later shell scripts. 
 
 ```powershell
-cd <directory> #changes the directory
+cd <directory> # changes the directory
 
-$variablename = "value" # Sets a shell variable. You can also assign the results of commands to a variable. Here we are setting it to a string but complex objects are also supported.
+# is a powershell comment. Anything after a # will not be executed.
 
-$variablename # Anything prefixed with "$" is a variable
+$variablename="value" 
+# Sets a shell variable. You can also assign the results of commands to a variable. Here we are setting it to a string but complex objects are also supported. Anything prefixed with "$" is a variable
 
-$newvariable = "the variable is $variablename" # Variable values 
-$newvariable # Simply typing the name of a variable and hitting enter will display the value.
-the variable is value
+$newvariable = "the variable is $variablename" 
+# Variable values van be used in quoted strings
 
-` # this is a line continuation character. This allows you to use multiple lines in your commands. The exercises use this to make commands more readable.
+$newvariable 
+# Simply typing the name of a variable and hitting enter will display the value.
+
+` # this is a line continuation character. This allows you to use multiple lines in your commands. The exercises use this to make commands more readable. Here's an example:
 command `
   -p1 value1 `
   -p2 value2
+
 ```
 
 ### Further Exploration
