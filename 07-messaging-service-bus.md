@@ -69,11 +69,13 @@ The customer interface website deployed to Azure App Services will publish an "O
     
         ![connection-info](./images/service-bus-connection-info.png)
 
-15. Navigate to your Function App in the portal. Under **Configured Features** click on **Application settings**. 
+15. Navigate to your API app service in the portal.  This will be named **[your CUNA user name]-lunch-api-as** (don't pick the -lunch-web-as app service).  Select the **Configuration** menu item. 
 
-    ![App Settings](images/function-app-settings.png)
+    <!--![App Settings](images/function-app-settings.png)-->
 
-16. Create two new settings named **"ServiceBusConnectionString"** and **"ServiceBusTopicName"**.  Paste the connection service bus string into **"ServiceBusConnectionString"** and the topic name **"order-placed-sbt"** into the **"ServiceBusTopicName"**.  Click **Save** at the top of the form.
+16. Create two new application settings named **"ServiceBusConnectionString"** and **"ServiceBusTopicName"**.  Paste the connection service bus string into **"ServiceBusConnectionString"** and the topic name **"order-placed-sbt"** into the **"ServiceBusTopicName"**.  Click **Save** at the top of the form.
+
+    ![App Settings](images/app-service-sb-config.jpg)
 
 <!--
  the script below and run it to add a new config variables to the web app named "ServiceBusConnectionString" and "SerivceBusTopicName":
