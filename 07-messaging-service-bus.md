@@ -2,14 +2,10 @@
 
 In this exercise we will use Azure Service Bus to publish and subscribe to an "Order Placed" event message from the customer lunch ordering interface.
 
-This exercise builds on the serverless app created in exercise 6.
-
-<!--
 > This exercise builds on the App Service created in exercise 4. If you did not complete it or made potentially breaking changes to the configuration you can run the following script to delete any resources you have and recreate the app:
 > ```powershell
 > c:\azuretraining\web-apps-powershell\complete.ps1
 > ```
--->
 
 ## Create an Azure Service Bus namespace
 
