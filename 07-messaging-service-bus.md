@@ -53,6 +53,10 @@ To create a namespace:
 
 13. Repeat this step, entering **"notify-processor-sbs"** as the name for the second subscription. This will be the subscription for an application that notifies the kitchen when a new order is placed.
 
+> Queues offer First In, First Out (FIFO) message delivery to one or more competing consumers. That is, receivers typically receive and process messages in the order in which they were added to the queue, and only one message consumer receives and processes each message. 
+
+> In contrast to queues, in which each message is processed by a single consumer, topics and subscriptions provide a one-to-many form of communication, in a publish/subscribe pattern. Useful for scaling to large numbers of recipients, each published message is made available to each subscription registered with the topic. Messages are sent to a topic and delivered to one or more associated subscriptions.
+
 ## Update the config for the lunch ordering app
 
 The customer interface website deployed to Azure App Services will publish an "OrderPlacedEvent" to Azure Service Bus when new orders are created if a configuration values exist named "ServiceBusConnectionString" and "ServiceBusTopicName".
