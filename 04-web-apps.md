@@ -97,20 +97,30 @@ The application code for the website and API has already been created for you. Y
 
     ```powershell
     # Build the ASP.Net Core API project
-    dotnet publish c:\azuretraining\web-apps-powershell\src\WebAppFoodOrder.Api\WebAppFoodOrder.Api.csproj -o c:\azuretraining\publish\webapi
+    dotnet publish `
+        c:\azuretraining\web-apps-powershell\src\WebAppFoodOrder.Api\WebAppFoodOrder.Api.csproj `
+        -o c:\azuretraining\publish\webapi
 
     # Build the ASP.Net Core website project
-    dotnet publish c:\azuretraining\web-apps-powershell\src\WebAppFoodOrder.Web\WebAppFoodOrder.Web.csproj -o c:\azuretraining\publish\webapp
+    dotnet publish `
+        c:\azuretraining\web-apps-powershell\src\WebAppFoodOrder.Web\WebAppFoodOrder.Web.csproj `
+        -o c:\azuretraining\publish\webapp
     ```
 
 10. Zip up the output of the publish operations
 
     ```powershell
     # Zip up the API application
-    Compress-Archive -Path c:\azuretraining\publish\webapi\* -DestinationPath c:\azuretraining\publish\webappapi.zip -Force
+    Compress-Archive `
+        -Path c:\azuretraining\publish\webapi\* `
+        -DestinationPath c:\azuretraining\publish\webappapi.zip `
+        -Force
 
     # Zip up the website application
-    Compress-Archive -Path c:\azuretraining\publish\webapp\* -DestinationPath c:\azuretraining\publish\webappweb.zip -Force
+    Compress-Archive `
+        -Path c:\azuretraining\publish\webapp\* `
+        -DestinationPath c:\azuretraining\publish\webappweb.zip `
+        -Force
     ```
 
 11. Deploy API application using zip file deployment.
