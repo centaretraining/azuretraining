@@ -82,7 +82,9 @@ All resources will be created with ARM templates.
 10. Upload the website to the $web container in the storage account created by the static website hosting feature.
 
     ```powershell
-    # The "$web" value here is not a PowerShell variable (notice the single, not double, quotes). "$web" is the name of the storage container that Azure creates when you enable static site hosting
+    # The "$web" value here is not a PowerShell variable (notice the single, 
+    # not double, quotes).  "$web" is the name of the storage container that 
+    # Azure creates when you enable static site hosting
     az storage blob upload-batch `
         --source c:\azuretraining\serverless-cli\src\ServerlessFoodOrder.Web\dist `
         --destination '$web' `
