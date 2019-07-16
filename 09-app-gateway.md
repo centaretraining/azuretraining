@@ -11,11 +11,11 @@ However, the developers didn't properly parameterize the SQL WHERE clause, so it
 
 **https://[Your CMUTUAL user name]-lunch-api-as.azurewebsites.net/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--**
 
-in your browser, then load the /api/menu URL again.  You will see that the names of the products have been changed.
+in your browser, go back to the **/api/menu** URL again.  You will see that the names of the products have been changed!
 
 To protect against coding issues like this we will put the site behind an Application Gateway with the Web Firewall feature enabled.
 
-This exercise can be done through the portal or using the Azure CLI.
+This exercise can be done through the portal or using the Azure CLI.  Scroll down to the **Create an Application Gateway using the az CLI** section to do the CLI version.
 
 > This exercise builds on the App Service created in exercise 4. If you did not complete it or made potentially breaking changes to the configuration you can run the following script to delete any resources you have and recreate the app:
 > ```powershell
@@ -93,7 +93,7 @@ This exercise can be done through the portal or using the Azure CLI.
 
 14. Continue on to the **"Attempt a SQL injection attack"** section to test your gateway.
 
-## Create an Application Gateway using the portal
+## Create an Application Gateway using the az CLI
 
 1. Create a new virtual network with one subnet to hold your application gateway.
 
@@ -120,6 +120,8 @@ This exercise can be done through the portal or using the Azure CLI.
         --name "lunch-app-gateway-ip" `
         --verbose
     ```
+
+    > This reserved an internet addressable IP that you will attach to the gateway, making it accessible on the internet.
 
 3. Create a WAF V2 Application Gateway. This will take some time (up to 5-6 minutes).
 
@@ -163,18 +165,24 @@ This exercise can be done through the portal or using the Azure CLI.
 
     ```powershell
     $appGatewayIp = (az network public-ip show `
-    --resource-group "$env:username-lunch-webapp-rg" `
-    --name "lunch-app-gateway-ip" `
-    --query ipAddress).Replace('"', '')
-    Write-Host "You can reach your application gateway at: http://$appGatewayIp"
+        --resource-group "$env:username-lunch-webapp-rg" `
+        --name "lunch-app-gateway-ip" `
+        --query ipAddress).Replace('"', '')
+    Write-Host "You can reach your application gateway at: https://$appGatewayIp"
     ```
+
+    > This will print out the URL of your Application Gateway that can be used to access your website. In a production scenario you would point your domain to this gateway and disallow direct access to the app service from the internet.
 
 ## Attempt a SQL injection attack
 
 1. Open a browser tab to the app gateway and attempt a SQL injection attack like:
 
+<!--
     https://[App Gateway GUID].cloudapp.net/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--
+-->
+
+    https://[Your App Gateway IP Address]/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--
 
     You should get a **403 - Forbidden: Access is denied to the resource** since the Application Gateway detected a potential SQL injection attack
 
-Next: [Storage SAS](12-storage-sas.md)
+Next: [SQL Data Security](11-sql-data-security.md)
