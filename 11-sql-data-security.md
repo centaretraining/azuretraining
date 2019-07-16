@@ -39,7 +39,9 @@ In this lab we will enable some of the data security features on our Azure SQL d
 
 12. Notice that the scan found several issues for you to review.  Click on them to read details on the issue and remediation suggestions.
 
-13. Click on the **Passed** tab to see a full list of the other security checks the san performed.
+13. Click on the **Passed** tab to see a full list of the other security checks the scan performed.
+
+Next: [Storage SAS](12-storage-sas.md)
 
 <!-- 
 TODO: Finish based on script below
