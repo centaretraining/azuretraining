@@ -73,3 +73,4 @@ In this exercise you will create a storage access signature to read a file from 
 
 15. Change the URL back to **https://** and attempt to modify the URL (). Azure will block access to the file if the signature does not match the parameters.
 
+Next: [SQL Data Security](11-sql-data-security.md)

@@ -41,8 +41,6 @@ In this lab we will enable some of the data security features on our Azure SQL d
 
 13. Click on the **Passed** tab to see a full list of the other security checks the scan performed.
 
-Next: [Storage SAS](12-storage-sas.md)
-
 <!-- 
 TODO: Finish based on script below
 TODO: Update web app to use Azure AD auth if a flag is set in the config

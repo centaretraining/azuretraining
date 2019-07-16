@@ -177,4 +177,4 @@ This exercise can be done through the portal or using the Azure CLI.
 
     You should get a **403 - Forbidden: Access is denied to the resource** since the Application Gateway detected a potential SQL injection attack
 
-Next: [SQL Data Security](11-sql-data-security.md)
+Next: [Storage SAS](12-storage-sas.md)
