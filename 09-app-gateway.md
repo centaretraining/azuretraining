@@ -168,7 +168,7 @@ This exercise can be done through the portal or using the Azure CLI.  Scroll dow
         --resource-group "$env:username-lunch-webapp-rg" `
         --name "lunch-app-gateway-ip" `
         --query ipAddress).Replace('"', '')
-    Write-Host "You can reach your application gateway at: https://$appGatewayIp"
+    Write-Host "You can reach your application gateway at: http://$appGatewayIp"
     ```
 
     > This will print out the URL of your Application Gateway that can be used to access your website. In a production scenario you would point your domain to this gateway and disallow direct access to the app service from the internet.
@@ -178,10 +178,10 @@ This exercise can be done through the portal or using the Azure CLI.  Scroll dow
 1. Open a browser tab to the app gateway and attempt a SQL injection attack like:
 
 <!--
-    https://[App Gateway GUID].cloudapp.net/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--
+    http://[App Gateway GUID].cloudapp.net/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--
 -->
 
-    https://[Your App Gateway IP Address]/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--
+    http://[Your App Gateway IP Address]/api/menu?filter=%'; UPDATE menu.MenuOption SET Name=Name%2B' HACKED!'--
 
     You should get a **403 - Forbidden: Access is denied to the resource** since the Application Gateway detected a potential SQL injection attack
 
