@@ -116,7 +116,7 @@ All resources will be created with ARM templates.
     $staticWebUrl
     ```
 
-13. Open a browser tab to this URL.  The home page should be displayed.  There are currently no menu items in CosmosDB.  Click on the **Add Menu Option** menu item and add some products and submit some orders to verify your function is working.
+13. Open a browser tab to this URL.  The home page should be displayed with a list of pre-populated menu items.
 
     ![Static Website URL](images/static-website-url.png)
 
